@@ -3,7 +3,7 @@ const esprima = require('esprima');
 const escodegen = require('escodegen');
 const esprima_walk = require('esprima-walk');
 
-let jsContent = fs.readFileSync('out.html2.js').toString();
+let jsContent = fs.readFileSync('app.js').toString();
 let program = esprima.parseScript(jsContent);
 
 function Member(isExported, name, path, body) {
@@ -34,7 +34,11 @@ function divideMangledName(rawName) {
     let isExported = namespaced[0] == 'exports';
     namespaced = namespaced.slice(1);
     let path = namespaced.slice(0, namespaced.length - 1);
-    let name = namespaced[namespaced.length - 1]
+    var name = namespaced[namespaced.length - 1]
+    // Identifiers cannot begin with numbers
+    if (!Number.isNaN(Number.parseInt(name[0]))) {
+        name = `$n${name}`;
+    }
     return {
         name: name === undefined ? namespaced[0] : name,
         path: path,
@@ -82,7 +86,7 @@ const useStrict = {
     },
     "directive": "use strict"
 };
-console.log('Ignoring the following statements: ' + ignored.map(e => escodegen.generate(e.body)));
+console.log('Ignoring the following statements: ', ignored.map(e => escodegen.generate(e.body)).join(';;;\n'));
 let files = new Map();
 members.forEach(e => {
     var result = files.get(e.fileName);
@@ -174,6 +178,9 @@ function takeWhile(arr, pred) {
 // that import
 files.forEach(result => {
     esprima_walk.walk(result.program, e => {
+        if (e === null) {
+            return;
+        }
         if (e.name === undefined) {
             return;
         }
