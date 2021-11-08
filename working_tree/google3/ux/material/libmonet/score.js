@@ -2,7 +2,7 @@
 const utils = require('./utils/utils.js');
 const color_utils = require('./utils/color_utils.js');
 const cam16 = require('./hct/cam16.js')
-exports = {
+module.exports = {
     score: score,
     filter: filter,
 }

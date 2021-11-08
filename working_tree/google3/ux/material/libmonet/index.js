@@ -4,4 +4,4 @@ const quantize = require('./quantize.js')
 const score = require('./score.js')
 const utils = require('./utils.js')
 
-exports = Object.assign({}, hct, palette, quantize, score, utils)
+module.exports = Object.assign({}, hct, palette, quantize, score, utils)

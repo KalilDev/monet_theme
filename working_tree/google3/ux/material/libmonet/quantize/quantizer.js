@@ -1,5 +1,5 @@
 'use strict';
-exports = {
+module.exports = {
     quantizer_wsmeans_DistanceAndIndex: quantizer_wsmeans_DistanceAndIndex,
     quantizer_wu_Box: quantizer_wu_Box,
     quantizer_wu_CreateBoxesResult: quantizer_wu_CreateBoxesResult,

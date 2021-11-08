@@ -1,6 +1,6 @@
 'use strict';
 const utils = require('../utils/color_utils.js');
-exports = {
+module.exports = {
     LabPointProvider: LabPointProvider,
 }
 class LabPointProvider {

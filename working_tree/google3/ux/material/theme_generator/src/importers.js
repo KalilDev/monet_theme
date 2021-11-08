@@ -2,7 +2,7 @@
 const utils = require('./utils.js');
 const themeAdapter = require('./theme/index.js');
 
-exports = {
+module.exports = {
     dsp_fileListToTextFiles: dsp_fileListToTextFiles,
     dsp_dspFilesToTheme: dsp_dspFilesToTheme,
     dsp_processToken: dsp_processToken,

@@ -1,5 +1,5 @@
 'use strict';
-exports = {
+module.exports = {
     utils_keyToLabel: utils_keyToLabel,
     utils_downloadBlob: utils_downloadBlob,
     utils_readFileBuffer: utils_readFileBuffer,

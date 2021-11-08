@@ -1,7 +1,7 @@
 'use strict';
 const android_utils = require('./utils.js');
 const base = require('./base.js');
-exports = {
+module.exports = {
     AndroidExporter: AndroidExporter,
 }
 class AndroidExporter extends base.ThemeExporter {

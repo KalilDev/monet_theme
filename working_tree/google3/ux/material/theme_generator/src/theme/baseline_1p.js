@@ -1,5 +1,5 @@
 'use strict';
-exports = {
+module.exports = {
     BASELINE_1P: BASELINE_1P,
 }
 var BASELINE_1P = {

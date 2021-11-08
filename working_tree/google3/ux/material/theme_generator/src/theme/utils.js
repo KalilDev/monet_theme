@@ -4,7 +4,7 @@ const google3 = require('google3');
 const quantize = require('../../../libmonet/typescript/quantize/code.js');
 const b1p = require('./baseline_1p.js');
 const b3p = require('./baseline_3p.js');
-exports = {
+module.exports = {
     checks_isTheme3p: checks_isTheme3p,
     checks_isThemeBaseline: checks_isThemeBaseline,
     checks_isSameColor: checks_isSameColor,

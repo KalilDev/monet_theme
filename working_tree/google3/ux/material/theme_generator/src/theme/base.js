@@ -5,7 +5,7 @@ const defaults = require('./defaults.js');
 const b1p = require('./baseline_1p.js');
 const b3p = require('./baseline_3p.js');
 const utils = require('../utils.js');
-exports = {
+module.exports = {
     ThemeAdapterBase: ThemeAdapterBase,
 }
 class ThemeAdapterBase {

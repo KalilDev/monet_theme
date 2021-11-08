@@ -1,6 +1,6 @@
 'use strict';
 const utils = require('./utils.js');
-exports = {
+module.exports = {
     KEY_COLORS: KEY_COLORS,
     DEFAULT_COLORS: DEFAULT_COLORS,
 

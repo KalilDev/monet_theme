@@ -1,6 +1,6 @@
 'use strict';
 const utils = require('./utils.js');
-exports = {
+module.exports = {
     WHITE_POINT_D65: WHITE_POINT_D65,
     lstarFromInt: lstarFromInt,
     hexFromInt: hexFromInt,

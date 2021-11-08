@@ -1,6 +1,6 @@
 'use strict';
 const utils = require('../utils/utils.js');
-exports = {
+module.exports = {
     HCT: HCT,
     hct_getIntInViewingConditions: hct_getIntInViewingConditions,
 }

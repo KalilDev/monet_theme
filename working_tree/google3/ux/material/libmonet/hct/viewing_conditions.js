@@ -1,5 +1,5 @@
 'use strict';
-exports = {
+module.exports = {
     ViewingConditions: ViewingConditions,
 }
 class ViewingConditions {

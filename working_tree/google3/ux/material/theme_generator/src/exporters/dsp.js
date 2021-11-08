@@ -1,6 +1,6 @@
 'use strict';
 const base = require('./base.js');
-exports = {
+module.exports = {
     DspExporter: DspExporter
 }
 class DspExporter extends base.ThemeExporter {

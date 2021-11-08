@@ -3,7 +3,7 @@ const utils = require('../utils/color_utils/code.js');
 const hct = require('../hct.js')
 const tonalPalette = require('./tonal_palette.js')
 
-exports = {
+module.exports = {
     CorePalette: CorePalette,
 }
 class CorePalette {

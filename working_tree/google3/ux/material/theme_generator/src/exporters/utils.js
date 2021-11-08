@@ -1,5 +1,5 @@
 'use strict';
-exports = {
+module.exports = {
     android_xmlifyProperty: android_xmlifyProperty,
     android_capitalize: android_capitalize,
 }

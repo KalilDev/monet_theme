@@ -1,5 +1,5 @@
 'use strict';
-exports = {
+module.exports = {
     CAM16: CAM16,
 }
 class CAM16 {

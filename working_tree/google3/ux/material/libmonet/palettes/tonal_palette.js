@@ -1,6 +1,6 @@
 'use strict';
 const hct = require('../hct.js');
-exports = {
+module.exports = {
     TonalPalette: TonalPalette,
 }
 class TonalPalette {

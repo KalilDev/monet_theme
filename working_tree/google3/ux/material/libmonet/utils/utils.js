@@ -1,5 +1,5 @@
 'use strict';
-exports = {
+module.exports = {
     math_utils_signum: math_utils_signum,
     math_utils_clamp: math_utils_clamp,
     math_utils_sanitizeDegrees: math_utils_sanitizeDegrees,
