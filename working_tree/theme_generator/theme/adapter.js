@@ -1,5 +1,5 @@
 // CorePalette, intFromHex
-const google3 = require('google3');
+const libmonet = require('libmonet');
 const utils = require('./utils.js');
 const base = require('./base.js');
 const defaults = require('./defaults.js');
@@ -14,7 +14,7 @@ class ThemeAdapter extends base.ThemeAdapterBase {
 };
 ThemeAdapter.fromColor = function (value, is3p, overrides = {}) {
     console.log('theme adapter from color');
-    const keyTones = new google3.CorePalette(google3.intFromHex(value));
+    const keyTones = new libmonet.CorePalette(libmonet.intFromHex(value));
     return new ThemeAdapter({
         tones: keyTones,
         seed: value,
@@ -31,7 +31,7 @@ ThemeAdapter.baselineSeed = function (is3p) {
 ThemeAdapter.fromTheme = function (theme) {
     var _a, _b, _c;
     console.log('theme adapter from theme', theme);
-    const is3p = utils.checks_isTheme3p(theme), seed = null !== (_b = null === (_a = null === theme || void 0 === theme ? void 0 : theme.source) || void 0 === _a ? void 0 : _a.seed) && void 0 !== _b ? _b : ThemeAdapter.baselineSeed(is3p), imageUrl = null === (_c = null === theme || void 0 === theme ? void 0 : theme.source) || void 0 === _c ? void 0 : _c.imageUrl, keyTones = new google3.CorePalette(google3.intFromHex(seed)), themeOverrides = {
+    const is3p = utils.checks_isTheme3p(theme), seed = null !== (_b = null === (_a = null === theme || void 0 === theme ? void 0 : theme.source) || void 0 === _a ? void 0 : _a.seed) && void 0 !== _b ? _b : ThemeAdapter.baselineSeed(is3p), imageUrl = null === (_c = null === theme || void 0 === theme ? void 0 : theme.source) || void 0 === _c ? void 0 : _c.imageUrl, keyTones = new libmonet.CorePalette(libmonet.intFromHex(seed)), themeOverrides = {
         light: theme.light,
         dark: theme.dark,
         tonalGroups: {
@@ -56,7 +56,7 @@ ThemeAdapter.fromTheme = function (theme) {
 };
 ThemeAdapter.default = function (is3p = false) {
     console.log('theme adapter default');
-    const seed = ThemeAdapter.baselineSeed(is3p), keyTones = new google3.CorePalette(google3.intFromHex(seed));
+    const seed = ThemeAdapter.baselineSeed(is3p), keyTones = new libmonet.CorePalette(libmonet.intFromHex(seed));
     return is3p ? new ThemeAdapter({
         tones: keyTones,
         seed,

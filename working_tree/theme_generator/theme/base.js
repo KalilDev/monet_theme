@@ -1,6 +1,5 @@
 'use strict';
-// {intFromHex, CorePalette}
-const google3 = require('google3');
+const libmonet = require('libmonet');
 const defaults = require('./defaults.js');
 const b1p = require('./baseline_1p.js');
 const b3p = require('./baseline_3p.js');
@@ -239,11 +238,11 @@ class ThemeAdapterBase {
         if (defaults.KEY_COLORS.includes(key)) {
             null !== (_b = (_d = this.props.overrides).tonalGroups) && void 0 !== _b ? _b : _d.tonalGroups = {};
             try {
-                var JSCompiler_inline_result = google3.intFromHex(value);
+                var JSCompiler_inline_result = libmonet.intFromHex(value);
             } catch (error) {
-                console.log(`error converting [${value}] to number`, error), JSCompiler_inline_result = google3.intFromHex('#000000');
+                console.log(`error converting [${value}] to number`, error), JSCompiler_inline_result = libmonet.intFromHex('#000000');
             }
-            var keyTones = new google3.CorePalette(JSCompiler_inline_result);
+            var keyTones = new libmonet.CorePalette(JSCompiler_inline_result);
             switch (key) {
                 case 'primary':
                     this.props.overrides.tonalGroups.primary = utils.tonal_group_tonesToTonalGroup(keyTones.a1);

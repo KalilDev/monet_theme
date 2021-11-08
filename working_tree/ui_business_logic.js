@@ -1,12 +1,13 @@
 'use strict';
 const src = require('../../../src/code.js');
-const google3 = require('google3');
+const libmonet = require('libmonet');
+const themeGenerator = require('theme_generator');
 
 // The user is responsible for implementing decodeImageData
 async function dynamic_handleImage(context, url, decodeImageData) {
     var _a;
     const seed = await theme.index_seedFromImage(url, decodeImageData);
-    const theme = google3.ThemeAdapter.fromColor(seed, true);
+    const theme = themeGenerator.ThemeAdapter.fromColor(seed, true);
     const oldImageUrl = null === (_a = context.theme) || void 0 === _a ? void 0 : _a.imageUrl;
     theme.props.imageUrl = url;
     context.updateTheme(theme);
@@ -18,18 +19,18 @@ async function dynamic_handleImage(context, url, decodeImageData) {
 function on_shuffle() {
     const color = src.utils_randomColor();
     console.log('shuffle', color);
-    const adapter = google3.ThemeAdapter.fromColor(color, true);
+    const adapter = themeGenerator.ThemeAdapter.fromColor(color, true);
     context.updateTheme(adapter);
 }
 
 function on_set_key_color(context, color) {
     if (!context.theme) {
-        var theme = google3.ThemeAdapter.fromColor(color, true);
+        var theme = themeGenerator.ThemeAdapter.fromColor(color, true);
         context.updateTheme(theme);
     }
     let theme = context.theme;
     if (key === 'primary') {
-        theme = google3.ThemeAdapter.fromColor(color, theme.is3p)
+        theme = themeGenerator.ThemeAdapter.fromColor(color, theme.is3p)
     } else {
         theme.setCustomColor(key, color);
     }
