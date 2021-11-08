@@ -22,11 +22,13 @@
     const WHITE_POINT_D65 = [95.047, 100, 108.883]
     const hexFromInt = argb => {
         const g = (argb & 65280) >> 8
-            , b = argb & 255
-            , outParts = [((argb & 16711680) >> 16).toString(16), g.toString(16), b.toString(16)];
-        for (const [i__tsickle_destructured_1, part__tsickle_destructured_2] of outParts.entries()) {
-            const i = i__tsickle_destructured_1
-                , part = part__tsickle_destructured_2;
+        const b = argb & 255
+        const outParts = [((argb & 16711680) >> 16).toString(16), g.toString(16), b.toString(16)];
+
+        for (const [chunk1, chunk2] of outParts.entries()) {
+            const i = chunk1
+            const part = chunk2;
+            
             1 === part.length && (outParts[i] = "0" + part)
         }
         return "#" + outParts.join("")
@@ -45,20 +47,20 @@
 
     const labFromInt = argb => {
         const e = 216 / 24389
-            , kappa = 24389 / 27
-            , redL = 100 * linearized(((argb & 16711680) >> 16) / 255)
-            , greenL = 100 * linearized(((argb & 65280) >> 8) / 255)
-            , blueL = 100 * linearized((argb & 255) / 255)
-            , yNormalized = (.2126 * redL + .7152 * greenL + .0722 * blueL) / WHITE_POINT_D65[1];
-        let fy;
-        fy = yNormalized > e ? Math.pow(yNormalized, 1 / 3) : (kappa * yNormalized + 16) / 116;
+        const kappa = 24389 / 27
+        const redL = 100 * linearized(((argb & 16711680) >> 16) / 255)
+        const greenL = 100 * linearized(((argb & 65280) >> 8) / 255)
+        const blueL = 100 * linearized((argb & 255) / 255)
+        const yNormalized = (.2126 * redL + .7152 * greenL + .0722 * blueL) / WHITE_POINT_D65[1];
+        
+        const fy = yNormalized > e ? Math.pow(yNormalized, 1 / 3) : (kappa * yNormalized + 16) / 116;
         const xNormalized = (.41233895 * redL + .35762064 * greenL + .18051042 * blueL) / WHITE_POINT_D65[0]
-            , zNormalized = (.01932141 * redL + .11916382 * greenL + .95034478 * blueL) / WHITE_POINT_D65[2];
+        const zNormalized = (.01932141 * redL + .11916382 * greenL + .95034478 * blueL) / WHITE_POINT_D65[2];
         return [116 * fy - 16, 500 * ((xNormalized > e ? Math.pow(xNormalized, 1 / 3) : (kappa * xNormalized + 16) / 116) - fy), 200 * (fy - (zNormalized > e ? Math.pow(zNormalized, 1 / 3) : (kappa * zNormalized + 16) / 116))]
     }
 
 
-    QuantizerWu = class {
+    const QuantizerWu = class {
         constructor() {
             this.weights = [];
             this.momentsR = [];
@@ -100,34 +102,44 @@
 
     const libmonetfromIntInViewingConditions = function (argb) {
         const redL = 100 * linearized(((argb & 16711680) >> 16) / 255)
-            , greenL = 100 * linearized(((argb & 65280) >> 8) / 255)
-            , blueL = 100 * linearized((argb & 255) / 255)
-            , x = .41233895 * redL + .35762064 * greenL + .18051042 * blueL
-            , y = .2126 * redL + .7152 * greenL + .0722 * blueL
-            , z = .01932141 * redL + .11916382 * greenL + .95034478 * blueL
-            , rD = ViewingConditionsDEFAULT.rgbD[0] * (.401288 * x + .650173 * y - .051461 * z)
-            , gD = ViewingConditionsDEFAULT.rgbD[1] * (-.250268 * x + 1.204414 * y + .045854 * z)
-            , bD = ViewingConditionsDEFAULT.rgbD[2] * (-.002079 * x + .048952 * y + .953127 * z)
-            , rAF = Math.pow(ViewingConditionsDEFAULT.fl * Math.abs(rD) / 100, .42)
-            , gAF = Math.pow(ViewingConditionsDEFAULT.fl * Math.abs(gD) / 100, .42)
-            , bAF = Math.pow(ViewingConditionsDEFAULT.fl * Math.abs(bD) / 100, .42)
-            , rA = 400 * math_utils_signum(rD) * rAF / (rAF + 27.13)
-            , gA = 400 * math_utils_signum(gD) * gAF / (gAF + 27.13)
-            , bA = 400 * math_utils_signum(bD) * bAF / (bAF + 27.13)
-            , a = (11 * rA + -12 * gA + bA) / 11
-            , b = (rA + gA - 2 * bA) / 9
-            , atanDegrees = 180 * Math.atan2(b, a) / Math.PI
-            , hue = 0 > atanDegrees ? atanDegrees + 360 : 360 <= atanDegrees ? atanDegrees - 360 : atanDegrees
-            , hueRadians = hue * Math.PI / 180
-            , j = 100 * Math.pow((40 * rA + 20 * gA + bA) / 20 * ViewingConditionsDEFAULT.nbb / ViewingConditionsDEFAULT.aw, ViewingConditionsDEFAULT.c * ViewingConditionsDEFAULT.z)
-            , alpha = Math.pow(5E4 / 13 * .25 * (Math.cos((20.14 > hue ? hue + 360 : hue) * Math.PI / 180 + 2) + 3.8)
+        const greenL = 100 * linearized(((argb & 65280) >> 8) / 255)
+        const blueL = 100 * linearized((argb & 255) / 255)
+        const x = .41233895 * redL + .35762064 * greenL + .18051042 * blueL
+        const y = .2126 * redL + .7152 * greenL + .0722 * blueL
+        const z = .01932141 * redL + .11916382 * greenL + .95034478 * blueL
+        const rD = ViewingConditionsDEFAULT.rgbD[0] * (.401288 * x + .650173 * y - .051461 * z)
+        const gD = ViewingConditionsDEFAULT.rgbD[1] * (-.250268 * x + 1.204414 * y + .045854 * z)
+        const bD = ViewingConditionsDEFAULT.rgbD[2] * (-.002079 * x + .048952 * y + .953127 * z)
+        const rAF = Math.pow(ViewingConditionsDEFAULT.fl * Math.abs(rD) / 100, .42)
+        const gAF = Math.pow(ViewingConditionsDEFAULT.fl * Math.abs(gD) / 100, .42)
+        const bAF = Math.pow(ViewingConditionsDEFAULT.fl * Math.abs(bD) / 100, .42)
+        const rA = 400 * math_utils_signum(rD) * rAF / (rAF + 27.13)
+        const gA = 400 * math_utils_signum(gD) * gAF / (gAF + 27.13)
+        const bA = 400 * math_utils_signum(bD) * bAF / (bAF + 27.13)
+        const a = (11 * rA + -12 * gA + bA) / 11
+        const b = (rA + gA - 2 * bA) / 9
+        const atanDegrees = 180 * Math.atan2(b, a) / Math.PI
+        const hue = 0 > atanDegrees ? atanDegrees + 360 : 360 <= atanDegrees ? atanDegrees - 360 : atanDegrees
+        const hueRadians = hue * Math.PI / 180
+        const j = 100 * Math.pow((40 * rA + 20 * gA + bA) / 20 * ViewingConditionsDEFAULT.nbb / ViewingConditionsDEFAULT.aw, ViewingConditionsDEFAULT.c * ViewingConditionsDEFAULT.z)
+        const alpha = Math.pow(5E4 / 13 * .25 * (Math.cos((20.14 > hue ? hue + 360 : hue) * Math.PI / 180 + 2) + 3.8)
                 * ViewingConditionsDEFAULT.nc * ViewingConditionsDEFAULT.ncb * Math.sqrt(a * a + b * b) / ((20 * rA + 20 * gA + 21 * bA) / 20 + .305), .9) * Math.pow(1.64 - Math.pow(.29, ViewingConditionsDEFAULT.n), .73)
-            , c = alpha * Math.sqrt(j / 100)
-            , mstar = 1 / .0228 * Math.log(1 + .0228 * c * ViewingConditionsDEFAULT.fLRoot);
-        return new libMonetCam16Class(hue, c, j, 4 / ViewingConditionsDEFAULT.c * Math.sqrt(j / 100) * (ViewingConditionsDEFAULT.aw + 4) * ViewingConditionsDEFAULT.fLRoot, 50 * Math.sqrt(alpha * ViewingConditionsDEFAULT.c / (ViewingConditionsDEFAULT.aw + 4)), (1 + 100 * .007) * j / (1 + .007 * j), mstar * Math.cos(hueRadians), mstar * Math.sin(hueRadians))
+        const c = alpha * Math.sqrt(j / 100)
+        const mstar = 1 / .0228 * Math.log(1 + .0228 * c * ViewingConditionsDEFAULT.fLRoot);
+        
+        return new libMonetCam16Class(
+            hue,
+            c,
+            j,
+            4 / ViewingConditionsDEFAULT.c * Math.sqrt(j / 100) * (ViewingConditionsDEFAULT.aw + 4) * ViewingConditionsDEFAULT.fLRoot,
+            50 * Math.sqrt(alpha * ViewingConditionsDEFAULT.c / (ViewingConditionsDEFAULT.aw + 4)),
+            (1 + 100 * .007) * j / (1 + .007 * j),
+            mstar * Math.cos(hueRadians),
+            mstar * Math.sin(hueRadians),
+        )
     }
 
-    var ViewingConditionsClass = class {
+    const ViewingConditionsClass = class {
         constructor(n, aw, nbb, ncb, c, nc, rgbD, fl, fLRoot, z) {
             this.n = n;
             this.aw = aw;
@@ -144,28 +156,32 @@
 
     var ViewingConditionsDEFAULT = function (whitePoint = WHITE_POINT_D65, adaptingLuminance = 200 / Math.PI * 100 * Math.pow(66 / 116, 3) / 100, backgroundLstar = 50, surround = 2, discountingIlluminant = !1) {
         const rW = .401288 * whitePoint[0] + .650173 * whitePoint[1] + -.051461 * whitePoint[2]
-            , gW = -.250268 * whitePoint[0] + 1.204414 * whitePoint[1] + .045854 * whitePoint[2]
-            , bW = -.002079 * whitePoint[0] + .048952 * whitePoint[1] + .953127 * whitePoint[2]
-            , f = .8 + surround / 10;
+        const gW = -.250268 * whitePoint[0] + 1.204414 * whitePoint[1] + .045854 * whitePoint[2]
+        const bW = -.002079 * whitePoint[0] + .048952 * whitePoint[1] + .953127 * whitePoint[2]
+        const f = .8 + surround / 10;
+
         if (.9 <= f) {
-            var amount = 10 * (f - .9);
-            var JSCompiler_temp = .59 * (1 - amount) + .69 * amount
+            const amount = 10 * (f - .9);
+            var temp = .59 * (1 - amount) + .69 * amount
         } else {
-            var amount$jscomp$0 = 10 * (f - .8);
-            JSCompiler_temp = .525 * (1 - amount$jscomp$0) + .59 * amount$jscomp$0
+            const amountTemp = 10 * (f - .8);
+            temp = .525 * (1 - amountTemp) + .59 * amountTemp
         }
+
         let d = discountingIlluminant ? 1 : f * (1 - 1 / 3.6 * Math.exp((-adaptingLuminance - 42) / 92));
+        
         d = 1 < d ? 1 : 0 > d ? 0 : d;
+
         const rgbD = [100 / rW * d + 1 - d, 100 / gW * d + 1 - d, 100 / bW * d + 1 - d]
-            , k = 1 / (5 * adaptingLuminance + 1)
-            , k4 = k * k * k * k
-            , k4F = 1 - k4
-            , fl = k4 * adaptingLuminance + .1 * k4F * k4F * Math.cbrt(5 * adaptingLuminance)
-            , n = (8 < backgroundLstar ? 100 * Math.pow((backgroundLstar + 16) / 116, 3) : backgroundLstar / (24389 / 27) * 100) / whitePoint[1]
-            , nbb = .725 / Math.pow(n, .2)
-            , rgbAFactors = [Math.pow(fl * rgbD[0] * rW / 100, .42), Math.pow(fl * rgbD[1] * gW / 100, .42), Math.pow(fl * rgbD[2] * bW / 100, .42)]
-            , rgbA = [400 * rgbAFactors[0] / (rgbAFactors[0] + 27.13), 400 * rgbAFactors[1] / (rgbAFactors[1] + 27.13), 400 * rgbAFactors[2] / (rgbAFactors[2] + 27.13)];
-        return new ViewingConditionsClass(n, (2 * rgbA[0] + rgbA[1] + .05 * rgbA[2]) * nbb, nbb, nbb, JSCompiler_temp, f, rgbD, fl, Math.pow(fl, .25), 1.48 + Math.sqrt(n))
+        const k = 1 / (5 * adaptingLuminance + 1)
+        const k4 = k * k * k * k
+        const k4F = 1 - k4
+        const fl = k4 * adaptingLuminance + .1 * k4F * k4F * Math.cbrt(5 * adaptingLuminance)
+        const n = (8 < backgroundLstar ? 100 * Math.pow((backgroundLstar + 16) / 116, 3) : backgroundLstar / (24389 / 27) * 100) / whitePoint[1]
+        const nbb = .725 / Math.pow(n, .2)
+        const rgbAFactors = [Math.pow(fl * rgbD[0] * rW / 100, .42), Math.pow(fl * rgbD[1] * gW / 100, .42), Math.pow(fl * rgbD[2] * bW / 100, .42)]
+        const rgbA = [400 * rgbAFactors[0] / (rgbAFactors[0] + 27.13), 400 * rgbAFactors[1] / (rgbAFactors[1] + 27.13), 400 * rgbAFactors[2] / (rgbAFactors[2] + 27.13)];
+        return new ViewingConditionsClass(n, (2 * rgbA[0] + rgbA[1] + .05 * rgbA[2]) * nbb, nbb, nbb, temp, f, rgbD, fl, Math.pow(fl, .25), 1.48 + Math.sqrt(n))
     }();
 
     const image_utils_decodeToImageData = async (bytes) => {
@@ -207,7 +223,13 @@
         x /= 100;
         y /= 100;
         z /= 100;
-        return intFromRgb([Math.round(math_utils_clamp(255, 255 * delinearized(3.2406 * x + -1.5372 * y + -.4986 * z))), Math.round(math_utils_clamp(255, 255 * delinearized(-.9689 * x + 1.8758 * y + .0415 * z))), Math.round(math_utils_clamp(255, 255 * delinearized(.0557 * x + -.204 * y + 1.057 * z)))])
+        return intFromRgb(
+            [
+                Math.round(math_utils_clamp(255, 255 * delinearized(3.2406 * x + -1.5372 * y + -.4986 * z))), 
+                Math.round(math_utils_clamp(255, 255 * delinearized(-.9689 * x + 1.8758 * y + .0415 * z))), 
+                Math.round(math_utils_clamp(255, 255 * delinearized(.0557 * x + -.204 * y + 1.057 * z)))
+            ]
+        )
     }
 
     const lstarFromInt = argb => {
@@ -220,19 +242,24 @@
         toInt(point) {
             var l = point[0];
             const e = 216 / 24389
-                , kappa = 24389 / 27
-                , fy = (l + 16) / 116
-                , fx = point[1] / 500 + fy
-                , fz = fy - point[2] / 200
-                , fx3 = fx * fx * fx
-                , fz3 = fz * fz * fz;
-            var xyz = [(fx3 > e ? fx3 : (116 * fx - 16) / kappa) * WHITE_POINT_D65[0], (8 < l ? fy * fy * fy : l / kappa) * WHITE_POINT_D65[1], (fz3 > e ? fz3 : (116 * fz - 16) / kappa) * WHITE_POINT_D65[2]];
+            const kappa = 24389 / 27
+            const fy = (l + 16) / 116
+            const fx = point[1] / 500 + fy
+            const fz = fy - point[2] / 200
+            const fx3 = fx * fx * fx
+            const fz3 = fz * fz * fz;
+            
+            const xyz = [
+                (fx3 > e ? fx3 : (116 * fx - 16) / kappa) * WHITE_POINT_D65[0], 
+                (8 < l ? fy * fy * fy : l / kappa) * WHITE_POINT_D65[1], 
+                (fz3 > e ? fz3 : (116 * fz - 16) / kappa) * WHITE_POINT_D65[2]
+            ];
             return intFromXyzComponents(xyz[0], xyz[1], xyz[2])
         }
         distance(from, to) {
             const dL = from[0] - to[0]
-                , dA = from[1] - to[1]
-                , dB = from[2] - to[2];
+            const dA = from[1] - to[1]
+            const dB = from[2] - to[2];
             return dL * dL + dA * dA + dB * dB
         }
     }
@@ -254,8 +281,8 @@
         }
         distance(other) {
             const dJ = this.jstar - other.jstar
-                , dA = this.astar - other.astar
-                , dB = this.bstar - other.bstar;
+            const dA = this.astar - other.astar
+            const dB = this.bstar - other.bstar;
             return 1.41 * Math.pow(Math.sqrt(dJ * dJ + dA * dA + dB * dB), .63)
         }
     }
@@ -268,29 +295,29 @@
     }
 
     var createBoxes = function (self) {
-        self.cubes = Array.from({
-            length: 256
-        }).fill(0).map(() => new quantizer_wu_Box);
-        const volumeVariance = Array.from({
-            length: 256
-        }).fill(0);
+        self.cubes = Array.from({ length: 256 }).fill(0).map(() => new quantizer_wu_Box);
+        
+        const volumeVariance = Array.from({  length: 256 }).fill(0);
+
         self.cubes[0].r0 = 0;
         self.cubes[0].g0 = 0;
         self.cubes[0].b0 = 0;
         self.cubes[0].r1 = 32;
         self.cubes[0].g1 = 32;
         self.cubes[0].b1 = 32;
+        
         let generatedColorCount = 256
-            , next = 0;
+        let next = 0;
+        
         for (let i = 1; 256 > i; i++) {
-            cut(self, self.cubes[next], self.cubes[i]) ? (volumeVariance[next] = 1 < self.cubes[next].vol ? variance(self, self.cubes[next]) : 0,
-                volumeVariance[i] = 1 < self.cubes[i].vol ? variance(self, self.cubes[i]) : 0) : (volumeVariance[next] = 0,
-                    i--);
+            cut(self, self.cubes[next], self.cubes[i])
+                     ? (volumeVariance[next] = 1 < self.cubes[next].vol 
+                     ? variance(self, self.cubes[next]) : 0, volumeVariance[i] = 1 < self.cubes[i].vol 
+                     ? variance(self, self.cubes[i]) : 0) : (volumeVariance[next] = 0, i--);
             next = 0;
             let temp = volumeVariance[0];
             for (let j = 1; j <= i; j++)
-                volumeVariance[j] > temp && (temp = volumeVariance[j],
-                    next = j);
+                volumeVariance[j] > temp && (temp = volumeVariance[j], next = j);
             if (0 >= temp) {
                 generatedColorCount = i + 1;
                 break
@@ -301,60 +328,49 @@
 
     async function seedFromImage(image) {
         const imageBuffer = "string" === typeof image ? await (await fetch(image)).arrayBuffer() : image;
-        var pixels = await bufferToPixels(imageBuffer),
-
-            data = new QuantizerWu, JSCompiler__a;
+        var pixels = await bufferToPixels(imageBuffer)
+        var data = new QuantizerWu, temp;
 
         data.weights = Array.from({ length: 35937 }).fill(0);
-        data.momentsR = Array.from({
-            length: 35937
-        }).fill(0);
-        data.momentsG = Array.from({
-            length: 35937
-        }).fill(0);
+        data.momentsR = Array.from({ length: 35937 }).fill(0);
+        data.momentsG = Array.from({ length: 35937 }).fill(0);
         data.momentsB = Array.from({ length: 35937 }).fill(0);
         data.moments = Array.from({ length: 35937 }).fill(0);
-        var JSCompiler__a$jscomp$0;
+
+        var temp2;
         const countByColor = new Map;
+
         for (let i = 0; i < pixels.length; i++) {
             const pixel = pixels[i];
-            255 > (pixel & 4278190080) >> 24 >>> 0 || countByColor.set(pixel, (null !== (JSCompiler__a$jscomp$0 = countByColor.get(pixel)) && void 0 !== JSCompiler__a$jscomp$0 ? JSCompiler__a$jscomp$0 : 0) + 1)
+            255 > (pixel & 4278190080) >> 24 >>> 0 || countByColor.set(pixel, (null !== (temp2 = countByColor.get(pixel)) && void 0 !== temp2 ? temp2 : 0) + 1)
         }
-        for (const [pixel__tsickle_destructured_1, count__tsickle_destructured_2] of countByColor.entries()) {
-            const pixel = pixel__tsickle_destructured_1
-                , count = count__tsickle_destructured_2
-                , red = (pixel & 16711680) >> 16
-                , green = (pixel & 65280) >> 8
-                , blue = pixel & 255
-                , index = getIndex((red >> 3) + 1, (green >> 3) + 1, (blue >> 3) + 1);
-            data.weights[index] = (null !== (JSCompiler__a = data.weights[index]) && void 0 !== JSCompiler__a ? JSCompiler__a : 0) + count;
+        for (const [chunk1, chunk2] of countByColor.entries()) {
+            const pixel = chunk1
+            const count = chunk2
+            const red = (pixel & 16711680) >> 16
+            const green = (pixel & 65280) >> 8
+            const blue = pixel & 255
+            const index = getIndex((red >> 3) + 1, (green >> 3) + 1, (blue >> 3) + 1);
+            data.weights[index] = (null !== (temp = data.weights[index]) && void 0 !== temp ? temp : 0) + count;
             data.momentsR[index] += count * red;
             data.momentsG[index] += count * green;
             data.momentsB[index] += count * blue;
             data.moments[index] += count * (red * red + green * green + blue * blue)
         }
         for (let r = 1; 33 > r; r++) {
-            const area = Array.from({
-                length: 33
-            }).fill(0)
-                , areaR = Array.from({
-                    length: 33
-                }).fill(0)
-                , areaG = Array.from({
-                    length: 33
-                }).fill(0)
-                , areaB = Array.from({
-                    length: 33
-                }).fill(0)
-                , area2 = Array.from({
-                    length: 33
-                }).fill(0);
+            const area = Array.from({ length: 33 }).fill(0)
+            const areaR = Array.from({ length: 33 }).fill(0)
+            const areaG = Array.from({ length: 33 }).fill(0)
+            const areaB = Array.from({ length: 33 }).fill(0)
+            const area2 = Array.from({ length: 33 }).fill(0);
+
             for (let g = 1; 33 > g; g++) {
                 let line = 0
-                    , lineR = 0
-                    , lineG = 0
-                    , lineB = 0
-                    , line2 = 0;
+                let lineR = 0
+                let lineG = 0
+                let lineB = 0
+                let line2 = 0;
+
                 for (let b = 1; 33 > b; b++) {
                     const index = getIndex(r, g, b);
                     line += data.weights[index];
@@ -376,46 +392,52 @@
                 }
             }
         }
-        console.log(data);
+        
         var colorCount = createBoxes(data).resultCount;
         const colors = [];
+
         for (let i = 0; i < colorCount; ++i) {
             const cube = data.cubes[i]
-                , weight = data.volume(cube, data.weights);
+            const weight = data.volume(cube, data.weights);
             if (0 < weight) {
                 const r = Math.round(data.volume(cube, data.momentsR) / weight)
-                    , g = Math.round(data.volume(cube, data.momentsG) / weight)
-                    , b = Math.round(data.volume(cube, data.momentsB) / weight);
+                const g = Math.round(data.volume(cube, data.momentsG) / weight)
+                const b = Math.round(data.volume(cube, data.momentsB) / weight);
                 colors.push(-16777216 | (r & 255) << 16 | (g & 255) << 8 | b & 255)
             }
         }
         const pixelToCount = new Map
-            , points = []
-            , pixels$jscomp$0 = []
-            , pointProvider = new LabPointProvider;
+        const points = []
+        const pixels$jscomp$0 = []
+        const pointProvider = new LabPointProvider;
         let pointCount = 0;
+
         for (let i = 0; i < pixels.length; i++) {
             const inputPixel = pixels[i]
-                , pixelCount = pixelToCount.get(inputPixel);
+            const pixelCount = pixelToCount.get(inputPixel);
             void 0 === pixelCount ? (pointCount++,
                 points.push(labFromInt(inputPixel)),
                 pixels$jscomp$0.push(inputPixel),
                 pixelToCount.set(inputPixel, 1)) : pixelToCount.set(inputPixel, pixelCount + 1)
         }
+
         const counts = [];
         for (let i = 0; i < pointCount; i++) {
             const count = pixelToCount.get(pixels$jscomp$0[i]);
             void 0 !== count && (counts[i] = count)
         }
+
         let clusterCount = Math.min(256, pointCount);
         0 < colors.length && (clusterCount = Math.min(clusterCount, colors.length));
+    
         const clusters = [];
-        for (let i = 0; i < colors.length; i++)
-            clusters.push(labFromInt(colors[i]));
+        for (let i = 0; i < colors.length; i++) clusters.push(labFromInt(colors[i]));
+
         const additionalClustersNeeded = clusterCount - clusters.length;
         if (0 === colors.length && 0 < additionalClustersNeeded)
             for (let i = 0; i < additionalClustersNeeded; i++)
                 clusters.push([100 * Math.random(), 201 * Math.random() + -100, 201 * Math.random() + -100]);
+
         const clusterIndices = [];
         for (let i = 0; i < pointCount; i++)
             clusterIndices.push(Math.floor(Math.random() * clusterCount));
@@ -518,11 +540,11 @@
         for (const population of colorsToPopulation.values())
             populationSum += population;
         const colorsToProportion = new Map
-            , colorsToCam = new Map
-            , hueProportions = Array(360).fill(0);
+        const colorsToCam = new Map
+        const hueProportions = Array(360).fill(0);
         for (const [color__tsickle_destructured_1, population__tsickle_destructured_2] of colorsToPopulation.entries()) {
             const color = color__tsickle_destructured_1
-                , proportion = population__tsickle_destructured_2 / populationSum;
+            const proportion = population__tsickle_destructured_2 / populationSum;
             colorsToProportion.set(color, proportion);
             const cam = libmonetfromIntInViewingConditions(color);
             colorsToCam.set(color, cam);
@@ -531,7 +553,7 @@
         const colorsToExcitedProportion = new Map;
         for (const [color__tsickle_destructured_3, cam__tsickle_destructured_4] of colorsToCam.entries()) {
             const color = color__tsickle_destructured_3
-                , hue = Math.round(cam__tsickle_destructured_4.hue);
+            const hue = Math.round(cam__tsickle_destructured_4.hue);
             let excitedProportion = 0;
             for (let i = hue - 15; i < hue + 15; i++)
                 excitedProportion += hueProportions[math_utils_sanitizeDegrees(i)];
@@ -540,12 +562,12 @@
         const colorsToScore = new Map;
         for (const [color__tsickle_destructured_5, cam__tsickle_destructured_6] of colorsToCam.entries()) {
             const color = color__tsickle_destructured_5
-                , cam = cam__tsickle_destructured_6
-                , proportionScore = 70 * colorsToExcitedProportion.get(color);
+            const cam = cam__tsickle_destructured_6
+            const proportionScore = 70 * colorsToExcitedProportion.get(color);
             colorsToScore.set(color, proportionScore + (cam.chroma - 48) * (48 > cam.chroma ? .1 : .3))
         }
         const filteredColors = monetfilter(colorsToExcitedProportion, colorsToCam)
-            , dedupedColorsToScore = new Map;
+        const dedupedColorsToScore = new Map;
         for (const color of filteredColors) {
             let duplicateHue = !1;
             const hue = colorsToCam.get(color).hue;
@@ -579,16 +601,16 @@
 
     const cut = function (self, one, two) {
         const wholeR = self.volume(one, self.momentsR)
-            , wholeG = self.volume(one, self.momentsG)
-            , wholeB = self.volume(one, self.momentsB)
-            , wholeW = self.volume(one, self.weights)
-            , maxRResult = maximize(self, one, "red", one.r0 + 1, one.r1, wholeR, wholeG, wholeB, wholeW)
-            , maxGResult = maximize(self, one, "green", one.g0 + 1, one.g1, wholeR, wholeG, wholeB, wholeW)
-            , maxBResult = maximize(self, one, "blue", one.b0 + 1, one.b1, wholeR, wholeG, wholeB, wholeW);
+        const wholeG = self.volume(one, self.momentsG)
+        const wholeB = self.volume(one, self.momentsB)
+        const wholeW = self.volume(one, self.weights)
+        const maxRResult = maximize(self, one, "red", one.r0 + 1, one.r1, wholeR, wholeG, wholeB, wholeW)
+        const maxGResult = maximize(self, one, "green", one.g0 + 1, one.g1, wholeR, wholeG, wholeB, wholeW)
+        const maxBResult = maximize(self, one, "blue", one.b0 + 1, one.b1, wholeR, wholeG, wholeB, wholeW);
         let direction;
         const maxR = maxRResult.maximum
-            , maxG = maxGResult.maximum
-            , maxB = maxBResult.maximum;
+        const maxG = maxGResult.maximum
+        const maxB = maxBResult.maximum;
         if (maxR >= maxG && maxR >= maxB) {
             if (0 > maxRResult.cutLocation)
                 return !1;
@@ -627,11 +649,11 @@
 
     const variance = function (self, cube) {
         const dr = self.volume(cube, self.momentsR)
-            , dg = self.volume(cube, self.momentsG)
-            , db = self.volume(cube, self.momentsB)
-            , xx = self.moments[getIndex(cube.r1, cube.g1, cube.b1)] - self.moments[getIndex(cube.r1, cube.g1, cube.b0)] - self.moments[getIndex(cube.r1, cube.g0, cube.b1)] + self.moments[getIndex(cube.r1, cube.g0, cube.b0)] - self.moments[getIndex(cube.r0, cube.g1, cube.b1)] + self.moments[getIndex(cube.r0, cube.g1, cube.b0)] + self.moments[getIndex(cube.r0, cube.g0, cube.b1)] - self.moments[getIndex(cube.r0, cube.g0, cube.b0)]
-            , hypotenuse = dr * dr + dg * dg + db * db
-            , volume = self.volume(cube, self.weights);
+        const dg = self.volume(cube, self.momentsG)
+        const db = self.volume(cube, self.momentsB)
+        const xx = self.moments[getIndex(cube.r1, cube.g1, cube.b1)] - self.moments[getIndex(cube.r1, cube.g1, cube.b0)] - self.moments[getIndex(cube.r1, cube.g0, cube.b1)] + self.moments[getIndex(cube.r1, cube.g0, cube.b0)] - self.moments[getIndex(cube.r0, cube.g1, cube.b1)] + self.moments[getIndex(cube.r0, cube.g1, cube.b0)] + self.moments[getIndex(cube.r0, cube.g0, cube.b1)] - self.moments[getIndex(cube.r0, cube.g0, cube.b0)]
+        const hypotenuse = dr * dr + dg * dg + db * db
+        const volume = self.volume(cube, self.weights);
         return xx - hypotenuse / volume
     }
 
@@ -644,9 +666,9 @@
 
     const maximize = function (self, cube, direction, first, last, wholeR, wholeG, wholeB, wholeW) {
         const bottomR = self.bottom(cube, direction, self.momentsR)
-            , bottomG = self.bottom(cube, direction, self.momentsG)
-            , bottomB = self.bottom(cube, direction, self.momentsB)
-            , bottomW = self.bottom(cube, direction, self.weights);
+        const bottomG = self.bottom(cube, direction, self.momentsG)
+        const bottomB = self.bottom(cube, direction, self.momentsB)
+        const bottomW = self.bottom(cube, direction, self.weights);
         let max = 0, cut = -1, halfR, halfG, halfB, halfW;
         for (let i = first; i < last; i++) {
             halfR = bottomR + self.top(cube, direction, i, self.momentsR);
@@ -656,8 +678,8 @@
             if (0 === halfW)
                 continue;
             let tempNumerator = halfR * halfR + halfG * halfG + halfB * halfB
-                , tempDenominator = 1 * halfW
-                , temp = tempNumerator / tempDenominator;
+            var tempDenominator = 1 * halfW
+            var temp = tempNumerator / tempDenominator;
             halfR = wholeR - halfR;
             halfG = wholeG - halfG;
             halfB = wholeB - halfB;
