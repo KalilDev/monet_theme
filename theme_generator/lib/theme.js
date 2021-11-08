@@ -1,9 +1,9 @@
 'use strict';
-const utils = require('./theme/utils.js');
-const base = require('./theme/base.js');
-const defaults = require('./theme/defaults.js');
-const b1p = require('./theme/baseline_1p.js');
-const b3p = require('./theme/baseline_3p.js');
-const adapter = require('./theme/adapter.js');
+import utils from './theme/utils.js';
+import base from './theme/base.js';
+import defaults from './theme/defaults.js';
+import b1p from './theme/baseline_1p.js';
+import b3p from './theme/baseline_3p.js';
+import adapter from './theme/adapter.js';
 
-module.exports = Object.assign({}, adapter, base, b1p, b3p, defaults, utils)
+export default Object.assign({}, adapter, base, b1p, b3p, defaults, utils)

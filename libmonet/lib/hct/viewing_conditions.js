@@ -1,6 +1,6 @@
 'use strict';
 
-const color_utils = require("../utils/color_utils");
+import { WHITE_POINT_D65 } from "../utils/color_utils";
 
 class ViewingConditions {
     constructor(n, aw, nbb, ncb, c, nc, rgbD, fl, fLRoot, z) {
@@ -16,7 +16,7 @@ class ViewingConditions {
         this.z = z;
     }
 };
-ViewingConditions.DEFAULT = function (whitePoint = color_utils.WHITE_POINT_D65, adaptingLuminance = 200 / Math.PI * 100 * Math.pow(66 / 116, 3) / 100, backgroundLstar = 50, surround = 2, discountingIlluminant = false) {
+ViewingConditions.DEFAULT = function (whitePoint = WHITE_POINT_D65, adaptingLuminance = 200 / Math.PI * 100 * Math.pow(66 / 116, 3) / 100, backgroundLstar = 50, surround = 2, discountingIlluminant = false) {
     const rW = 0.401288 * whitePoint[0] + 0.650173 * whitePoint[1] + -0.051461 * whitePoint[2], gW = -0.250268 * whitePoint[0] + 1.204414 * whitePoint[1] + 0.045854 * whitePoint[2], bW = -0.002079 * whitePoint[0] + 0.048952 * whitePoint[1] + 0.953127 * whitePoint[2], f = 0.8 + surround / 10;
     if (0.9 <= f) {
         var amount = 10 * (f - 0.9);
@@ -43,6 +43,6 @@ ViewingConditions.DEFAULT = function (whitePoint = color_utils.WHITE_POINT_D65, 
     return new ViewingConditions(n, (2 * rgbA[0] + rgbA[1] + 0.05 * rgbA[2]) * nbb, nbb, nbb, JSCompiler_temp, f, rgbD, fl, Math.pow(fl, 0.25), 1.48 + Math.sqrt(n));
 }();
 
-module.exports = {
+export default {
     ViewingConditions,
 }

@@ -1,5 +1,5 @@
 'use strict';
-const jszip = require('jszip');
+import { JSZip } from 'jszip';
 
 class ThemeExporter {
     constructor(theme, name, downloadBlob) {
@@ -11,7 +11,7 @@ class ThemeExporter {
         this.downloadZip();
     }
     async downloadZip() {
-        const exportFiles = this.generate(), zip = new jszip.JSZip();
+        const exportFiles = this.generate(), zip = new JSZip();
         for (const file of exportFiles)
             zip.file(file.path, file.content);
         const fileName = this.name + '.zip', blob = await zip.generateAsync({ type: 'blob' });
@@ -19,6 +19,6 @@ class ThemeExporter {
     };
 };
 
-module.exports = {
+export default {
     ThemeExporter,
 }

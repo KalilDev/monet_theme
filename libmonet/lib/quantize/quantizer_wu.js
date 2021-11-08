@@ -128,6 +128,6 @@ QuantizerWu.getIndex = function (r, g, b) {
     return (r << 10) + (r << 6) + r + (g << 5) + g + b;
 };
 
-module.exports = {
+export default {
     QuantizerWu,
 }

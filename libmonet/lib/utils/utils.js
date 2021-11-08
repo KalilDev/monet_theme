@@ -9,7 +9,7 @@ function math_utils_clamp(max, input) {
 function math_utils_sanitizeDegrees(degrees) {
     return 0 > degrees ? degrees % 360 + 360 : 360 <= degrees ? degrees % 360 : degrees;
 }
-module.exports = {
+export default {
     math_utils_signum,
     math_utils_clamp,
     math_utils_sanitizeDegrees,

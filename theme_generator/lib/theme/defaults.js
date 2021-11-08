@@ -1,13 +1,13 @@
 'use strict';
-const utils = require('./utils.js');
+import { defaults_COLORS_3P, defaults_COLORS_1P } from './utils.js';
 
 var KEY_COLORS = 'primary secondary tertiary neutral neutralVariant error'.split(' ');
 var DEFAULT_COLORS = {
     baseline: {
-        '3p': utils.defaults_COLORS_3P,
-        '1p': utils.defaults_COLORS_1P,
-        context_3p: utils.defaults_COLORS_3P.seed,
-        context_1p: utils.defaults_COLORS_1P.seed
+        '3p': defaults_COLORS_3P,
+        '1p': defaults_COLORS_1P,
+        context_3p: defaults_COLORS_3P.seed,
+        context_1p: defaults_COLORS_1P.seed
     },
     theme: {
         green: '#386A20',
@@ -26,7 +26,7 @@ var DEFAULT_COLORS = {
     black: '#000000'
 };
 
-module.exports = {
+export default {
     KEY_COLORS,
     DEFAULT_COLORS,
 }

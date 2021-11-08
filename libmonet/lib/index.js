@@ -1,7 +1,7 @@
-const hct = require('./hct.js')
-const palette = require('./palettes.js')
-const quantize = require('./quantize.js')
-const score = require('./score.js')
-const utils = require('./utils.js')
+import hct from './hct.js'
+import palette from './palettes.js'
+import quantize from './quantize.js'
+import score from './score.js'
+import utils from './utils.js'
 
-module.exports = Object.assign({}, hct, palette, quantize, score, utils)
+export default Object.assign({}, hct, palette, quantize, score, utils)

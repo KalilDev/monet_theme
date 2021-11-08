@@ -1,5 +1,5 @@
 'use strict';
-const utils = require('./utils.js');
+import { math_utils_clamp } from './utils.js';
 
 var WHITE_POINT_D65 = [
     95.047,
@@ -40,9 +40,9 @@ var intFromXyzComponents = (x, y, z) => {
     y /= 100;
     z /= 100;
     return intFromRgb([
-        Math.round(utils.math_utils_clamp(255, 255 * delinearized(3.2406 * x + -1.5372 * y + -0.4986 * z))),
-        Math.round(utils.math_utils_clamp(255, 255 * delinearized(-0.9689 * x + 1.8758 * y + 0.0415 * z))),
-        Math.round(utils.math_utils_clamp(255, 255 * delinearized(0.0557 * x + -0.204 * y + 1.057 * z)))
+        Math.round(math_utils_clamp(255, 255 * delinearized(3.2406 * x + -1.5372 * y + -0.4986 * z))),
+        Math.round(math_utils_clamp(255, 255 * delinearized(-0.9689 * x + 1.8758 * y + 0.0415 * z))),
+        Math.round(math_utils_clamp(255, 255 * delinearized(0.0557 * x + -0.204 * y + 1.057 * z)))
     ]);
 };
 var intFromHex = hex => {
@@ -66,7 +66,7 @@ var intFromLstar = lstar => {
 var linearized = rgb => 0.04045 >= rgb ? rgb / 12.92 : Math.pow((rgb + 0.055) / 1.055, 2.4);
 var delinearized = rgb => 0.0031308 >= rgb ? 12.92 * rgb : 1.055 * Math.pow(rgb, 1 / 2.4) - 0.055;
 
-module.exports = {
+export default {
     WHITE_POINT_D65,
     lstarFromInt,
     hexFromInt,

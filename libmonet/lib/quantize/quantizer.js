@@ -22,7 +22,7 @@ class quantizer_wu_MaximizeResult {
     }
 }
 
-module.exports = {
+export default {
     quantizer_wsmeans_DistanceAndIndex,
     quantizer_wu_Box,
     quantizer_wu_CreateBoxesResult,

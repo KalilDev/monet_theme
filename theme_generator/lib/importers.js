@@ -1,5 +1,5 @@
 'use strict';
-const themeAdapter = require('./theme.js');
+import { ThemeAdapter } from './theme.js';
 
 // The user is the one in charge of implementing the readFileString function
 async function dsp_fileListToTextFiles(files, readFileString) {
@@ -18,7 +18,7 @@ async function dsp_fileListToTextFiles(files, readFileString) {
 function dsp_dspFilesToTheme(files) {
     var _a;
     console.log('files', files);
-    const theme = themeAdapter.ThemeAdapter.default().save(), isValid = fileName => {
+    const theme = ThemeAdapter.default().save(), isValid = fileName => {
         for (const suffix of [
             'dsp.json',
             'tokens.json',
@@ -44,7 +44,7 @@ function dsp_dspFilesToTheme(files) {
             }
     }
     console.log('parsed theme', theme);
-    return themeAdapter.ThemeAdapter.fromTheme(theme);
+    return ThemeAdapter.fromTheme(theme);
 }
 function dsp_processToken(token, theme, files) {
     console.log('token', token.id, token.category_id);
@@ -102,7 +102,7 @@ function dsp_processFontToken(token, theme, files) {
     }
 }
 
-module.exports = {
+export default {
     dsp_fileListToTextFiles,
     dsp_dspFilesToTheme,
     dsp_processToken,

@@ -1,8 +1,8 @@
 'use strict';
 // { hexFromInt, intFromRgb, QuantizerWu, LabPointProvider, labFromInt, score }
-const libmonet = require('libmonet');
-const b1p = require('./baseline_1p.js');
-const b3p = require('./baseline_3p.js');
+import { hexFromInt, intFromRgb, QuantizerWu, LabPointProvider, labFromInt, quantizer_wsmeans_DistanceAndIndex, score } from 'libmonet';
+import b1p from './baseline_1p.js';
+import b3p from './baseline_3p.js';
 
 function checks_isTheme3p(theme) {
     var _a, _b;
@@ -43,7 +43,7 @@ function checks_isSameColor(target, expected) {
 }
 function color_utils_numberToHex(value) {
     try {
-        return libmonet.hexFromInt(value);
+        return hexFromInt(value);
     } catch (error) {
         return console.log(`error converting [${value}] to hex`, error), '#000000';
     }
@@ -110,7 +110,7 @@ const defaults_COLORS_1P = {
 async function image_utils_bufferToPixels(buffer, decodeImageData) {
     const imageBytes = new Uint8Array(buffer), imageData = await decodeImageData(imageBytes), pixels = [];
     for (let i = 0; i < imageData.data.length; i += 4)
-        255 > imageData.data[i + 3] || pixels.push(libmonet.intFromRgb([
+        255 > imageData.data[i + 3] || pixels.push(intFromRgb([
             imageData.data[i],
             imageData.data[i + 1],
             imageData.data[i + 2]
@@ -120,7 +120,7 @@ async function image_utils_bufferToPixels(buffer, decodeImageData) {
 // The user of the api has to implement decodeImageData
 async function index_seedFromImage(image, decodeImageData) {
     const imageBuffer = 'string' === typeof image ? await (await fetch(image)).arrayBuffer() : image;
-    var pixels = await theme.image_utils_bufferToPixels(imageBuffer, decodeImageData), quantizer = new libmonet.QuantizerWu(), JSCompiler__a;
+    var pixels = await theme.image_utils_bufferToPixels(imageBuffer, decodeImageData), quantizer = new QuantizerWu(), JSCompiler__a;
     quantizer.weights = Array.from({ length: 35937 }).fill(0);
     quantizer.momentsR = Array.from({ length: 35937 }).fill(0);
     quantizer.momentsG = Array.from({ length: 35937 }).fill(0);
@@ -133,7 +133,7 @@ async function index_seedFromImage(image, decodeImageData) {
         255 > (pixel & 0xff000000) >> 24 >>> 0 || countByColor.set(pixel, (null !== (JSCompiler__a$jscomp$0 = countByColor.get(pixel)) && void 0 !== JSCompiler__a$jscomp$0 ? JSCompiler__a$jscomp$0 : 0) + 1);
     }
     for (const [pixel__tsickle_destructured_1, count__tsickle_destructured_2] of countByColor.entries()) {
-        const pixel = pixel__tsickle_destructured_1, count = count__tsickle_destructured_2, red = (pixel & 16711680) >> 16, green = (pixel & 65280) >> 8, blue = pixel & 255, index = libmonet.QuantizerWu.getIndex((red >> 3) + 1, (green >> 3) + 1, (blue >> 3) + 1);
+        const pixel = pixel__tsickle_destructured_1, count = count__tsickle_destructured_2, red = (pixel & 16711680) >> 16, green = (pixel & 65280) >> 8, blue = pixel & 255, index = QuantizerWu.getIndex((red >> 3) + 1, (green >> 3) + 1, (blue >> 3) + 1);
         quantizer.weights[index] = (null !== (JSCompiler__a = quantizer.weights[index]) && void 0 !== JSCompiler__a ? JSCompiler__a : 0) + count;
         quantizer.momentsR[index] += count * red;
         quantizer.momentsG[index] += count * green;
@@ -145,7 +145,7 @@ async function index_seedFromImage(image, decodeImageData) {
         for (let g = 1; 33 > g; g++) {
             let line = 0, lineR = 0, lineG = 0, lineB = 0, line2 = 0;
             for (let b = 1; 33 > b; b++) {
-                const index = libmonet.QuantizerWu.getIndex(r, g, b);
+                const index = QuantizerWu.getIndex(r, g, b);
                 line += quantizer.weights[index];
                 lineR += quantizer.momentsR[index];
                 lineG += quantizer.momentsG[index];
@@ -156,7 +156,7 @@ async function index_seedFromImage(image, decodeImageData) {
                 areaG[b] += lineG;
                 areaB[b] += lineB;
                 area2[b] += line2;
-                const previousIndex = libmonet.QuantizerWu.getIndex(r - 1, g, b);
+                const previousIndex = QuantizerWu.getIndex(r - 1, g, b);
                 quantizer.weights[index] = quantizer.weights[previousIndex] + area[b];
                 quantizer.momentsR[index] = quantizer.momentsR[previousIndex] + areaR[b];
                 quantizer.momentsG[index] = quantizer.momentsG[previousIndex] + areaG[b];
@@ -174,11 +174,11 @@ async function index_seedFromImage(image, decodeImageData) {
             colors.push(-16777216 | (r & 255) << 16 | (g & 255) << 8 | b & 255);
         }
     }
-    const pixelToCount = new Map(), points = [], pixels$jscomp$0 = [], pointProvider = new libmonet.LabPointProvider();
+    const pixelToCount = new Map(), points = [], pixels$jscomp$0 = [], pointProvider = new LabPointProvider();
     let pointCount = 0;
     for (let i = 0; i < pixels.length; i++) {
         const inputPixel = pixels[i], pixelCount = pixelToCount.get(inputPixel);
-        void 0 === pixelCount ? (pointCount++, points.push(libmonet.labFromInt(inputPixel)), pixels$jscomp$0.push(inputPixel), pixelToCount.set(inputPixel, 1)) : pixelToCount.set(inputPixel, pixelCount + 1);
+        void 0 === pixelCount ? (pointCount++, points.push(labFromInt(inputPixel)), pixels$jscomp$0.push(inputPixel), pixelToCount.set(inputPixel, 1)) : pixelToCount.set(inputPixel, pixelCount + 1);
     }
     const counts = [];
     for (let i = 0; i < pointCount; i++) {
@@ -189,7 +189,7 @@ async function index_seedFromImage(image, decodeImageData) {
     0 < colors.length && (clusterCount = Math.min(clusterCount, colors.length));
     const clusters = [];
     for (let i = 0; i < colors.length; i++)
-        clusters.push(libmonet.labFromInt(colors[i]));
+        clusters.push(labFromInt(colors[i]));
     const additionalClustersNeeded = clusterCount - clusters.length;
     if (0 === colors.length && 0 < additionalClustersNeeded)
         for (let i = 0; i < additionalClustersNeeded; i++)
@@ -211,7 +211,7 @@ async function index_seedFromImage(image, decodeImageData) {
     for (let i = 0; i < clusterCount; i++) {
         distanceToIndexMatrix.push([]);
         for (let j = 0; j < clusterCount; j++)
-            distanceToIndexMatrix[i].push(new libmonet.quantizer_wsmeans_DistanceAndIndex());
+            distanceToIndexMatrix[i].push(new quantizer_wsmeans_DistanceAndIndex());
     }
     const pixelCountSums = [];
     for (let i = 0; i < clusterCount; i++)
@@ -274,11 +274,11 @@ async function index_seedFromImage(image, decodeImageData) {
         const possibleNewCluster = pointProvider.toInt(clusters[i]);
         argbToPopulation.has(possibleNewCluster) || argbToPopulation.set(possibleNewCluster, count);
     }
-    const ranked = libmonet.score(argbToPopulation);
-    return libmonet.hexFromInt(ranked[0]);
+    const ranked = score(argbToPopulation);
+    return hexFromInt(ranked[0]);
 }
 
-module.exports = {
+export default {
     checks_isTheme3p,
     checks_isThemeBaseline,
     checks_isSameColor,

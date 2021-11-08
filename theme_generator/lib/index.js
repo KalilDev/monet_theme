@@ -1,6 +1,6 @@
-const exporters = require('./exporters.js');
-const importers = require('./importers.js');
-const theme = require('./theme.js');
-const utils = require('./utils.js');
+import exporters from './exporters.js';
+import importers from './importers.js';
+import theme from './theme.js';
+import utils from './utils.js';
 
-module.exports = Object.assign({}, exporters, importers, theme, utils)
+export default Object.assign({}, exporters, importers, theme, utils)

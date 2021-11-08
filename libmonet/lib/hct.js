@@ -1,6 +1,6 @@
 'use strict';
-const hct = require('./hct/hct.js');
-const cam16 = require('./hct/cam16.js');
-const viewingConditions = require('./hct/viewing_conditions.js');
+import hct from './hct/hct.js';
+import cam16 from './hct/cam16.js';
+import viewingConditions from './hct/viewing_conditions.js';
 
-module.exports = Object.assign({}, hct, cam16, viewingConditions)
+export default Object.assign({}, hct, cam16, viewingConditions)

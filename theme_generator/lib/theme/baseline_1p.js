@@ -254,6 +254,6 @@ var BASELINE_1P = {
     }
 };
 
-module.exports = {
+export default {
     BASELINE_1P,
 }

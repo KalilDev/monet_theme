@@ -9,7 +9,7 @@ function android_capitalize(value) {
     return void 0 === value || 0 === value.length ? '' : value[0].toUpperCase() + value.slice(1);
 }
 
-module.exports = {
+export default {
     android_xmlifyProperty,
     android_capitalize,
 }

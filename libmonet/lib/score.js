@@ -1,7 +1,7 @@
 'use strict';
-const utils = require('./utils/utils.js');
-const color_utils = require('./utils/color_utils.js');
-const cam16 = require('./hct/cam16.js')
+import { math_utils_sanitizeDegrees } from './utils/utils.js';
+import { lstarFromInt } from './utils/color_utils.js';
+import { CAM16 } from './hct/cam16.js';
 
 function score(colorsToPopulation) {
     let populationSum = 0;
@@ -11,7 +11,7 @@ function score(colorsToPopulation) {
     for (const [color__tsickle_destructured_1, population__tsickle_destructured_2] of colorsToPopulation.entries()) {
         const color = color__tsickle_destructured_1, proportion = population__tsickle_destructured_2 / populationSum;
         colorsToProportion.set(color, proportion);
-        const cam = cam16.CAM16.fromIntInViewingConditions(color);
+        const cam = CAM16.fromIntInViewingConditions(color);
         colorsToCam.set(color, cam);
         hueProportions[Math.round(cam.hue)] += proportion;
     }
@@ -20,7 +20,7 @@ function score(colorsToPopulation) {
         const color = color__tsickle_destructured_3, hue = Math.round(cam__tsickle_destructured_4.hue);
         let excitedProportion = 0;
         for (let i = hue - 15; i < hue + 15; i++)
-            excitedProportion += hueProportions[utils.math_utils_sanitizeDegrees(i)];
+            excitedProportion += hueProportions[math_utils_sanitizeDegrees(i)];
         colorsToExcitedProportion.set(color, excitedProportion);
     }
     const colorsToScore = new Map();
@@ -51,12 +51,12 @@ var filter = function (colorsToExcitedProportion, colorsToCam) {
     const filtered = [];
     for (const [color__tsickle_destructured_8, cam__tsickle_destructured_9] of colorsToCam.entries()) {
         const color = color__tsickle_destructured_8, cam = cam__tsickle_destructured_9, proportion = colorsToExcitedProportion.get(color);
-        15 <= cam.chroma && 10 <= color_utils.lstarFromInt(color) && 0.01 <= proportion && filtered.push(color);
+        15 <= cam.chroma && 10 <= lstarFromInt(color) && 0.01 <= proportion && filtered.push(color);
     }
     return filtered;
 };
 
-module.exports = {
+export default {
     score,
     filter,
 }

@@ -1,8 +1,8 @@
 'use strict';
-const android_utils = require('./utils.js');
-const base = require('./base.js');
+import { android_capitalize, android_xmlifyProperty } from './utils.js';
+import { ThemeExporter } from './base.js';
 
-class ComposeExporter extends base.ThemeExporter {
+class ComposeExporter extends ThemeExporter {
     constructor() {
         super(...arguments);
         this.themeName = 'AppTheme';
@@ -79,7 +79,7 @@ class ComposeExporter extends base.ThemeExporter {
         ];
         for (const [key__tsickle_destructured_1, value__tsickle_destructured_2] of Object.entries(colors)) {
             const key = key__tsickle_destructured_1, value = value__tsickle_destructured_2;
-            key && value && (colorsToExclude.includes(key, 0) || list.push(`val ${key} = Color(0xFF${android_utils.android_capitalize(value).slice(1)})`));
+            key && value && (colorsToExclude.includes(key, 0) || list.push(`val ${key} = Color(0xFF${android_capitalize(value).slice(1)})`));
         }
         var JSCompiler_inline_result = {
             path: `${this.name}/ui/theme/Color.kt`,
@@ -145,7 +145,7 @@ MaterialTheme(
 var generateColors = function (colors, options) {
     const colorStrings = [], keys = Object.keys(colors);
     for (const key of keys)
-        'colors' !== key && colorStrings.push(`val ${android_utils.android_xmlifyProperty(key, { isLight: null === options || void 0 === options ? void 0 : options.isLight })} = Color(0xFF${android_utils.android_capitalize(Object(colors)[key]).slice(1)})`);
+        'colors' !== key && colorStrings.push(`val ${android_xmlifyProperty(key, { isLight: null === options || void 0 === options ? void 0 : options.isLight })} = Color(0xFF${android_capitalize(Object(colors)[key]).slice(1)})`);
     return colorStrings.join('\n');
 };
 var generateColorScheme = function (colors, options) {
@@ -154,7 +154,7 @@ var generateColorScheme = function (colors, options) {
     declaration = (null === options || void 0 === options ? 0 : options.isLight) ? declaration + 'LightThemeColors = lightColorScheme(\n' : declaration + 'DarkThemeColors = darkColorScheme(\n';
     themeStrings.push(declaration);
     for (const key of keys)
-        'colors' !== key && themeStrings.push(`\t${key} = ${android_utils.android_xmlifyProperty(key, { isLight: null === options || void 0 === options ? void 0 : options.isLight })},`);
+        'colors' !== key && themeStrings.push(`\t${key} = ${android_xmlifyProperty(key, { isLight: null === options || void 0 === options ? void 0 : options.isLight })},`);
     themeStrings.push(')');
     return themeStrings.join('\n');
 };
@@ -170,7 +170,7 @@ var processFontProperty = function (key, value) {
         case 'fontFamilyName':
             return `fontFamily = ${value.replace(' ', '_')}`;
         case 'textDecoration':
-            return `${key} = TextDecoration.${android_utils.android_capitalize(null === value || void 0 === value ? void 0 : value.toLowerCase())}`;
+            return `${key} = TextDecoration.${android_capitalize(null === value || void 0 === value ? void 0 : value.toLowerCase())}`;
         default:
             return '';
     }
@@ -190,6 +190,6 @@ var processFontWeight = function (value) {
     }
 };
 
-module.exports = {
+export default {
     ComposeExporter,
 }

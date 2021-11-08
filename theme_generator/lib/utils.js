@@ -10,7 +10,7 @@ function utils_randomColor() {
     return color;
 }
 
-module.exports = {
+export default {
     utils_keyToLabel,
     utils_randomColor,
 }

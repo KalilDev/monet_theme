@@ -1,4 +1,4 @@
-const core = require('./palettes/core_palette.js')
-const tonal = require('./palettes/tonal_palette.js')
+import core from './palettes/core_palette.js'
+import tonal from './palettes/tonal_palette.js'
 
-module.exports = Object.assign({}, core, tonal)
+export default Object.assign({}, core, tonal)
