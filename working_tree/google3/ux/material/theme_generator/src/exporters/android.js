@@ -1,7 +1,7 @@
 'use strict';
-const google3 = require('google3');
-const exporters = require('../code.js');
-var AndroidExporter = class extends google3.ThemeExporter {
+const android_utils = require('./utils.js');
+const base = require('./base.js');
+class AndroidExporter extends base.ThemeExporter {
     constructor() {
         super(...arguments);
         this.themeName = 'AppTheme';
@@ -69,13 +69,13 @@ var AndroidExporter = class extends google3.ThemeExporter {
                     name = 'colorOnSurfaceInverse';
                     break;
                 case 'background':
-                    name = 'android:color' + exporters.android_capitalize(name);
+                    name = 'android:color' + android_utils.android_capitalize(name);
                     break;
                 default:
-                    name = 'color' + exporters.android_capitalize(name);
+                    name = 'color' + android_utils.android_capitalize(name);
             }
             itemElement.setAttribute('name', name);
-            itemElement.appendChild(doc.createTextNode('@color/' + exporters.android_xmlifyProperty(key, {
+            itemElement.appendChild(doc.createTextNode('@color/' + android_utils.android_xmlifyProperty(key, {
                 isLight: null === options || void 0 === options ? void 0 : options.isLight,
                 prefix: null === options || void 0 === options ? void 0 : options.prefix
             })));
@@ -96,7 +96,7 @@ var AndroidExporter = class extends google3.ThemeExporter {
             if (!key || !value)
                 continue;
             const colorElement = doc.createElement('color');
-            colorElement.setAttribute('name', exporters.android_xmlifyProperty(key, {
+            colorElement.setAttribute('name', android_utils.android_xmlifyProperty(key, {
                 isLight,
                 prefix: null === options || void 0 === options ? void 0 : options.prefix
             }));
@@ -105,7 +105,7 @@ var AndroidExporter = class extends google3.ThemeExporter {
         }
         var JSCompiler_temp_const = list.push;
         const isLight$jscomp$0 = void 0 === (null === options || void 0 === options ? void 0 : options.isLight) || options.isLight, colorElement$jscomp$0 = doc.createElement('color');
-        colorElement$jscomp$0.setAttribute('name', exporters.android_xmlifyProperty('primaryInverse', {
+        colorElement$jscomp$0.setAttribute('name', android_utils.android_xmlifyProperty('primaryInverse', {
             isLight: isLight$jscomp$0,
             prefix: null === options || void 0 === options ? void 0 : options.prefix
         }));
@@ -126,7 +126,7 @@ var getDocumentRoot = function () {
 var generatePrimaryInverseThemeAttribute = function (doc, options) {
     const element = doc.createElement('item');
     element.setAttribute('name', 'colorPrimaryInverse');
-    element.appendChild(doc.createTextNode('@color/' + exporters.android_xmlifyProperty('primaryInverse', {
+    element.appendChild(doc.createTextNode('@color/' + android_utils.android_xmlifyProperty('primaryInverse', {
         isLight: void 0 === (null === options || void 0 === options ? void 0 : options.isLight) || options.isLight,
         prefix: null === options || void 0 === options ? void 0 : options.prefix
     })));

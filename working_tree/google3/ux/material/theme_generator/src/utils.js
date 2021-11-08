@@ -1,10 +1,10 @@
 'use strict';
-const security = require('security');
 function utils_keyToLabel(key) {
     return (key.includes('-') ? key.split('-') : key.replace(/([A-Z][a-z])/g, ' $1').split(' ')).map(e => e.slice(0, 1).toUpperCase() + e.slice(1, e.length)).join(' ');
 }
+// TODO: this is a placeholder
 async function utils_downloadBlob(blob, fileName) {
-    const downloader = new security.SafeDownloader();
+    const downloader = null;
     await downloader.init();
     await downloader.download(blob, fileName);
     downloader.dispose();

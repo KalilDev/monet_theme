@@ -1,7 +1,7 @@
 'use strict';
-const importers = require('../../../src/importers/code.js');
-const src = require('../../../src/code.js');
-const theme = require('../../../src/theme/code.js');
+const importers = require('../../../src/importers.js');
+const src = require('../../../src/utils.js');
+const theme = require('../../../src/theme/utils.js');
 const plugin = require('code.js');
 const components = require('../code.js');
 const google3 = require('google3');

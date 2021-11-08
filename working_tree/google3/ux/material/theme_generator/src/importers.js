@@ -1,13 +1,20 @@
 'use strict';
-const src = require('../code.js');
-const importers = require('code.js');
-const google3 = require('google3');
+const utils = require('./utils.js');
+const themeAdapter = require('theme/index.js');
+
+exports = {
+    dsp_fileListToTextFiles: dsp_fileListToTextFiles,
+    dsp_dspFilesToTheme: dsp_dspFilesToTheme,
+    dsp_processToken: dsp_processToken,
+    dsp_processFontToken: dsp_processFontToken,
+}
+
 async function dsp_fileListToTextFiles(files) {
     const result = [];
     if (!files || 0 === files.length)
         return result;
     for (const file of files) {
-        const path = file.name, content = await src.utils_readFileString(file);
+        const path = file.name, content = await utils.utils_readFileString(file);
         result.push({
             path,
             content
@@ -18,7 +25,7 @@ async function dsp_fileListToTextFiles(files) {
 function dsp_dspFilesToTheme(files) {
     var _a;
     console.log('files', files);
-    const theme = google3.ThemeAdapter.default().save(), isValid = fileName => {
+    const theme = themeAdapter.ThemeAdapter.default().save(), isValid = fileName => {
         for (const suffix of [
             'dsp.json',
             'tokens.json',
@@ -40,11 +47,11 @@ function dsp_dspFilesToTheme(files) {
                     const target = obj.entities.find(n => `{${n.id}}` === token.value);
                     token.value = null === target || void 0 === target ? void 0 : target.value;
                 }
-                importers.dsp_processToken(token, theme, files);
+                dsp_processToken(token, theme, files);
             }
     }
     console.log('parsed theme', theme);
-    return google3.fromTheme(theme);
+    return themeAdapter.ThemeAdapter.fromTheme(theme);
 }
 function dsp_processToken(token, theme, files) {
     console.log('token', token.id, token.category_id);
@@ -62,7 +69,7 @@ function dsp_processToken(token, theme, files) {
             }
         }
     };
-    'sys.color.light' === (null === token || void 0 === token ? void 0 : token.category_id) ? parseTheme('light') : 'sys.color.dark' === (null === token || void 0 === token ? void 0 : token.category_id) ? parseTheme('dark') : token.id.startsWith('md.sys.typescale') && importers.dsp_processFontToken(token, theme, files);
+    'sys.color.light' === (null === token || void 0 === token ? void 0 : token.category_id) ? parseTheme('light') : 'sys.color.dark' === (null === token || void 0 === token ? void 0 : token.category_id) ? parseTheme('dark') : token.id.startsWith('md.sys.typescale') && dsp_processFontToken(token, theme, files);
 }
 function dsp_processFontToken(token, theme, files) {
     var _a;

@@ -1,12 +1,12 @@
 'use strict';
-const theme = require('../code.js');
+const utils = require('./utils.js');
 var KEY_COLORS = 'primary secondary tertiary neutral neutralVariant error'.split(' ');
 var DEFAULT_COLORS = {
     baseline: {
-        '3p': theme.defaults_COLORS_3P,
-        '1p': theme.defaults_COLORS_1P,
-        context_3p: theme.defaults_COLORS_3P.seed,
-        context_1p: theme.defaults_COLORS_1P.seed
+        '3p': utils.defaults_COLORS_3P,
+        '1p': utils.defaults_COLORS_1P,
+        context_3p: utils.defaults_COLORS_3P.seed,
+        context_1p: utils.defaults_COLORS_1P.seed
     },
     theme: {
         green: '#386A20',

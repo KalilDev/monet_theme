@@ -1,6 +1,6 @@
 'use strict';
-const google3 = require('google3');
-var DspExporter = class extends google3.ThemeExporter {
+const base = require('./base.js');
+var DspExporter = class extends base.ThemeExporter {
     generate() {
         var JSCompiler_inline_result = {
             dateCreated: new Date(Date.now()).toUTCString(),

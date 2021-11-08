@@ -1,15 +1,16 @@
 'use strict';
-const compat = require('../../../../../third_party/javascript/safevalues/compat/code.js');
 const quantize = require('../../../libmonet/typescript/quantize/code.js');
-const builders = require('../../../../../third_party/javascript/safevalues/builders/code.js');
 const google3 = require('google3');
+const b1p = require('./baseline_1p.js');
+const b3p = require('./baseline_3p.js');
+
 function checks_isTheme3p(theme) {
     var _a, _b;
     return 'Roboto' === (null === (_b = null === (_a = null === theme || void 0 === theme ? void 0 : theme.styles) || void 0 === _a ? void 0 : _a.headline1) || void 0 === _b ? void 0 : _b.fontFamilyName);
 }
 function checks_isThemeBaseline(theme) {
     let match$jscomp$0 = !0;
-    const target = checks_isTheme3p(theme) ? google3.BASELINE_3P : google3.BASELINE_1P, checkGroup = (name, group, targetGroup) => {
+    const target = checks_isTheme3p(theme) ? b3p.BASELINE_3P : b1p.BASELINE_1P, checkGroup = (name, group, targetGroup) => {
         if (match$jscomp$0) {
             let match;
             (match = checks_isSameColor(group.luminance0, targetGroup.luminance0)) && (match = checks_isSameColor(group.luminance10, targetGroup.luminance10));
@@ -105,21 +106,9 @@ const defaults_COLORS_1P = {
     neutralVariant: '#585F65',
     error: '#BA1B1B'
 };
+// TODO: this is a placeholder
 async function image_utils_decodeToImageData(bytes) {
-    const url = builders.safe_url_builders_fromBlob(new Blob([bytes], { type: 'image/png' })), image = await new Promise((resolve, reject) => {
-        const img = new Image();
-        img.onload = () => {
-            resolve(img);
-        };
-        img.onerror = () => {
-            reject();
-        };
-        img.src = compat.index_unwrapSafeUrl(url);
-    }), ctx = document.createElement('canvas').getContext('2d');
-    ctx.canvas.width = 112;
-    ctx.canvas.height = 112;
-    ctx.drawImage(image, 0, 0, image.width, image.height, 0, 0, ctx.canvas.width, ctx.canvas.height);
-    return ctx.getImageData(0, 0, image.width, image.height);
+    return null;
 }
 async function image_utils_bufferToPixels(buffer) {
     const imageBytes = new Uint8Array(buffer), imageData = await theme.image_utils_decodeToImageData(imageBytes), pixels = [];
