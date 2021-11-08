@@ -9,7 +9,7 @@ var score = function (colorsToPopulation) {
     for (const [color__tsickle_destructured_1, population__tsickle_destructured_2] of colorsToPopulation.entries()) {
         const color = color__tsickle_destructured_1, proportion = population__tsickle_destructured_2 / populationSum;
         colorsToProportion.set(color, proportion);
-        const cam = google3.fromIntInViewingConditions(color);
+        const cam = google3.CAM16.fromIntInViewingConditions(color);
         colorsToCam.set(color, cam);
         hueProportions[Math.round(cam.hue)] += proportion;
     }

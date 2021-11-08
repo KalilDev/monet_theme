@@ -1,7 +1,6 @@
 'use strict';
 const compat = require('../../../../../third_party/javascript/safevalues/compat/code.js');
 const quantize = require('../../../libmonet/typescript/quantize/code.js');
-const theme = require('code.js');
 const builders = require('../../../../../third_party/javascript/safevalues/builders/code.js');
 const google3 = require('google3');
 function checks_isTheme3p(theme) {
@@ -10,32 +9,32 @@ function checks_isTheme3p(theme) {
 }
 function checks_isThemeBaseline(theme) {
     let match$jscomp$0 = !0;
-    const target = theme.checks_isTheme3p(theme) ? google3.BASELINE_3P : google3.BASELINE_1P, checkGroup = (name, group, targetGroup) => {
-            if (match$jscomp$0) {
-                let match;
-                (match = theme.checks_isSameColor(group.luminance0, targetGroup.luminance0)) && (match = theme.checks_isSameColor(group.luminance10, targetGroup.luminance10));
-                match && (match = theme.checks_isSameColor(group.luminance20, targetGroup.luminance20));
-                match && (match = theme.checks_isSameColor(group.luminance30, targetGroup.luminance30));
-                match && (match = theme.checks_isSameColor(group.luminance40, targetGroup.luminance40));
-                match && (match = theme.checks_isSameColor(group.luminance50, targetGroup.luminance50));
-                match && (match = theme.checks_isSameColor(group.luminance60, targetGroup.luminance60));
-                match && (match = theme.checks_isSameColor(group.luminance70, targetGroup.luminance70));
-                match && (match = theme.checks_isSameColor(group.luminance80, targetGroup.luminance80));
-                match && (match = theme.checks_isSameColor(group.luminance90, targetGroup.luminance90));
-                match && (match = theme.checks_isSameColor(group.luminance95, targetGroup.luminance95));
-                match && (match = theme.checks_isSameColor(group.luminance98, targetGroup.luminance98));
-                match && (match = theme.checks_isSameColor(group.luminance100, targetGroup.luminance100));
-                match$jscomp$0 = match;
-            }
-            match$jscomp$0 || console.log(`theme adapter ${ name } group mismatch`, group, targetGroup);
-        };
+    const target = checks_isTheme3p(theme) ? google3.BASELINE_3P : google3.BASELINE_1P, checkGroup = (name, group, targetGroup) => {
+        if (match$jscomp$0) {
+            let match;
+            (match = checks_isSameColor(group.luminance0, targetGroup.luminance0)) && (match = checks_isSameColor(group.luminance10, targetGroup.luminance10));
+            match && (match = checks_isSameColor(group.luminance20, targetGroup.luminance20));
+            match && (match = checks_isSameColor(group.luminance30, targetGroup.luminance30));
+            match && (match = checks_isSameColor(group.luminance40, targetGroup.luminance40));
+            match && (match = checks_isSameColor(group.luminance50, targetGroup.luminance50));
+            match && (match = checks_isSameColor(group.luminance60, targetGroup.luminance60));
+            match && (match = checks_isSameColor(group.luminance70, targetGroup.luminance70));
+            match && (match = checks_isSameColor(group.luminance80, targetGroup.luminance80));
+            match && (match = checks_isSameColor(group.luminance90, targetGroup.luminance90));
+            match && (match = checks_isSameColor(group.luminance95, targetGroup.luminance95));
+            match && (match = checks_isSameColor(group.luminance98, targetGroup.luminance98));
+            match && (match = checks_isSameColor(group.luminance100, targetGroup.luminance100));
+            match$jscomp$0 = match;
+        }
+        match$jscomp$0 || console.log(`theme adapter ${name} group mismatch`, group, targetGroup);
+    };
     checkGroup('primary', theme.primary, target.primary);
     checkGroup('secondary', theme.secondary, target.secondary);
     checkGroup('tertiary', theme.tertiary, target.tertiary);
     checkGroup('neutral', theme.neutral, target.neutral);
     checkGroup('neutralVariant', theme.neutralVariant, target.neutralVariant);
     checkGroup('error', theme.error, target.error);
-    console.log(`theme adapter baseline match: ${ match$jscomp$0 }`);
+    console.log(`theme adapter baseline match: ${match$jscomp$0}`);
     return match$jscomp$0;
 }
 function checks_isSameColor(target, expected) {
@@ -45,7 +44,7 @@ function color_utils_numberToHex(value) {
     try {
         return google3.hexFromInt(value);
     } catch (error) {
-        return console.log(`error converting [${ value }] to hex`, error), '#000000';
+        return console.log(`error converting [${value}] to hex`, error), '#000000';
     }
 }
 function tonal_group_tonesToTonalGroup(tones) {
@@ -70,22 +69,22 @@ function tonal_group_tonesToTonalGroup(tones) {
 }
 function tonal_group_convertTonalGroupToMap(prefix, group) {
     const map = new Map();
-    map.set(`${ prefix }-100`, group.luminance100);
-    map.set(`${ prefix }-99`, group.luminance99);
-    map.set(`${ prefix }-98`, group.luminance98);
-    map.set(`${ prefix }-95`, group.luminance95);
-    map.set(`${ prefix }-90`, group.luminance90);
-    map.set(`${ prefix }-80`, group.luminance80);
-    map.set(`${ prefix }-70`, group.luminance70);
-    map.set(`${ prefix }-60`, group.luminance60);
-    map.set(`${ prefix }-50`, group.luminance50);
-    map.set(`${ prefix }-40`, group.luminance40);
-    map.set(`${ prefix }-35`, group.luminance35);
-    map.set(`${ prefix }-30`, group.luminance30);
-    map.set(`${ prefix }-25`, group.luminance25);
-    map.set(`${ prefix }-20`, group.luminance20);
-    map.set(`${ prefix }-10`, group.luminance10);
-    map.set(`${ prefix }-0`, group.luminance0);
+    map.set(`${prefix}-100`, group.luminance100);
+    map.set(`${prefix}-99`, group.luminance99);
+    map.set(`${prefix}-98`, group.luminance98);
+    map.set(`${prefix}-95`, group.luminance95);
+    map.set(`${prefix}-90`, group.luminance90);
+    map.set(`${prefix}-80`, group.luminance80);
+    map.set(`${prefix}-70`, group.luminance70);
+    map.set(`${prefix}-60`, group.luminance60);
+    map.set(`${prefix}-50`, group.luminance50);
+    map.set(`${prefix}-40`, group.luminance40);
+    map.set(`${prefix}-35`, group.luminance35);
+    map.set(`${prefix}-30`, group.luminance30);
+    map.set(`${prefix}-25`, group.luminance25);
+    map.set(`${prefix}-20`, group.luminance20);
+    map.set(`${prefix}-10`, group.luminance10);
+    map.set(`${prefix}-0`, group.luminance0);
     return map;
 }
 const defaults_COLORS_3P = {
@@ -108,15 +107,15 @@ const defaults_COLORS_1P = {
 };
 async function image_utils_decodeToImageData(bytes) {
     const url = builders.safe_url_builders_fromBlob(new Blob([bytes], { type: 'image/png' })), image = await new Promise((resolve, reject) => {
-            const img = new Image();
-            img.onload = () => {
-                resolve(img);
-            };
-            img.onerror = () => {
-                reject();
-            };
-            img.src = compat.index_unwrapSafeUrl(url);
-        }), ctx = document.createElement('canvas').getContext('2d');
+        const img = new Image();
+        img.onload = () => {
+            resolve(img);
+        };
+        img.onerror = () => {
+            reject();
+        };
+        img.src = compat.index_unwrapSafeUrl(url);
+    }), ctx = document.createElement('canvas').getContext('2d');
     ctx.canvas.width = 112;
     ctx.canvas.height = 112;
     ctx.drawImage(image, 0, 0, image.width, image.height, 0, 0, ctx.canvas.width, ctx.canvas.height);
@@ -134,12 +133,12 @@ async function image_utils_bufferToPixels(buffer) {
 }
 async function index_seedFromImage(image) {
     const imageBuffer = 'string' === typeof image ? await (await fetch(image)).arrayBuffer() : image;
-    var pixels = await theme.image_utils_bufferToPixels(imageBuffer), JSCompiler_StaticMethods_quantize$self = new google3.QuantizerWu(), JSCompiler__a;
-    JSCompiler_StaticMethods_quantize$self.weights = Array.from({ length: 35937 }).fill(0);
-    JSCompiler_StaticMethods_quantize$self.momentsR = Array.from({ length: 35937 }).fill(0);
-    JSCompiler_StaticMethods_quantize$self.momentsG = Array.from({ length: 35937 }).fill(0);
-    JSCompiler_StaticMethods_quantize$self.momentsB = Array.from({ length: 35937 }).fill(0);
-    JSCompiler_StaticMethods_quantize$self.moments = Array.from({ length: 35937 }).fill(0);
+    var pixels = await theme.image_utils_bufferToPixels(imageBuffer), quantizer = new google3.QuantizerWu(), JSCompiler__a;
+    quantizer.weights = Array.from({ length: 35937 }).fill(0);
+    quantizer.momentsR = Array.from({ length: 35937 }).fill(0);
+    quantizer.momentsG = Array.from({ length: 35937 }).fill(0);
+    quantizer.momentsB = Array.from({ length: 35937 }).fill(0);
+    quantizer.moments = Array.from({ length: 35937 }).fill(0);
     var JSCompiler__a$jscomp$0;
     const countByColor = new Map();
     for (let i = 0; i < pixels.length; i++) {
@@ -147,44 +146,44 @@ async function index_seedFromImage(image) {
         255 > (pixel & 4278190080) >> 24 >>> 0 || countByColor.set(pixel, (null !== (JSCompiler__a$jscomp$0 = countByColor.get(pixel)) && void 0 !== JSCompiler__a$jscomp$0 ? JSCompiler__a$jscomp$0 : 0) + 1);
     }
     for (const [pixel__tsickle_destructured_1, count__tsickle_destructured_2] of countByColor.entries()) {
-        const pixel = pixel__tsickle_destructured_1, count = count__tsickle_destructured_2, red = (pixel & 16711680) >> 16, green = (pixel & 65280) >> 8, blue = pixel & 255, index = JSCompiler_StaticMethods_getIndex((red >> 3) + 1, (green >> 3) + 1, (blue >> 3) + 1);
-        JSCompiler_StaticMethods_quantize$self.weights[index] = (null !== (JSCompiler__a = JSCompiler_StaticMethods_quantize$self.weights[index]) && void 0 !== JSCompiler__a ? JSCompiler__a : 0) + count;
-        JSCompiler_StaticMethods_quantize$self.momentsR[index] += count * red;
-        JSCompiler_StaticMethods_quantize$self.momentsG[index] += count * green;
-        JSCompiler_StaticMethods_quantize$self.momentsB[index] += count * blue;
-        JSCompiler_StaticMethods_quantize$self.moments[index] += count * (red * red + green * green + blue * blue);
+        const pixel = pixel__tsickle_destructured_1, count = count__tsickle_destructured_2, red = (pixel & 16711680) >> 16, green = (pixel & 65280) >> 8, blue = pixel & 255, index = QuantizerWu.getIndex((red >> 3) + 1, (green >> 3) + 1, (blue >> 3) + 1);
+        quantizer.weights[index] = (null !== (JSCompiler__a = quantizer.weights[index]) && void 0 !== JSCompiler__a ? JSCompiler__a : 0) + count;
+        quantizer.momentsR[index] += count * red;
+        quantizer.momentsG[index] += count * green;
+        quantizer.momentsB[index] += count * blue;
+        quantizer.moments[index] += count * (red * red + green * green + blue * blue);
     }
     for (let r = 1; 33 > r; r++) {
         const area = Array.from({ length: 33 }).fill(0), areaR = Array.from({ length: 33 }).fill(0), areaG = Array.from({ length: 33 }).fill(0), areaB = Array.from({ length: 33 }).fill(0), area2 = Array.from({ length: 33 }).fill(0);
         for (let g = 1; 33 > g; g++) {
             let line = 0, lineR = 0, lineG = 0, lineB = 0, line2 = 0;
             for (let b = 1; 33 > b; b++) {
-                const index = JSCompiler_StaticMethods_getIndex(r, g, b);
-                line += JSCompiler_StaticMethods_quantize$self.weights[index];
-                lineR += JSCompiler_StaticMethods_quantize$self.momentsR[index];
-                lineG += JSCompiler_StaticMethods_quantize$self.momentsG[index];
-                lineB += JSCompiler_StaticMethods_quantize$self.momentsB[index];
-                line2 += JSCompiler_StaticMethods_quantize$self.moments[index];
+                const index = QuantizerWu.getIndex(r, g, b);
+                line += quantizer.weights[index];
+                lineR += quantizer.momentsR[index];
+                lineG += quantizer.momentsG[index];
+                lineB += quantizer.momentsB[index];
+                line2 += quantizer.moments[index];
                 area[b] += line;
                 areaR[b] += lineR;
                 areaG[b] += lineG;
                 areaB[b] += lineB;
                 area2[b] += line2;
-                const previousIndex = JSCompiler_StaticMethods_getIndex(r - 1, g, b);
-                JSCompiler_StaticMethods_quantize$self.weights[index] = JSCompiler_StaticMethods_quantize$self.weights[previousIndex] + area[b];
-                JSCompiler_StaticMethods_quantize$self.momentsR[index] = JSCompiler_StaticMethods_quantize$self.momentsR[previousIndex] + areaR[b];
-                JSCompiler_StaticMethods_quantize$self.momentsG[index] = JSCompiler_StaticMethods_quantize$self.momentsG[previousIndex] + areaG[b];
-                JSCompiler_StaticMethods_quantize$self.momentsB[index] = JSCompiler_StaticMethods_quantize$self.momentsB[previousIndex] + areaB[b];
-                JSCompiler_StaticMethods_quantize$self.moments[index] = JSCompiler_StaticMethods_quantize$self.moments[previousIndex] + area2[b];
+                const previousIndex = QuantizerWu.getIndex(r - 1, g, b);
+                quantizer.weights[index] = quantizer.weights[previousIndex] + area[b];
+                quantizer.momentsR[index] = quantizer.momentsR[previousIndex] + areaR[b];
+                quantizer.momentsG[index] = quantizer.momentsG[previousIndex] + areaG[b];
+                quantizer.momentsB[index] = quantizer.momentsB[previousIndex] + areaB[b];
+                quantizer.moments[index] = quantizer.moments[previousIndex] + area2[b];
             }
         }
     }
-    var colorCount = JSCompiler_StaticMethods_createBoxes(JSCompiler_StaticMethods_quantize$self).resultCount;
+    var colorCount = quantizer.createBoxes().resultCount;
     const colors = [];
     for (let i = 0; i < colorCount; ++i) {
-        const cube = JSCompiler_StaticMethods_quantize$self.cubes[i], weight = JSCompiler_StaticMethods_quantize$self.volume(cube, JSCompiler_StaticMethods_quantize$self.weights);
+        const cube = quantizer.cubes[i], weight = quantizer.volume(cube, quantizer.weights);
         if (0 < weight) {
-            const r = Math.round(JSCompiler_StaticMethods_quantize$self.volume(cube, JSCompiler_StaticMethods_quantize$self.momentsR) / weight), g = Math.round(JSCompiler_StaticMethods_quantize$self.volume(cube, JSCompiler_StaticMethods_quantize$self.momentsG) / weight), b = Math.round(JSCompiler_StaticMethods_quantize$self.volume(cube, JSCompiler_StaticMethods_quantize$self.momentsB) / weight);
+            const r = Math.round(quantizer.volume(cube, quantizer.momentsR) / weight), g = Math.round(quantizer.volume(cube, quantizer.momentsG) / weight), b = Math.round(quantizer.volume(cube, quantizer.momentsB) / weight);
             colors.push(-16777216 | (r & 255) << 16 | (g & 255) << 8 | b & 255);
         }
     }

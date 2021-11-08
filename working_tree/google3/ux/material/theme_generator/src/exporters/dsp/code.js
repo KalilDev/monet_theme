@@ -10,7 +10,7 @@ var DspExporter = class extends google3.ThemeExporter {
         };
         return [
             {
-                path: `${ this.name }/dsp.json`,
+                path: `${this.name}/dsp.json`,
                 content: JSON.stringify({
                     dsp_spec_version: JSCompiler_inline_result.version,
                     last_updated_by: JSCompiler_inline_result.name,
@@ -215,10 +215,220 @@ var DspExporter = class extends google3.ThemeExporter {
                 }, null, 2),
                 mimeType: 'application/json'
             },
-            JSCompiler_StaticMethods_generateTokens(this, JSCompiler_inline_result),
-            JSCompiler_StaticMethods_generateComponents(this, JSCompiler_inline_result),
-            JSCompiler_StaticMethods_generateDocs(this, JSCompiler_inline_result),
-            JSCompiler_StaticMethods_generateFonts(this, JSCompiler_inline_result)
+            this.generateTokens(JSCompiler_inline_result),
+            this.generateComponents(JSCompiler_inline_result),
+            this.generateDocs(JSCompiler_inline_result),
+            this.generateFonts(JSCompiler_inline_result)
         ];
     }
+
+    generateTokens(config) {
+        return this.createSection(config, 'tokens', base => {
+            const addScheme = (section, scheme) => {
+                for (const [key__tsickle_destructured_1, value__tsickle_destructured_2] of Object.entries(scheme)) {
+                    const value = value__tsickle_destructured_2, tokenKey = key__tsickle_destructured_1.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase();
+                    base.entities.push(createToken({
+                        type: 'color',
+                        name: `md.sys.color.${tokenKey}.${section}`,
+                        category: `sys.color.${section}`,
+                        value,
+                        config
+                    }));
+                }
+            };
+            addScheme('light', this.theme.light);
+            addScheme('dark', this.theme.dark);
+            const schemeKeys = Object.keys(this.theme.light);
+            for (const key of schemeKeys) {
+                const tokenKey = key.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase();
+                base.entities.push(createToken({
+                    type: 'alias',
+                    name: `md.sys.color.${tokenKey}`,
+                    category: 'sys.color',
+                    value: `{md.sys.color.${tokenKey}.${'light'}}`,
+                    config
+                }));
+            }
+            const tonalKeys = 'primary secondary tertiary neutral neutralVariant error'.split(' ');
+            for (const tonalKey of tonalKeys) {
+                const tonalGroup = Object(this.theme)[tonalKey], sectionKey = 'neutralVariant' === tonalKey ? 'neutral-variant' : tonalKey;
+                for (const [key__tsickle_destructured_3, value__tsickle_destructured_4] of Object.entries(tonalGroup)) {
+                    const value = value__tsickle_destructured_4, luminance = key__tsickle_destructured_3.split('luminance')[1];
+                    [
+                        '98',
+                        '35',
+                        '25'
+                    ].includes(luminance) || base.entities.push(createToken({
+                        type: 'color',
+                        name: `md.ref.palette.${`${sectionKey}${luminance}`}`,
+                        category: 'ref.palette',
+                        value,
+                        config
+                    }));
+                }
+            }
+            base.categories = [
+                {
+                    id: 'sys.color.light',
+                    label: 'Light'
+                },
+                {
+                    id: 'sys.color.dark',
+                    label: 'Dark'
+                },
+                {
+                    id: 'sys.color',
+                    label: 'Default'
+                },
+                {
+                    id: 'ref.palette',
+                    label: 'Palette'
+                }
+            ];
+        });
+    };
+    generateComponents(config) {
+        return this.createSection(config, 'components', () => {
+        });
+    };
+    generateDocs(config) {
+        return this.createSection(config, 'docs', () => {
+        });
+    };
+
+    createSection(config, section, update) {
+        const base = {
+            dsp_spec_version: config.version,
+            last_updated_by: config.name,
+            last_updated: config.dateCreated,
+            entities: [],
+            categories: []
+        };
+        update(base);
+        return {
+            path: `${this.name}/data/${section}.json`,
+            content: JSON.stringify(base, null, 2),
+            mimeType: 'application/json'
+        };
+    };
+    generateFonts(config) {
+        return this.createSection(config, 'fonts', base => {
+            for (const [key__tsickle_destructured_5, value__tsickle_destructured_6] of Object.entries(this.theme.styles)) {
+                const key = key__tsickle_destructured_5, value = value__tsickle_destructured_6;
+                let name = key;
+                switch (key) {
+                    case 'display2':
+                        name = 'display-large';
+                        break;
+                    case 'display3':
+                        name = 'display-medium';
+                        break;
+                    case 'headline1':
+                        name = 'display-small';
+                        break;
+                    case 'headline2':
+                        name = 'headline-large';
+                        break;
+                    case 'headline3':
+                        name = 'headline-medium';
+                        break;
+                    case 'headline4':
+                        name = 'headline-small';
+                        break;
+                    case 'headline5':
+                        name = 'title-large';
+                        break;
+                    case 'subhead1':
+                        name = 'title-medium';
+                        break;
+                    case 'subhead2':
+                        name = 'title-small';
+                        break;
+                    case 'body1':
+                        name = 'body-large';
+                        break;
+                    case 'body2':
+                        name = 'body-medium';
+                        break;
+                    case 'caption':
+                        name = 'body-small';
+                        break;
+                    case 'button':
+                        name = 'label-large';
+                        break;
+                    case 'overline':
+                        name = 'label-medium';
+                        break;
+                    case 'labelSmall':
+                        name = 'label-small';
+                }
+                var JSCompiler_temp_const = base.entities, JSCompiler_temp_const$jscomp$0 = JSCompiler_temp_const.push, JSCompiler_object_inline_name_922 = name, JSCompiler_object_inline_value_923 = value, JSCompiler_object_inline_config_924 = config;
+                const token = `md.sys.typescale.${JSCompiler_object_inline_name_922}`;
+                var JSCompiler_inline_result = {
+                    class: 'collection',
+                    type: 'font',
+                    id: token,
+                    name: token,
+                    description: '',
+                    tags: [
+                        ...JSCompiler_object_inline_name_922.split('.'),
+                        'typography'
+                    ],
+                    last_updated_by: JSCompiler_object_inline_config_924.name,
+                    last_updated: JSCompiler_object_inline_config_924.dateCreated,
+                    tokens: [
+                        {
+                            id: `${token}.font`,
+                            type: 'custom',
+                            value: `${JSCompiler_object_inline_value_923.fontFamilyName}`,
+                            key: 'family'
+                        },
+                        {
+                            id: `${token}.line-height`,
+                            type: 'size',
+                            value: `${JSCompiler_object_inline_value_923.lineHeight}`,
+                            key: 'line-height'
+                        },
+                        {
+                            id: `${token}.weight`,
+                            type: 'custom',
+                            value: `${JSCompiler_object_inline_value_923.fontFamilyStyle}`,
+                            key: 'weight'
+                        },
+                        {
+                            id: `${token}.tracking`,
+                            type: 'custom',
+                            value: `${JSCompiler_object_inline_value_923.letterSpacing}`,
+                            key: 'tracking'
+                        },
+                        {
+                            id: `${token}.size`,
+                            type: 'custom',
+                            value: `${JSCompiler_object_inline_value_923.fontSize}`,
+                            key: 'size'
+                        }
+                    ]
+                };
+                JSCompiler_temp_const$jscomp$0.call(JSCompiler_temp_const, JSCompiler_inline_result);
+            }
+        });
+    };
+};
+
+var createToken = function (options) {
+    return {
+        class: 'token',
+        type: options.type,
+        id: options.name,
+        name: options.name,
+        value: options.value,
+        description: '',
+        category_id: options.category,
+        last_updated_by: options.config.name,
+        last_updated: options.config.dateCreated,
+        tags: [
+            ...options.name.split('.'),
+            options.type
+        ]
+    };
 };

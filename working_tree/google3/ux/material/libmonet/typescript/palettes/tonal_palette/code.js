@@ -1,14 +1,13 @@
 'use strict';
 const google3 = require('google3');
-var TonalPalette = class {
+class TonalPalette {
     constructor(hue, chroma) {
         this.hue = hue;
         this.chroma = chroma;
         this.cache = new Map();
     }
     tone(tone) {
-        let argb = this.cache.get(tone);
-        void 0 === argb && (argb = new google3.HCT(this.hue, this.chroma, tone).toInt(), this.cache.set(tone, argb));
+        let argb = google3.putIfAbsent(this.cache, tone, _ => new google3.HCT(this.hue, this.chroma, tone).toInt());
         return argb;
     }
 };

@@ -18,18 +18,18 @@ async function dsp_fileListToTextFiles(files) {
 function dsp_dspFilesToTheme(files) {
     var _a;
     console.log('files', files);
-    const theme = google3.default().save(), isValid = fileName => {
-            for (const suffix of [
-                    'dsp.json',
-                    'tokens.json',
-                    'fonts.json',
-                    'components.json',
-                    'docs.json'
-                ])
-                if (fileName.endsWith(suffix))
-                    return !0;
-            return !1;
-        };
+    const theme = google3.ThemeAdapter.default().save(), isValid = fileName => {
+        for (const suffix of [
+            'dsp.json',
+            'tokens.json',
+            'fonts.json',
+            'components.json',
+            'docs.json'
+        ])
+            if (fileName.endsWith(suffix))
+                return !0;
+        return !1;
+    };
     for (const file of files) {
         if (!isValid(file.path))
             continue;
@@ -37,7 +37,7 @@ function dsp_dspFilesToTheme(files) {
         if (obj.entities)
             for (const token of obj.entities) {
                 for (; null === (_a = token.value) || void 0 === _a ? 0 : _a.startsWith('{');) {
-                    const target = obj.entities.find(n => `{${ n.id }}` === token.value);
+                    const target = obj.entities.find(n => `{${n.id}}` === token.value);
                     token.value = null === target || void 0 === target ? void 0 : target.value;
                 }
                 importers.dsp_processToken(token, theme, files);
@@ -58,7 +58,7 @@ function dsp_processToken(token, theme, files) {
                     const part = parts[i];
                     output += part[0].toUpperCase() + part.substring(1);
                 }
-                Object(theme)[section][output] = `#${ null === value || void 0 === value ? void 0 : value.substring(3) }`;
+                Object(theme)[section][output] = `#${null === value || void 0 === value ? void 0 : value.substring(3)}`;
             }
         }
     };

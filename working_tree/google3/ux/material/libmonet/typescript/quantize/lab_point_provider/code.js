@@ -1,6 +1,6 @@
 'use strict';
 const google3 = require('google3');
-var LabPointProvider = class {
+class LabPointProvider {
     toInt(point) {
         var l = point[0];
         const e = 216 / 24389, kappa = 24389 / 27, fy = (l + 16) / 116, fx = point[1] / 500 + fy, fz = fy - point[2] / 200, fx3 = fx * fx * fx, fz3 = fz * fz * fz;

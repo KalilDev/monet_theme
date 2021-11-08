@@ -1,8 +1,8 @@
 'use strict';
 const google3 = require('google3');
-var CorePalette = class {
+class CorePalette {
     constructor(argb) {
-        const cam = google3.fromIntInViewingConditions(argb);
+        const cam = google3.CAM16.fromIntInViewingConditions(argb);
         var JSCompiler_inline_result = new google3.HCT(cam.hue, cam.chroma, google3.lstarFromInt(argb));
         const hue = JSCompiler_inline_result.hue;
         this.a1 = new google3.TonalPalette(hue, Math.max(48, JSCompiler_inline_result.chroma));
