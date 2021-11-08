@@ -287,7 +287,6 @@ module.exports = {
     tonal_group_convertTonalGroupToMap,
     defaults_COLORS_3P,
     defaults_COLORS_1P,
-    image_utils_decodeToImageData,
     image_utils_bufferToPixels,
     index_seedFromImage,
 }

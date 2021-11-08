@@ -2,7 +2,7 @@
 const base = require('./base.js');
 
 class DspExporter extends base.ThemeExporter {
-    DspExporter() {
+    constructor() {
         super(...arguments)
     }
     generate() {

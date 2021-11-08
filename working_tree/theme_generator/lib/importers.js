@@ -1,5 +1,5 @@
 'use strict';
-const themeAdapter = require('./theme/index.js');
+const themeAdapter = require('./theme.js');
 
 // The user is the one in charge of implementing the readFileString function
 async function dsp_fileListToTextFiles(files, readFileString) {
