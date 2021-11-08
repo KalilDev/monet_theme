@@ -1349,7 +1349,7 @@ var JSCompiler_StaticMethods_randomImage = async function (JSCompiler_StaticMeth
     if (JSCompiler_StaticMethods_randomImage$self.baseline)
         JSCompiler_StaticMethods_resetToBaseline(JSCompiler_StaticMethods_randomImage$self);
     else {
-        const image = google3.IMAGES[Math.floor(Math.random() * google3.IMAGES.length)], seed = await theme.index_seedFromImage(image.wallpaper), theme = google3.fromColor(seed, !0);
+        const image = google3.IMAGES[Math.floor(Math.random() * google3.IMAGES.length)], seed = await theme.index_seedFromImage(image.wallpaper), theme = google3.ThemeAdapter.fromColor(seed, !0);
         theme.props.imageUrl = image.wallpaper;
         JSCompiler_StaticMethods_randomImage$self.setTheme('material-theme', theme);
         JSCompiler_StaticMethods_randomImage$self.start('material-theme');
