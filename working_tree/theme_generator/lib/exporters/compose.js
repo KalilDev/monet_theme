@@ -1,9 +1,7 @@
 'use strict';
 const android_utils = require('./utils.js');
 const base = require('./base.js');
-module.exports = {
-    ComposeExporter: ComposeExporter,
-}
+
 class ComposeExporter extends base.ThemeExporter {
     constructor() {
         super(...arguments);
@@ -191,3 +189,7 @@ var processFontWeight = function (value) {
             return value;
     }
 };
+
+module.exports = {
+    ComposeExporter,
+}

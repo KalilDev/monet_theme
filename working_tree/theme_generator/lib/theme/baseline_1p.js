@@ -1,7 +1,5 @@
 'use strict';
-module.exports = {
-    BASELINE_1P: BASELINE_1P,
-}
+
 var BASELINE_1P = {
     light: {
         background: '#FFFFFF',
@@ -255,3 +253,7 @@ var BASELINE_1P = {
         }
     }
 };
+
+module.exports = {
+    BASELINE_1P,
+}

@@ -1,22 +1,9 @@
 'use strict';
 // { hexFromInt, intFromRgb, QuantizerWu, LabPointProvider, labFromInt, score }
 const libmonet = require('libmonet');
-const quantize = require('../../../libmonet/typescript/quantize/code.js');
 const b1p = require('./baseline_1p.js');
 const b3p = require('./baseline_3p.js');
-module.exports = {
-    checks_isTheme3p: checks_isTheme3p,
-    checks_isThemeBaseline: checks_isThemeBaseline,
-    checks_isSameColor: checks_isSameColor,
-    color_utils_numberToHex: color_utils_numberToHex,
-    tonal_group_tonesToTonalGroup: tonal_group_tonesToTonalGroup,
-    tonal_group_convertTonalGroupToMap: tonal_group_convertTonalGroupToMap,
-    defaults_COLORS_3P: defaults_COLORS_3P,
-    defaults_COLORS_1P: defaults_COLORS_1P,
-    image_utils_decodeToImageData: image_utils_decodeToImageData,
-    image_utils_bufferToPixels: image_utils_bufferToPixels,
-    index_seedFromImage: index_seedFromImage,
-}
+
 function checks_isTheme3p(theme) {
     var _a, _b;
     return 'Roboto' === (null === (_b = null === (_a = null === theme || void 0 === theme ? void 0 : theme.styles) || void 0 === _a ? void 0 : _a.headline1) || void 0 === _b ? void 0 : _b.fontFamilyName);
@@ -224,7 +211,7 @@ async function index_seedFromImage(image, decodeImageData) {
     for (let i = 0; i < clusterCount; i++) {
         distanceToIndexMatrix.push([]);
         for (let j = 0; j < clusterCount; j++)
-            distanceToIndexMatrix[i].push(new quantize.quantizer_wsmeans_DistanceAndIndex());
+            distanceToIndexMatrix[i].push(new libmonet.quantizer_wsmeans_DistanceAndIndex());
     }
     const pixelCountSums = [];
     for (let i = 0; i < clusterCount; i++)
@@ -289,4 +276,18 @@ async function index_seedFromImage(image, decodeImageData) {
     }
     const ranked = libmonet.score(argbToPopulation);
     return libmonet.hexFromInt(ranked[0]);
+}
+
+module.exports = {
+    checks_isTheme3p,
+    checks_isThemeBaseline,
+    checks_isSameColor,
+    color_utils_numberToHex,
+    tonal_group_tonesToTonalGroup,
+    tonal_group_convertTonalGroupToMap,
+    defaults_COLORS_3P,
+    defaults_COLORS_1P,
+    image_utils_decodeToImageData,
+    image_utils_bufferToPixels,
+    index_seedFromImage,
 }

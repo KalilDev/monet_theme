@@ -1,8 +1,6 @@
 'use strict';
 const base = require('./base.js');
-module.exports = {
-    DspExporter: DspExporter
-}
+
 class DspExporter extends base.ThemeExporter {
     DspExporter() {
         super(...arguments)
@@ -438,3 +436,7 @@ var createToken = function (options) {
         ]
     };
 };
+
+module.exports = {
+    DspExporter
+}

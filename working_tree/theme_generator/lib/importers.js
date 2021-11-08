@@ -1,13 +1,6 @@
 'use strict';
 const themeAdapter = require('./theme/index.js');
 
-module.exports = {
-    dsp_fileListToTextFiles: dsp_fileListToTextFiles,
-    dsp_dspFilesToTheme: dsp_dspFilesToTheme,
-    dsp_processToken: dsp_processToken,
-    dsp_processFontToken: dsp_processFontToken,
-}
-
 // The user is the one in charge of implementing the readFileString function
 async function dsp_fileListToTextFiles(files, readFileString) {
     const result = [];
@@ -107,4 +100,11 @@ function dsp_processFontToken(token, theme, files) {
         }
         Object(theme.styles)[section] = style;
     }
+}
+
+module.exports = {
+    dsp_fileListToTextFiles,
+    dsp_dspFilesToTheme,
+    dsp_processToken,
+    dsp_processFontToken,
 }

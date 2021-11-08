@@ -1,10 +1,6 @@
 'use strict';
 const utils = require('./utils.js');
-module.exports = {
-    KEY_COLORS: KEY_COLORS,
-    DEFAULT_COLORS: DEFAULT_COLORS,
 
-}
 var KEY_COLORS = 'primary secondary tertiary neutral neutralVariant error'.split(' ');
 var DEFAULT_COLORS = {
     baseline: {
@@ -29,3 +25,8 @@ var DEFAULT_COLORS = {
     white: '#FFFFFF',
     black: '#000000'
 };
+
+module.exports = {
+    KEY_COLORS,
+    DEFAULT_COLORS,
+}

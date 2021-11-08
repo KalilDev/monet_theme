@@ -1,7 +1,5 @@
 'use strict';
-module.exports = {
-    BASELINE_3P: BASELINE_3P,
-}
+
 var BASELINE_3P = {
     light: {},
     dark: {},
@@ -252,3 +250,7 @@ var BASELINE_3P = {
         }
     }
 };
+
+module.exports = {
+    BASELINE_3P,
+}

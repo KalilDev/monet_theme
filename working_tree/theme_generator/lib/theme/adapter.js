@@ -6,10 +6,6 @@ const defaults = require('./defaults.js');
 const b1p = require('./baseline_1p.js');
 const b3p = require('./baseline_3p.js');
 
-module.exports = {
-    ThemeAdapter: ThemeAdapter,
-}
-
 class ThemeAdapter extends base.ThemeAdapterBase {
 };
 ThemeAdapter.fromColor = function (value, is3p, overrides = {}) {
@@ -91,3 +87,8 @@ ThemeAdapter.default = function (is3p = false) {
         isBaseline: true
     });
 };
+
+
+module.exports = {
+    ThemeAdapter,
+}

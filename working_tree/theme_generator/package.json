@@ -5,6 +5,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "main": "lib/index.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/KalilDev/material_theme_reverse.git",
@@ -21,6 +22,6 @@
   "homepage": "https://github.com/KalilDev/material_theme_reverse#readme",
   "dependencies": {
     "jszip": "^3.7.1",
-    "libmonet": "github:kalildev/material_theme_reverse/libmonet"
+    "libmonet": "github:kalildev/libmonet"
   }
 }
