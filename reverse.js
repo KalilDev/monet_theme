@@ -2,6 +2,8 @@ const fs = require('fs');
 const esprima = require('esprima');
 const escodegen = require('escodegen');
 const esprima_walk = require('esprima-walk');
+// String.prototype.replaceAll
+const core_js = require('core-js');
 
 let jsContent = fs.readFileSync('app.js').toString();
 let program = esprima.parseScript(jsContent);
@@ -76,7 +78,6 @@ let decls = program.body.filter(e => e.type != 'EmptyStatement').flatMap(e => {
 
 
 let members = decls.filter(e => e instanceof Member);
-let ignored = decls.filter(e => e instanceof Raw);
 const useStrict = {
     "type": "ExpressionStatement",
     "expression": {
@@ -86,23 +87,23 @@ const useStrict = {
     },
     "directive": "use strict"
 };
-console.log('Ignoring the following statements: ', ignored.map(e => escodegen.generate(e.body)).join(';;;\n'));
 let files = new Map();
 members.forEach(e => {
-    var result = files.get(e.fileName);
-    if (result === undefined) {
-        result = new Result(e)
-        files.set(e.fileName, result)
-    }
+    var result = putIfAbsent(files, e.fileName, _ => new Result(e.path, e.fileName));
     result.decls.push(e.body)
 });
 
+let ignored = decls.filter(e => e instanceof Raw);
+let ignoredProgram = putIfAbsent(files, 'ignored.js', _ => new Result([], 'ignored.js'))
+ignored.forEach(e => {
+    ignoredProgram.decls.push(e.body);
+})
 
 // An compilation unit which will be built from the analyzed code
-function Result(method) {
+function Result(path, fileName) {
     let decls = [useStrict]
-    this.path = method.path;
-    this.filePath = method.fileName;
+    this.path = path;
+    this.filePath = fileName;
     this.decls = decls;
     this.program = {
         type: "Program",
@@ -150,7 +151,7 @@ function Result(method) {
 }
 
 /*
- * Array utils
+ * Array and Map utils
  */
 
 function zip(a, b) {
@@ -174,8 +175,39 @@ function takeWhile(arr, pred) {
     return result;
 }
 
+function putIfAbsent(map, key, create) {
+    if (map.has(key)) {
+        return map.get(key)
+    }
+    let val = create();
+    map.set(key, val)
+    return val
+}
+
+// An module with imports and exports that will be generated
+function Module(name) {
+    this.name = name;
+    this.imports = new Set();
+    this.exports = [];
+    this.importPathToPrefix = path => path.replaceAll(/[\.\/]/g, '$');
+    this.exportsIds = new Set();
+    this.add = info => {
+        let importPath = [...info.path, 'code.js'].slice(1)
+        let importPathString = importPath.join('/')
+        this.imports.add(importPathString)
+        let prefix = this.importPathToPrefix(importPathString)
+        let exportId = info.name + '$' + prefix;
+        if (this.exportsIds.has(exportId)) {
+            return;
+        }
+        this.exportsIds.add(exportId)
+        this.exports.push({ exportedName: info.name, prefix: prefix })
+    }
+}
+
+let modules = new Map()
 // Rewrite every module$something Identifier into an import and one usage of
-// that import
+// that import. Also register every export from each module
 files.forEach(result => {
     esprima_walk.walk(result.program, e => {
         if (e === null) {
@@ -189,9 +221,13 @@ files.forEach(result => {
         }
         let nameInfo = divideMangledName(e.name);
         if (nameInfo.isExported) {
-            let module = nameInfo.path[0];
-            result.addImport(module);
-            e.name = module + '.' + nameInfo.name;
+            let moduleName = nameInfo.path[0];
+            result.addImport(moduleName);
+            e.name = moduleName + '.' + nameInfo.name;
+
+            // Add the importedName to the imports and exports of the module
+            let module = putIfAbsent(modules, moduleName, _ => new Module(moduleName))
+            module.add(nameInfo)
         } else {
             // find the relative path
             let currentPath = Array.of(...result.path)
@@ -217,6 +253,54 @@ files.forEach(result => {
 fs.rmdirSync('out', { recursive: true })
 fs.mkdirSync('out')
 
+// Create an module index.js for each module with the exports
+modules.forEach((v, k) => {
+    let filePath = k + '/index.js';
+    let unit = new Result([k], filePath)
+    files.set(filePath, unit)
+    for (var impPath of v.imports) {
+        let importPrefix = v.importPathToPrefix(impPath)
+        unit.addImport(importPrefix, impPath)
+    }
+    for (var exp of v.exports) {
+        let name = exp.exportedName;
+        let prefix = exp.prefix;
+        exportDeclaration = {
+            type: "ExpressionStatement",
+            expression: {
+                type: "AssignmentExpression",
+                operator: "=",
+                left: {
+                    type: "MemberExpression",
+                    computed: false,
+                    object: {
+                        type: "Identifier",
+                        name: "exports"
+                    },
+                    property: {
+                        type: "Identifier",
+                        name: name
+                    }
+                },
+                right: {
+                    type: "MemberExpression",
+                    computed: false,
+                    object: {
+                        type: "Identifier",
+                        name: prefix
+                    },
+                    property: {
+                        type: "Identifier",
+                        name: name
+                    }
+                }
+            }
+        };
+        unit.decls.push(exportDeclaration)
+    }
+})
+
+
 // Write into files at the out folder
 files.forEach((v, k) => {
     let parentDir = 'out/' + v.path.join('/')
@@ -228,3 +312,4 @@ files.forEach((v, k) => {
 })
 
 console.log('Done writing the files: ', Array.from(files.keys()))
+//console.log(modules)
