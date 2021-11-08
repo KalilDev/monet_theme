@@ -1,5 +1,10 @@
 'use strict';
 const utils = require('./utils.js');
+exports = {
+    KEY_COLORS: KEY_COLORS,
+    DEFAULT_COLORS: DEFAULT_COLORS,
+
+}
 var KEY_COLORS = 'primary secondary tertiary neutral neutralVariant error'.split(' ');
 var DEFAULT_COLORS = {
     baseline: {

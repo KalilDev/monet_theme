@@ -1,4 +1,7 @@
 'use strict';
+exports = {
+    BASELINE_1P: BASELINE_1P,
+}
 var BASELINE_1P = {
     light: {
         background: '#FFFFFF',

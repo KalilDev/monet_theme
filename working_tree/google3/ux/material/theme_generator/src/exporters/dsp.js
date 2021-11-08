@@ -1,6 +1,9 @@
 'use strict';
 const base = require('./base.js');
-var DspExporter = class extends base.ThemeExporter {
+exports = {
+    DspExporter: DspExporter
+}
+class DspExporter extends base.ThemeExporter {
     generate() {
         var JSCompiler_inline_result = {
             dateCreated: new Date(Date.now()).toUTCString(),

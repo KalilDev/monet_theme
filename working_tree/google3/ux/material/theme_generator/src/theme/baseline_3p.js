@@ -1,4 +1,7 @@
 'use strict';
+exports = {
+    BASELINE_3P: BASELINE_3P,
+}
 var BASELINE_3P = {
     light: {},
     dark: {},

@@ -1,4 +1,12 @@
 'use strict';
+exports = {
+    utils_keyToLabel: utils_keyToLabel,
+    utils_downloadBlob: utils_downloadBlob,
+    utils_readFileBuffer: utils_readFileBuffer,
+    utils_readFileString: utils_readFileString,
+    utils_importDirectory: utils_importDirectory,
+    utils_randomColor: utils_randomColor,
+}
 function utils_keyToLabel(key) {
     return (key.includes('-') ? key.split('-') : key.replace(/([A-Z][a-z])/g, ' $1').split(' ')).map(e => e.slice(0, 1).toUpperCase() + e.slice(1, e.length)).join(' ');
 }

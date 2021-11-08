@@ -1,9 +1,22 @@
 'use strict';
-const quantize = require('../../../libmonet/typescript/quantize/code.js');
+// { hexFromInt, intFromRgb, QuantizerWu, LabPointProvider, labFromInt, score }
 const google3 = require('google3');
+const quantize = require('../../../libmonet/typescript/quantize/code.js');
 const b1p = require('./baseline_1p.js');
 const b3p = require('./baseline_3p.js');
-
+exports = {
+    checks_isTheme3p: checks_isTheme3p,
+    checks_isThemeBaseline: checks_isThemeBaseline,
+    checks_isSameColor: checks_isSameColor,
+    color_utils_numberToHex: color_utils_numberToHex,
+    tonal_group_tonesToTonalGroup: tonal_group_tonesToTonalGroup,
+    tonal_group_convertTonalGroupToMap: tonal_group_convertTonalGroupToMap,
+    defaults_COLORS_3P: defaults_COLORS_3P,
+    defaults_COLORS_1P: defaults_COLORS_1P,
+    image_utils_decodeToImageData: image_utils_decodeToImageData,
+    image_utils_bufferToPixels: image_utils_bufferToPixels,
+    index_seedFromImage: index_seedFromImage,
+}
 function checks_isTheme3p(theme) {
     var _a, _b;
     return 'Roboto' === (null === (_b = null === (_a = null === theme || void 0 === theme ? void 0 : theme.styles) || void 0 === _a ? void 0 : _a.headline1) || void 0 === _b ? void 0 : _b.fontFamilyName);
@@ -135,7 +148,7 @@ async function index_seedFromImage(image) {
         255 > (pixel & 4278190080) >> 24 >>> 0 || countByColor.set(pixel, (null !== (JSCompiler__a$jscomp$0 = countByColor.get(pixel)) && void 0 !== JSCompiler__a$jscomp$0 ? JSCompiler__a$jscomp$0 : 0) + 1);
     }
     for (const [pixel__tsickle_destructured_1, count__tsickle_destructured_2] of countByColor.entries()) {
-        const pixel = pixel__tsickle_destructured_1, count = count__tsickle_destructured_2, red = (pixel & 16711680) >> 16, green = (pixel & 65280) >> 8, blue = pixel & 255, index = QuantizerWu.getIndex((red >> 3) + 1, (green >> 3) + 1, (blue >> 3) + 1);
+        const pixel = pixel__tsickle_destructured_1, count = count__tsickle_destructured_2, red = (pixel & 16711680) >> 16, green = (pixel & 65280) >> 8, blue = pixel & 255, index = google3.QuantizerWu.getIndex((red >> 3) + 1, (green >> 3) + 1, (blue >> 3) + 1);
         quantizer.weights[index] = (null !== (JSCompiler__a = quantizer.weights[index]) && void 0 !== JSCompiler__a ? JSCompiler__a : 0) + count;
         quantizer.momentsR[index] += count * red;
         quantizer.momentsG[index] += count * green;
@@ -147,7 +160,7 @@ async function index_seedFromImage(image) {
         for (let g = 1; 33 > g; g++) {
             let line = 0, lineR = 0, lineG = 0, lineB = 0, line2 = 0;
             for (let b = 1; 33 > b; b++) {
-                const index = QuantizerWu.getIndex(r, g, b);
+                const index = google3.QuantizerWu.getIndex(r, g, b);
                 line += quantizer.weights[index];
                 lineR += quantizer.momentsR[index];
                 lineG += quantizer.momentsG[index];
@@ -158,7 +171,7 @@ async function index_seedFromImage(image) {
                 areaG[b] += lineG;
                 areaB[b] += lineB;
                 area2[b] += line2;
-                const previousIndex = QuantizerWu.getIndex(r - 1, g, b);
+                const previousIndex = google3.QuantizerWu.getIndex(r - 1, g, b);
                 quantizer.weights[index] = quantizer.weights[previousIndex] + area[b];
                 quantizer.momentsR[index] = quantizer.momentsR[previousIndex] + areaR[b];
                 quantizer.momentsG[index] = quantizer.momentsG[previousIndex] + areaG[b];

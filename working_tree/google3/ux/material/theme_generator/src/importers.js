@@ -1,6 +1,6 @@
 'use strict';
 const utils = require('./utils.js');
-const themeAdapter = require('theme/index.js');
+const themeAdapter = require('./theme/index.js');
 
 exports = {
     dsp_fileListToTextFiles: dsp_fileListToTextFiles,

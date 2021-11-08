@@ -1,4 +1,7 @@
 'use strict';
+exports = {
+    ThemeExporter: ThemeExporter,
+}
 class ThemeExporter {
     constructor(theme, name) {
         this.theme = theme;
