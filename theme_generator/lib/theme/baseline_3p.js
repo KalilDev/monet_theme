@@ -1,6 +1,6 @@
 'use strict';
 
-var BASELINE_3P = {
+export const BASELINE_3P = {
     light: {},
     dark: {},
     neutral: {
@@ -250,7 +250,3 @@ var BASELINE_3P = {
         }
     }
 };
-
-export default {
-    BASELINE_3P,
-}

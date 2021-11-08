@@ -4,11 +4,11 @@ import { hexFromInt, intFromRgb, QuantizerWu, LabPointProvider, labFromInt, quan
 import b1p from './baseline_1p.js';
 import b3p from './baseline_3p.js';
 
-function checks_isTheme3p(theme) {
+export function checks_isTheme3p(theme) {
     var _a, _b;
     return 'Roboto' === (null === (_b = null === (_a = null === theme || void 0 === theme ? void 0 : theme.styles) || void 0 === _a ? void 0 : _a.headline1) || void 0 === _b ? void 0 : _b.fontFamilyName);
 }
-function checks_isThemeBaseline(theme) {
+export function checks_isThemeBaseline(theme) {
     let match$jscomp$0 = true;
     const target = checks_isTheme3p(theme) ? b3p.BASELINE_3P : b1p.BASELINE_1P, checkGroup = (name, group, targetGroup) => {
         if (match$jscomp$0) {
@@ -38,17 +38,17 @@ function checks_isThemeBaseline(theme) {
     console.log(`theme adapter baseline match: ${match$jscomp$0}`);
     return match$jscomp$0;
 }
-function checks_isSameColor(target, expected) {
+export function checks_isSameColor(target, expected) {
     return (null === target || void 0 === target ? void 0 : target.toUpperCase()) === (null === expected || void 0 === expected ? void 0 : expected.toUpperCase());
 }
-function color_utils_numberToHex(value) {
+export function color_utils_numberToHex(value) {
     try {
         return hexFromInt(value);
     } catch (error) {
         return console.log(`error converting [${value}] to hex`, error), '#000000';
     }
 }
-function tonal_group_tonesToTonalGroup(tones) {
+export function tonal_group_tonesToTonalGroup(tones) {
     return {
         luminance100: color_utils_numberToHex(tones.tone(100)),
         luminance99: color_utils_numberToHex(tones.tone(99)),
@@ -68,7 +68,7 @@ function tonal_group_tonesToTonalGroup(tones) {
         luminance0: color_utils_numberToHex(tones.tone(0))
     };
 }
-function tonal_group_convertTonalGroupToMap(prefix, group) {
+export function tonal_group_convertTonalGroupToMap(prefix, group) {
     const map = new Map();
     map.set(`${prefix}-100`, group.luminance100);
     map.set(`${prefix}-99`, group.luminance99);
@@ -88,7 +88,7 @@ function tonal_group_convertTonalGroupToMap(prefix, group) {
     map.set(`${prefix}-0`, group.luminance0);
     return map;
 }
-const defaults_COLORS_3P = {
+export const defaults_COLORS_3P = {
     seed: '#6750A4',
     primary: '#6750A4',
     secondary: '#625B71',
@@ -97,7 +97,7 @@ const defaults_COLORS_3P = {
     neutralVariant: '#605D66',
     error: '#BA1B1B'
 };
-const defaults_COLORS_1P = {
+export const defaults_COLORS_1P = {
     seed: '#0B57D0',
     primary: '#0B57D0',
     secondary: '#00639B',
@@ -107,7 +107,7 @@ const defaults_COLORS_1P = {
     error: '#BA1B1B'
 };
 // The user of the api has to implement decodeImageData
-async function image_utils_bufferToPixels(buffer, decodeImageData) {
+export async function image_utils_bufferToPixels(buffer, decodeImageData) {
     const imageBytes = new Uint8Array(buffer), imageData = await decodeImageData(imageBytes), pixels = [];
     for (let i = 0; i < imageData.data.length; i += 4)
         255 > imageData.data[i + 3] || pixels.push(intFromRgb([
@@ -118,7 +118,7 @@ async function image_utils_bufferToPixels(buffer, decodeImageData) {
     return pixels;
 }
 // The user of the api has to implement decodeImageData
-async function index_seedFromImage(image, decodeImageData) {
+export async function index_seedFromImage(image, decodeImageData) {
     const imageBuffer = 'string' === typeof image ? await (await fetch(image)).arrayBuffer() : image;
     var pixels = await theme.image_utils_bufferToPixels(imageBuffer, decodeImageData), quantizer = new QuantizerWu(), JSCompiler__a;
     quantizer.weights = Array.from({ length: 35937 }).fill(0);
@@ -276,17 +276,4 @@ async function index_seedFromImage(image, decodeImageData) {
     }
     const ranked = score(argbToPopulation);
     return hexFromInt(ranked[0]);
-}
-
-export default {
-    checks_isTheme3p,
-    checks_isThemeBaseline,
-    checks_isSameColor,
-    color_utils_numberToHex,
-    tonal_group_tonesToTonalGroup,
-    tonal_group_convertTonalGroupToMap,
-    defaults_COLORS_3P,
-    defaults_COLORS_1P,
-    image_utils_bufferToPixels,
-    index_seedFromImage,
 }

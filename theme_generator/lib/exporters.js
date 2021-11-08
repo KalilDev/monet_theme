@@ -1,6 +1,4 @@
-import android from './exporters/android.js';
-import base from './exporters/base.js';
-import compose from './exporters/compose.js';
-import dsp from './exporters/dsp.js';
-
-export default Object.assign({}, base, android, compose, dsp)
+export * from './exporters/android.js';
+export * from './exporters/base.js';
+export * from './exporters/compose.js';
+export * from './exporters/dsp.js';

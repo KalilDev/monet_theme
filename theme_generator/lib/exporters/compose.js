@@ -2,7 +2,7 @@
 import { android_capitalize, android_xmlifyProperty } from './utils.js';
 import { ThemeExporter } from './base.js';
 
-class ComposeExporter extends ThemeExporter {
+export class ComposeExporter extends ThemeExporter {
     constructor() {
         super(...arguments);
         this.themeName = 'AppTheme';
@@ -189,7 +189,3 @@ var processFontWeight = function (value) {
             return value;
     }
 };
-
-export default {
-    ComposeExporter,
-}

@@ -1,7 +1,9 @@
 'use strict';
-import { JSZip } from 'jszip';
 
-class ThemeExporter {
+import pkg from 'jszip';
+const { JSZip } = pkg;
+
+export class ThemeExporter {
     constructor(theme, name, downloadBlob) {
         this.theme = theme;
         this.name = name;
@@ -18,7 +20,3 @@ class ThemeExporter {
         await this.downloadBlob(blob, fileName);
     };
 };
-
-export default {
-    ThemeExporter,
-}

@@ -1,7 +1,7 @@
 'use strict';
 import { ThemeExporter } from './base.js';
 
-class DspExporter extends ThemeExporter {
+export class DspExporter extends ThemeExporter {
     constructor() {
         super(...arguments)
     }
@@ -436,7 +436,3 @@ var createToken = function (options) {
         ]
     };
 };
-
-export default {
-    DspExporter
-}

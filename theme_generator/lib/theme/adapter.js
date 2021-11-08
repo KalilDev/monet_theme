@@ -6,7 +6,7 @@ import { DEFAULT_COLORS } from './defaults.js';
 import { BASELINE_1P } from './baseline_1p.js';
 import { BASELINE_3P } from './baseline_3p.js';
 
-class ThemeAdapter extends ThemeAdapterBase {
+export class ThemeAdapter extends ThemeAdapterBase {
 };
 ThemeAdapter.fromColor = function (value, is3p, overrides = {}) {
     console.log('theme adapter from color');
@@ -87,8 +87,3 @@ ThemeAdapter.default = function (is3p = false) {
         isBaseline: true
     });
 };
-
-
-export default {
-    ThemeAdapter,
-}

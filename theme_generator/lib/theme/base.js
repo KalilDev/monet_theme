@@ -5,7 +5,7 @@ import { BASELINE_1P } from './baseline_1p.js';
 import { BASELINE_3P } from './baseline_3p.js';
 import { checks_isThemeBaseline, color_utils_numberToHex, tonal_group_tonesToTonalGroup, tonal_group_convertTonalGroupToMap } from './utils.js';
 
-class ThemeAdapterBase {
+export class ThemeAdapterBase {
     constructor(props) {
         this.props = props;
     }
@@ -281,7 +281,3 @@ class ThemeAdapterBase {
         return theme;
     }
 };
-
-export default {
-    ThemeAdapterBase,
-}

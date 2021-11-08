@@ -1,6 +1,6 @@
 'use strict';
 
-var BASELINE_1P = {
+export const BASELINE_1P = {
     light: {
         background: '#FFFFFF',
         surface: '#FFFFFF'
@@ -253,7 +253,3 @@ var BASELINE_1P = {
         }
     }
 };
-
-export default {
-    BASELINE_1P,
-}

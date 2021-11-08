@@ -2,7 +2,7 @@
 import { ThemeAdapter } from './theme.js';
 
 // The user is the one in charge of implementing the readFileString function
-async function dsp_fileListToTextFiles(files, readFileString) {
+export async function dsp_fileListToTextFiles(files, readFileString) {
     const result = [];
     if (!files || 0 === files.length)
         return result;
@@ -15,7 +15,7 @@ async function dsp_fileListToTextFiles(files, readFileString) {
     }
     return result;
 }
-function dsp_dspFilesToTheme(files) {
+export function dsp_dspFilesToTheme(files) {
     var _a;
     console.log('files', files);
     const theme = ThemeAdapter.default().save(), isValid = fileName => {
@@ -46,7 +46,7 @@ function dsp_dspFilesToTheme(files) {
     console.log('parsed theme', theme);
     return ThemeAdapter.fromTheme(theme);
 }
-function dsp_processToken(token, theme, files) {
+export function dsp_processToken(token, theme, files) {
     console.log('token', token.id, token.category_id);
     const parseTheme = section => {
         if (void 0 !== Object(theme)[section]) {
@@ -64,7 +64,7 @@ function dsp_processToken(token, theme, files) {
     };
     'sys.color.light' === (null === token || void 0 === token ? void 0 : token.category_id) ? parseTheme('light') : 'sys.color.dark' === (null === token || void 0 === token ? void 0 : token.category_id) ? parseTheme('dark') : token.id.startsWith('md.sys.typescale') && dsp_processFontToken(token, theme, files);
 }
-function dsp_processFontToken(token, theme, files) {
+export function dsp_processFontToken(token, theme, files) {
     var _a;
     const section = token.id.split('.').pop();
     if ('display1 display2 display3 headline1 headline2 headline3 headline4 headline5 headline6 subhead1 subhead2 button overline caption body1 body2'.split(' ').includes(section)) {
@@ -100,11 +100,4 @@ function dsp_processFontToken(token, theme, files) {
         }
         Object(theme.styles)[section] = style;
     }
-}
-
-export default {
-    dsp_fileListToTextFiles,
-    dsp_dspFilesToTheme,
-    dsp_processToken,
-    dsp_processFontToken,
 }

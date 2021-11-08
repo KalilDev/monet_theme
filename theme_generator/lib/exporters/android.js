@@ -116,15 +116,15 @@ class AndroidExporter extends ThemeExporter {
     };
 };
 
-var getDocumentRoot = function () {
+export function getDocumentRoot() {
     const xmlDoc = document.implementation.createDocument(null, ''), rootElement = xmlDoc.createElement('resources');
     return [
         xmlDoc,
         rootElement
     ];
-};
+}
 
-var generatePrimaryInverseThemeAttribute = function (doc, options) {
+export function generatePrimaryInverseThemeAttribute(doc, options) {
     const element = doc.createElement('item');
     element.setAttribute('name', 'colorPrimaryInverse');
     element.appendChild(doc.createTextNode('@color/' + android_xmlifyProperty('primaryInverse', {
@@ -132,8 +132,4 @@ var generatePrimaryInverseThemeAttribute = function (doc, options) {
         prefix: null === options || void 0 === options ? void 0 : options.prefix
     })));
     return element;
-};
-
-export default {
-    AndroidExporter,
 }

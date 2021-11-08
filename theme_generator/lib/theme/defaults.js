@@ -1,8 +1,8 @@
 'use strict';
 import { defaults_COLORS_3P, defaults_COLORS_1P } from './utils.js';
 
-var KEY_COLORS = 'primary secondary tertiary neutral neutralVariant error'.split(' ');
-var DEFAULT_COLORS = {
+export const KEY_COLORS = 'primary secondary tertiary neutral neutralVariant error'.split(' ');
+export const DEFAULT_COLORS = {
     baseline: {
         '3p': defaults_COLORS_3P,
         '1p': defaults_COLORS_1P,
@@ -25,8 +25,3 @@ var DEFAULT_COLORS = {
     white: '#FFFFFF',
     black: '#000000'
 };
-
-export default {
-    KEY_COLORS,
-    DEFAULT_COLORS,
-}
