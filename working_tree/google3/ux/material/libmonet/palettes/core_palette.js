@@ -1,6 +1,6 @@
 'use strict';
 const utils = require('../utils/color_utils/code.js');
-const hct = require('../hct/index.js')
+const hct = require('../hct.js')
 const tonalPalette = require('./tonal_palette.js')
 
 exports = {

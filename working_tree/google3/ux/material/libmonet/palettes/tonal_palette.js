@@ -1,5 +1,5 @@
 'use strict';
-const hct = require('../hct/index.js');
+const hct = require('../hct.js');
 exports = {
     TonalPalette: TonalPalette,
 }
