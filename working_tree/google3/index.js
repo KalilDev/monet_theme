@@ -35,21 +35,14 @@ const ux$material$libmonet$typescript$hct$cam16$code$js = require('ux/material/l
 const ux$material$libmonet$typescript$hct$viewing_conditions$code$js = require('ux/material/libmonet/typescript/hct/viewing_conditions/code.js');
 const ux$material$theme_generator$ui$components$web$dynamic$code$js = require('ux/material/theme_generator/ui/components/web/dynamic/code.js');
 const ux$material$libmonet$typescript$palettes$core_palette$code$js = require('ux/material/libmonet/typescript/palettes/core_palette/code.js');
-const ux$material$libmonet$typescript$hct$viewing_conditions$ViewingConditions$code$js = require('ux/material/libmonet/typescript/hct/viewing_conditions/ViewingConditions/code.js');
-const ux$material$theme_generator$src$theme$index$ThemeAdapter$code$js = require('ux/material/theme_generator/src/theme/index/ThemeAdapter/code.js');
 const ux$material$theme_generator$src$theme$defaults$code$js = require('ux/material/theme_generator/src/theme/defaults/code.js');
-const ux$material$libmonet$typescript$hct$cam16$CAM16$code$js = require('ux/material/libmonet/typescript/hct/cam16/CAM16/code.js');
 const ux$material$libmonet$typescript$utils$color_utils$code$js = require('ux/material/libmonet/typescript/utils/color_utils/code.js');
 exports.intFromXyzComponents = ux$material$libmonet$typescript$utils$color_utils$code$js.intFromXyzComponents;
-exports.fromIntInViewingConditions = ux$material$libmonet$typescript$hct$cam16$CAM16$code$js.fromIntInViewingConditions;
 exports.lstarFromInt = ux$material$libmonet$typescript$utils$color_utils$code$js.lstarFromInt;
 exports.index = third_party$javascript$typings$jszip$code$js.index;
 exports.KEY_COLORS = ux$material$theme_generator$src$theme$defaults$code$js.KEY_COLORS;
-exports.default = ux$material$theme_generator$src$theme$index$ThemeAdapter$code$js.default;
-exports.DEFAULT = ux$material$libmonet$typescript$hct$viewing_conditions$ViewingConditions$code$js.DEFAULT;
 exports.CorePalette = ux$material$libmonet$typescript$palettes$core_palette$code$js.CorePalette;
 exports.IMAGES = ux$material$theme_generator$ui$components$web$dynamic$code$js.IMAGES;
-exports.fromColor = ux$material$theme_generator$src$theme$index$ThemeAdapter$code$js.fromColor;
 exports.intFromHex = ux$material$libmonet$typescript$utils$color_utils$code$js.intFromHex;
 exports.SafeUrl = third_party$javascript$safevalues$internals$safe_url_impl$code$js.SafeUrl;
 exports.secretToken = third_party$javascript$safevalues$internals$secrets$code$js.secretToken;
@@ -61,7 +54,6 @@ exports.delinearized = ux$material$libmonet$typescript$utils$color_utils$code$js
 exports.ViewingConditions = ux$material$libmonet$typescript$hct$viewing_conditions$code$js.ViewingConditions;
 exports.CAM16 = ux$material$libmonet$typescript$hct$cam16$code$js.CAM16;
 exports.intFromLstar = ux$material$libmonet$typescript$utils$color_utils$code$js.intFromLstar;
-exports.fromJchInViewingConditions = ux$material$libmonet$typescript$hct$cam16$CAM16$code$js.fromJchInViewingConditions;
 exports.HCT = ux$material$libmonet$typescript$hct$hct$code$js.HCT;
 exports.TonalPalette = ux$material$libmonet$typescript$palettes$tonal_palette$code$js.TonalPalette;
 exports.filter = ux$material$libmonet$typescript$score$score$Score$code$js.filter;
@@ -75,9 +67,7 @@ exports.score = ux$material$libmonet$typescript$score$score$Score$code$js.score;
 exports.labFromInt = ux$material$libmonet$typescript$utils$color_utils$code$js.labFromInt;
 exports.ThemeAdapter = ux$material$theme_generator$src$theme$index$code$js.ThemeAdapter;
 exports.DEFAULT_COLORS = ux$material$theme_generator$src$theme$defaults$code$js.DEFAULT_COLORS;
-exports.baselineSeed = ux$material$theme_generator$src$theme$index$ThemeAdapter$code$js.baselineSeed;
 exports.ThemeAdapterBase = ux$material$theme_generator$src$theme$base$code$js.ThemeAdapterBase;
-exports.fromTheme = ux$material$theme_generator$src$theme$index$ThemeAdapter$code$js.fromTheme;
 exports.pluginWelcome = ux$material$theme_generator$ui$svgs$code$js.pluginWelcome;
 exports.getStartedButton = ux$material$theme_generator$ui$svgs$code$js.getStartedButton;
 exports.randomSeedButton = ux$material$theme_generator$ui$svgs$code$js.randomSeedButton;
@@ -108,3 +98,11 @@ exports.pluginStyles = ux$material$theme_generator$ui$components$plugin$index$co
 exports.webStyles = ux$material$theme_generator$ui$components$web$index$code$js.webStyles;
 exports.__metadata = third_party$javascript$tslib$tslib$code$js.__metadata;
 exports.DefaultFocusState = third_party$javascript$material_components_web$menu$constants$code$js.DefaultFocusState;
+exports.putIfAbsent = (map, key, create) => {
+    if (map.has(key)) {
+        return map.get(key)
+    }
+    const val = create();
+    map.set(key, val);
+    return val;
+}

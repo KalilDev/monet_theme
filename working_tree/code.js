@@ -25,12 +25,12 @@ var $jscomp$defineProperty = 'function' == typeof Object.defineProperties ? Obje
 };
 var $jscomp$getGlobal = function (passedInThis) {
     for (var possibleGlobals = [
-                'object' == typeof globalThis && globalThis,
-                passedInThis,
-                'object' == typeof window && window,
-                'object' == typeof self && self,
-                'object' == typeof global && global
-            ], i = 0; i < possibleGlobals.length; ++i) {
+        'object' == typeof globalThis && globalThis,
+        passedInThis,
+        'object' == typeof window && window,
+        'object' == typeof self && self,
+        'object' == typeof global && global
+    ], i = 0; i < possibleGlobals.length; ++i) {
         var maybeGlobal = possibleGlobals[i];
         if (maybeGlobal && maybeGlobal.Math == Math)
             return maybeGlobal;
@@ -265,10 +265,10 @@ var goog$events$BrowserFeature$PASSIVE_EVENTS = function () {
     if (!goog$global.addEventListener || !Object.defineProperty)
         return !1;
     var passive = !1, options = Object.defineProperty({}, 'passive', {
-            get: function () {
-                passive = !0;
-            }
-        });
+        get: function () {
+            passive = !0;
+        }
+    });
     try {
         goog$global.addEventListener('test', goog$nullFunction, options), goog$global.removeEventListener('test', goog$nullFunction, options);
     } catch (e) {
@@ -330,8 +330,8 @@ var goog$events$onStringMap_ = {};
 var goog$events$listenerCountEstimate_ = 0;
 var goog$events$getProxy = function () {
     const proxyCallbackFunction = goog$events$handleBrowserEvent_, f = function (eventObject) {
-            return proxyCallbackFunction.call(f.src, f.listener, eventObject);
-        };
+        return proxyCallbackFunction.call(f.src, f.listener, eventObject);
+    };
     return f;
 };
 var goog$events$listenOnce = function (src, type, listener, opt_options$jscomp$0, opt_handler) {
@@ -529,7 +529,7 @@ var JSCompiler_StaticMethods_createProperty = function (JSCompiler_StaticMethods
     JSCompiler_StaticMethods_createProperty$self.finalize();
     JSCompiler_StaticMethods_createProperty$self.elementProperties.set(name, options);
     if (!options.noAccessor && !JSCompiler_StaticMethods_createProperty$self.prototype.hasOwnProperty(name)) {
-        const descriptor = JSCompiler_StaticMethods_getPropertyDescriptor(name, 'symbol' === typeof name ? Symbol() : `__${ name }`, options);
+        const descriptor = JSCompiler_StaticMethods_getPropertyDescriptor(name, 'symbol' === typeof name ? Symbol() : `__${name}`, options);
         void 0 !== descriptor && Object.defineProperty(JSCompiler_StaticMethods_createProperty$self.prototype, name, descriptor);
     }
 };
@@ -557,7 +557,7 @@ var JSCompiler_StaticMethods_performUpdate = function (JSCompiler_StaticMethods_
                 var _a;
                 !JSCompiler_StaticMethods_performUpdate$self.hasOwnProperty(p) || (null === (_a = JSCompiler_StaticMethods_performUpdate$self.__instanceProperties) || void 0 === _a ? 0 : _a.has(p)) || shadowedProperties.push(p);
             });
-            shadowedProperties.length && !JSCompiler_StaticMethods_performUpdate$self.__allowInstanceProperties && console.warn('The following properties will not trigger updates as expected because they are set using class fields: ' + `${ shadowedProperties.join(', ') }. ` + 'Native class fields and some compiled output will overwrite accessors used for detecting changes. To fix this issue, either initialize properties in the constructor or adjust your compiler settings; for example, for TypeScript set `useDefineForClassFields: false` in your `tsconfig.json`.');
+            shadowedProperties.length && !JSCompiler_StaticMethods_performUpdate$self.__allowInstanceProperties && console.warn('The following properties will not trigger updates as expected because they are set using class fields: ' + `${shadowedProperties.join(', ')}. ` + 'Native class fields and some compiled output will overwrite accessors used for detecting changes. To fix this issue, either initialize properties in the constructor or adjust your compiler settings; for example, for TypeScript set `useDefineForClassFields: false` in your `tsconfig.json`.');
         }
         JSCompiler_StaticMethods_performUpdate$self.__instanceProperties && (JSCompiler_StaticMethods_performUpdate$self.__instanceProperties.forEach((v, p) => JSCompiler_StaticMethods_performUpdate$self[p] = v), JSCompiler_StaticMethods_performUpdate$self.__instanceProperties = void 0);
         var shouldUpdate = !1, changedProperties = JSCompiler_StaticMethods_performUpdate$self._$changedProperties;
@@ -674,9 +674,9 @@ var JSCompiler_StaticMethods_autoposition = function (JSCompiler_StaticMethods_a
             JSCompiler_inline_result$jscomp$1 = avoidHorizontalOverlap ? anchorSize.width - JSCompiler_StaticMethods_autoposition$self.anchorMargin.right : JSCompiler_StaticMethods_autoposition$self.anchorMargin.left;
     }
     const anchorSize$jscomp$1 = JSCompiler_StaticMethods_autoposition$self.measurements.anchorSize, avoidVerticalOverlap = !!(JSCompiler_StaticMethods_autoposition$self.anchorCorner & 1), position = {
-            [horizontalAlignment]: JSCompiler_inline_result$jscomp$1,
-            [verticalAlignment]: JSCompiler_inline_result & 1 ? avoidVerticalOverlap ? anchorSize$jscomp$1.height - JSCompiler_StaticMethods_autoposition$self.anchorMargin.top : -JSCompiler_StaticMethods_autoposition$self.anchorMargin.bottom : avoidVerticalOverlap ? anchorSize$jscomp$1.height + JSCompiler_StaticMethods_autoposition$self.anchorMargin.bottom : JSCompiler_StaticMethods_autoposition$self.anchorMargin.top
-        };
+        [horizontalAlignment]: JSCompiler_inline_result$jscomp$1,
+        [verticalAlignment]: JSCompiler_inline_result & 1 ? avoidVerticalOverlap ? anchorSize$jscomp$1.height - JSCompiler_StaticMethods_autoposition$self.anchorMargin.top : -JSCompiler_StaticMethods_autoposition$self.anchorMargin.bottom : avoidVerticalOverlap ? anchorSize$jscomp$1.height + JSCompiler_StaticMethods_autoposition$self.anchorMargin.bottom : JSCompiler_StaticMethods_autoposition$self.anchorMargin.top
+    };
     JSCompiler_StaticMethods_autoposition$self.measurements.anchorSize.width / JSCompiler_StaticMethods_autoposition$self.measurements.surfaceSize.width > google3.numbers.ANCHOR_TO_MENU_SURFACE_WIDTH_RATIO && (horizontalAlignment = 'center');
     if (JSCompiler_StaticMethods_autoposition$self.isHoistedElement || JSCompiler_StaticMethods_autoposition$self.isFixedPosition) {
         const windowScroll = JSCompiler_StaticMethods_autoposition$self.measurements.windowScroll, viewportDistance = JSCompiler_StaticMethods_autoposition$self.measurements.viewportDistance, surfaceSize = JSCompiler_StaticMethods_autoposition$self.measurements.surfaceSize, viewportSize = JSCompiler_StaticMethods_autoposition$self.measurements.viewportSize, props = Object.keys(position);
@@ -685,7 +685,7 @@ var JSCompiler_StaticMethods_autoposition = function (JSCompiler_StaticMethods_a
             !JSCompiler_StaticMethods_autoposition$self.isHorizontallyCenteredOnViewport || 'left' !== prop && 'right' !== prop ? (value += viewportDistance[prop], JSCompiler_StaticMethods_autoposition$self.isFixedPosition || (value = 'top' === prop ? value + windowScroll.y : 'bottom' === prop ? value - windowScroll.y : 'left' === prop ? value + windowScroll.x : value - windowScroll.x), position[prop] = value) : position[prop] = (viewportSize.width - surfaceSize.width) / 2;
         }
     }
-    JSCompiler_StaticMethods_autoposition$self.adapter.setTransformOrigin(`${ horizontalAlignment } ${ verticalAlignment }`);
+    JSCompiler_StaticMethods_autoposition$self.adapter.setTransformOrigin(`${horizontalAlignment} ${verticalAlignment}`);
     JSCompiler_StaticMethods_autoposition$self.adapter.setPosition(position);
     JSCompiler_StaticMethods_autoposition$self.adapter.setMaxHeight(maxMenuSurfaceHeight ? maxMenuSurfaceHeight + 'px' : '');
     JSCompiler_inline_result & 1 || JSCompiler_StaticMethods_autoposition$self.adapter.addClass(google3.MDCMenuSurfaceFoundation.cssClasses.IS_OPEN_BELOW);
@@ -788,9 +788,9 @@ var JSCompiler_StaticMethods_animateActivation = function (JSCompiler_StaticMeth
     JSCompiler_StaticMethods_animateActivation$self.layoutInternal();
     let translateStart = '', translateEnd = '';
     if (!JSCompiler_StaticMethods_animateActivation$self.adapter.isUnbounded()) {
-        const {startPoint, endPoint} = JSCompiler_StaticMethods_getFgTranslationCoordinates(JSCompiler_StaticMethods_animateActivation$self);
-        translateStart = `${ startPoint.x }px, ${ startPoint.y }px`;
-        translateEnd = `${ endPoint.x }px, ${ endPoint.y }px`;
+        const { startPoint, endPoint } = JSCompiler_StaticMethods_getFgTranslationCoordinates(JSCompiler_StaticMethods_animateActivation$self);
+        translateStart = `${startPoint.x}px, ${startPoint.y}px`;
+        translateEnd = `${endPoint.x}px, ${endPoint.y}px`;
     }
     JSCompiler_StaticMethods_animateActivation$self.adapter.updateCssVariable(VAR_FG_TRANSLATE_START, translateStart);
     JSCompiler_StaticMethods_animateActivation$self.adapter.updateCssVariable(VAR_FG_TRANSLATE_END, translateEnd);
@@ -848,17 +848,17 @@ var JSCompiler_StaticMethods_rmBoundedActivationClasses = function (JSCompiler_S
     JSCompiler_StaticMethods_rmBoundedActivationClasses$self.activationAnimationHasEnded = !1;
     JSCompiler_StaticMethods_rmBoundedActivationClasses$self.adapter.computeBoundingRect();
 };
-var JSCompiler_StaticMethods_animateDeactivation = function (JSCompiler_StaticMethods_animateDeactivation$self, {wasActivatedByPointer, wasElementMadeActive}) {
+var JSCompiler_StaticMethods_animateDeactivation = function (JSCompiler_StaticMethods_animateDeactivation$self, { wasActivatedByPointer, wasElementMadeActive }) {
     (wasActivatedByPointer || wasElementMadeActive) && JSCompiler_StaticMethods_runDeactivationUXLogicIfReady(JSCompiler_StaticMethods_animateDeactivation$self);
 };
 var JSCompiler_StaticMethods_updateLayoutCssVars = function (JSCompiler_StaticMethods_updateLayoutCssVars$self) {
     const VAR_LEFT = google3.MDCRippleFoundation.strings.VAR_LEFT, VAR_TOP = google3.MDCRippleFoundation.strings.VAR_TOP, VAR_FG_SCALE = google3.MDCRippleFoundation.strings.VAR_FG_SCALE;
-    JSCompiler_StaticMethods_updateLayoutCssVars$self.adapter.updateCssVariable(google3.MDCRippleFoundation.strings.VAR_FG_SIZE, `${ JSCompiler_StaticMethods_updateLayoutCssVars$self.initialSize }px`);
+    JSCompiler_StaticMethods_updateLayoutCssVars$self.adapter.updateCssVariable(google3.MDCRippleFoundation.strings.VAR_FG_SIZE, `${JSCompiler_StaticMethods_updateLayoutCssVars$self.initialSize}px`);
     JSCompiler_StaticMethods_updateLayoutCssVars$self.adapter.updateCssVariable(VAR_FG_SCALE, JSCompiler_StaticMethods_updateLayoutCssVars$self.fgScale);
     JSCompiler_StaticMethods_updateLayoutCssVars$self.adapter.isUnbounded() && (JSCompiler_StaticMethods_updateLayoutCssVars$self.unboundedCoords = {
         left: Math.round(JSCompiler_StaticMethods_updateLayoutCssVars$self.frame.width / 2 - JSCompiler_StaticMethods_updateLayoutCssVars$self.initialSize / 2),
         top: Math.round(JSCompiler_StaticMethods_updateLayoutCssVars$self.frame.height / 2 - JSCompiler_StaticMethods_updateLayoutCssVars$self.initialSize / 2)
-    }, JSCompiler_StaticMethods_updateLayoutCssVars$self.adapter.updateCssVariable(VAR_LEFT, `${ JSCompiler_StaticMethods_updateLayoutCssVars$self.unboundedCoords.left }px`), JSCompiler_StaticMethods_updateLayoutCssVars$self.adapter.updateCssVariable(VAR_TOP, `${ JSCompiler_StaticMethods_updateLayoutCssVars$self.unboundedCoords.top }px`));
+    }, JSCompiler_StaticMethods_updateLayoutCssVars$self.adapter.updateCssVariable(VAR_LEFT, `${JSCompiler_StaticMethods_updateLayoutCssVars$self.unboundedCoords.left}px`), JSCompiler_StaticMethods_updateLayoutCssVars$self.adapter.updateCssVariable(VAR_TOP, `${JSCompiler_StaticMethods_updateLayoutCssVars$self.unboundedCoords.top}px`));
 };
 var JSCompiler_StaticMethods_handleChange = function (JSCompiler_StaticMethods_handleChange$self) {
     JSCompiler_StaticMethods_handleChange$self.layout();
@@ -1013,7 +1013,7 @@ var JSCompiler_StaticMethods_searchNodeTreesForAttribute = function (nodes, attr
         if (node instanceof HTMLElement) {
             if (node.hasAttribute(attribute))
                 return node;
-            const selection = node.querySelector(`[${ attribute }]`);
+            const selection = node.querySelector(`[${attribute}]`);
             if (selection)
                 return selection;
         }
@@ -1059,9 +1059,9 @@ var JSCompiler_StaticMethods_isIndexValid_ = function (JSCompiler_StaticMethods_
 };
 var JSCompiler_StaticMethods_setMultiSelectionAtIndex_ = function (JSCompiler_StaticMethods_setMultiSelectionAtIndex_$self, newIndex, isInteraction = !0) {
     const oldArr = Array.from(google3.createSetFromIndex(JSCompiler_StaticMethods_setMultiSelectionAtIndex_$self.selectedIndex_)), newArr = Array.from(newIndex), diff = {
-            added: [],
-            removed: []
-        }, oldSorted = oldArr.sort($m2dlist.$n2dfoundation_integerSort), newSorted = newArr.sort($m2dlist.$n2dfoundation_integerSort);
+        added: [],
+        removed: []
+    }, oldSorted = oldArr.sort($m2dlist.$n2dfoundation_integerSort), newSorted = newArr.sort($m2dlist.$n2dfoundation_integerSort);
     let i = 0, j = 0;
     for (; i < oldSorted.length || j < newSorted.length;) {
         const oldVal = oldSorted[i], newVal = newSorted[j];
@@ -1109,7 +1109,7 @@ var JSCompiler_StaticMethods_focusFirstElement = function (JSCompiler_StaticMeth
     return 0;
 };
 var JSCompiler_StaticMethods_preventDefaultEvent = function (evt) {
-    -1 === $m2dlist.$n2dfoundation_ELEMENTS_KEY_ALLOWED_IN.indexOf(`${ evt.target.tagName }`.toLowerCase()) && evt.preventDefault();
+    -1 === $m2dlist.$n2dfoundation_ELEMENTS_KEY_ALLOWED_IN.indexOf(`${evt.target.tagName}`.toLowerCase()) && evt.preventDefault();
 };
 var JSCompiler_StaticMethods_setSelectedIndexOnAction_ = function (JSCompiler_StaticMethods_setSelectedIndexOnAction_$self, index, isInteraction, force) {
     if (!JSCompiler_StaticMethods_setSelectedIndexOnAction_$self.adapter.getDisabledStateForElementIndex(index)) {
@@ -1212,8 +1212,8 @@ const map$jscomp$14 = window.__litStyleMap;
 const existing$jscomp$11 = map$jscomp$14.get('blaze-out/k8-fastbuild/bin/third_party/javascript/material_web_components/tab_indicator/mwc-tab-indicator.css');
 var JSCompiler_StaticMethods_renderIndicator = function (JSCompiler_StaticMethods_renderIndicator$self) {
     return google3.html`<mwc-tab-indicator
-        .icon="${ JSCompiler_StaticMethods_renderIndicator$self.indicatorIcon }"
-        .fade="${ JSCompiler_StaticMethods_renderIndicator$self.isFadingIndicator }"></mwc-tab-indicator>`;
+        .icon="${JSCompiler_StaticMethods_renderIndicator$self.indicatorIcon}"
+        .fade="${JSCompiler_StaticMethods_renderIndicator$self.isFadingIndicator}"></mwc-tab-indicator>`;
 };
 const map$jscomp$15 = window.__litStyleMap;
 const existing$jscomp$12 = map$jscomp$15.get('blaze-out/k8-fastbuild/bin/third_party/javascript/material_web_components/tab/mwc-tab.css');
@@ -1222,11 +1222,11 @@ const existing$jscomp$13 = map$jscomp$16.get('blaze-out/k8-fastbuild/bin/third_p
 const map$jscomp$17 = window.__litStyleMap;
 const existing$jscomp$14 = map$jscomp$17.get('blaze-out/k8-fastbuild/bin/third_party/javascript/material_web_components/tab_bar/mwc-tab-bar.css');
 var JSCompiler_StaticMethods_renderAffix = function (content, isSuffix = !1) {
-    return google3.html`<span class="mdc-text-field__affix ${ google3.classMap({
+    return google3.html`<span class="mdc-text-field__affix ${google3.classMap({
         'mdc-text-field__affix--prefix': !isSuffix,
         'mdc-text-field__affix--suffix': isSuffix
-    }) }">
-        ${ content }</span>`;
+    })}">
+        ${content}</span>`;
 };
 var JSCompiler_StaticMethods_getRootAdapterMethods = function (JSCompiler_StaticMethods_getRootAdapterMethods$self) {
     return Object.assign({
@@ -1234,8 +1234,8 @@ var JSCompiler_StaticMethods_getRootAdapterMethods = function (JSCompiler_Static
         deregisterTextFieldInteractionHandler: (evtType, handler) => JSCompiler_StaticMethods_getRootAdapterMethods$self.removeEventListener(evtType, handler),
         registerValidationAttributeChangeHandler: handler => {
             const getAttributesList = mutationsList => mutationsList.map(mutation => mutation.attributeName).filter(attributeName => attributeName), observer = new MutationObserver(mutationsList => {
-                    handler(getAttributesList(mutationsList));
-                });
+                handler(getAttributesList(mutationsList));
+            });
             observer.observe(JSCompiler_StaticMethods_getRootAdapterMethods$self.formElement, { attributes: !0 });
             return observer;
         },
@@ -1299,482 +1299,19 @@ var JSCompiler_StaticMethods_getOutlineAdapterMethods = function (JSCompiler_Sta
 const map$jscomp$18 = window.__litStyleMap;
 const existing$jscomp$15 = map$jscomp$18.get('blaze-out/k8-fastbuild/bin/third_party/javascript/material_web_components/textfield/mwc-textfield.css');
 var JSCompiler_StaticMethods_viewed = function (JSCompiler_StaticMethods_viewed$self) {
-    const t = Math.pow((0 === JSCompiler_StaticMethods_viewed$self.chroma || 0 === JSCompiler_StaticMethods_viewed$self.j ? 0 : JSCompiler_StaticMethods_viewed$self.chroma / Math.sqrt(JSCompiler_StaticMethods_viewed$self.j / 100)) / Math.pow(1.64 - Math.pow(0.29, google3.DEFAULT.n), 0.73), 1 / 0.9), hRad = JSCompiler_StaticMethods_viewed$self.hue * Math.PI / 180, p2 = google3.DEFAULT.aw * Math.pow(JSCompiler_StaticMethods_viewed$self.j / 100, 1 / google3.DEFAULT.c / google3.DEFAULT.z) / google3.DEFAULT.nbb, hSin = Math.sin(hRad), hCos = Math.cos(hRad), gamma = 23 * (p2 + 0.305) * t / (50000 / 13 * (Math.cos(hRad + 2) + 3.8) * 5.75 * google3.DEFAULT.nc * google3.DEFAULT.ncb + 11 * t * hCos + 108 * t * hSin), a = gamma * hCos, b = gamma * hSin, rA = (460 * p2 + 451 * a + 288 * b) / 1403, gA = (460 * p2 - 891 * a - 261 * b) / 1403, bA = (460 * p2 - 220 * a - 6300 * b) / 1403, rF = 100 / google3.DEFAULT.fl * utils.math_utils_signum(rA) * Math.pow(Math.max(0, 27.13 * Math.abs(rA) / (400 - Math.abs(rA))), 1 / 0.42) / google3.DEFAULT.rgbD[0], gF = 100 / google3.DEFAULT.fl * utils.math_utils_signum(gA) * Math.pow(Math.max(0, 27.13 * Math.abs(gA) / (400 - Math.abs(gA))), 1 / 0.42) / google3.DEFAULT.rgbD[1], bF = 100 / google3.DEFAULT.fl * utils.math_utils_signum(bA) * Math.pow(Math.max(0, 27.13 * Math.abs(bA) / (400 - Math.abs(bA))), 1 / 0.42) / google3.DEFAULT.rgbD[2];
-    return google3.intFromXyzComponents(1.86206786 * rF - 1.01125463 * gF + 0.14918677 * bF, 0.38752654 * rF + 0.62144744 * gF - 0.00897398 * bF, -0.0158415 * rF - 0.03412294 * gF + 1.04996444 * bF);
+    JSCompiler_StaticMethods_viewed$self.viewed()
 };
 var JSCompiler_StaticMethods_setInternalState = function (JSCompiler_StaticMethods_setInternalState$self, argb) {
-    const cam = google3.fromIntInViewingConditions(argb), tone = google3.lstarFromInt(argb);
-    JSCompiler_StaticMethods_setInternalState$self.internalHue = cam.hue;
-    JSCompiler_StaticMethods_setInternalState$self.internalChroma = cam.chroma;
-    JSCompiler_StaticMethods_setInternalState$self.internalTone = tone;
-};
-var JSCompiler_StaticMethods_createBoxes = function (JSCompiler_StaticMethods_createBoxes$self) {
-    JSCompiler_StaticMethods_createBoxes$self.cubes = Array.from({ length: 256 }).fill(0).map(() => new quantize.quantizer_wu_Box());
-    const volumeVariance = Array.from({ length: 256 }).fill(0);
-    JSCompiler_StaticMethods_createBoxes$self.cubes[0].r0 = 0;
-    JSCompiler_StaticMethods_createBoxes$self.cubes[0].g0 = 0;
-    JSCompiler_StaticMethods_createBoxes$self.cubes[0].b0 = 0;
-    JSCompiler_StaticMethods_createBoxes$self.cubes[0].r1 = 32;
-    JSCompiler_StaticMethods_createBoxes$self.cubes[0].g1 = 32;
-    JSCompiler_StaticMethods_createBoxes$self.cubes[0].b1 = 32;
-    let generatedColorCount = 256, next = 0;
-    for (let i = 1; 256 > i; i++) {
-        JSCompiler_StaticMethods_cut(JSCompiler_StaticMethods_createBoxes$self, JSCompiler_StaticMethods_createBoxes$self.cubes[next], JSCompiler_StaticMethods_createBoxes$self.cubes[i]) ? (volumeVariance[next] = 1 < JSCompiler_StaticMethods_createBoxes$self.cubes[next].vol ? JSCompiler_StaticMethods_variance(JSCompiler_StaticMethods_createBoxes$self, JSCompiler_StaticMethods_createBoxes$self.cubes[next]) : 0, volumeVariance[i] = 1 < JSCompiler_StaticMethods_createBoxes$self.cubes[i].vol ? JSCompiler_StaticMethods_variance(JSCompiler_StaticMethods_createBoxes$self, JSCompiler_StaticMethods_createBoxes$self.cubes[i]) : 0) : (volumeVariance[next] = 0, i--);
-        next = 0;
-        let temp = volumeVariance[0];
-        for (let j = 1; j <= i; j++)
-            volumeVariance[j] > temp && (temp = volumeVariance[j], next = j);
-        if (0 >= temp) {
-            generatedColorCount = i + 1;
-            break;
-        }
-    }
-    return new quantize.quantizer_wu_CreateBoxesResult(generatedColorCount);
+    return JSCompiler_StaticMethods_setInternalState$self(argb);
 };
 var JSCompiler_StaticMethods_getIndex = function (r, g, b) {
-    return (r << 10) + (r << 6) + r + (g << 5) + g + b;
-};
-var JSCompiler_StaticMethods_cut = function (JSCompiler_StaticMethods_cut$self, one, two) {
-    const wholeR = JSCompiler_StaticMethods_cut$self.volume(one, JSCompiler_StaticMethods_cut$self.momentsR), wholeG = JSCompiler_StaticMethods_cut$self.volume(one, JSCompiler_StaticMethods_cut$self.momentsG), wholeB = JSCompiler_StaticMethods_cut$self.volume(one, JSCompiler_StaticMethods_cut$self.momentsB), wholeW = JSCompiler_StaticMethods_cut$self.volume(one, JSCompiler_StaticMethods_cut$self.weights), maxRResult = JSCompiler_StaticMethods_maximize(JSCompiler_StaticMethods_cut$self, one, 'red', one.r0 + 1, one.r1, wholeR, wholeG, wholeB, wholeW), maxGResult = JSCompiler_StaticMethods_maximize(JSCompiler_StaticMethods_cut$self, one, 'green', one.g0 + 1, one.g1, wholeR, wholeG, wholeB, wholeW), maxBResult = JSCompiler_StaticMethods_maximize(JSCompiler_StaticMethods_cut$self, one, 'blue', one.b0 + 1, one.b1, wholeR, wholeG, wholeB, wholeW);
-    let direction;
-    const maxR = maxRResult.maximum, maxG = maxGResult.maximum, maxB = maxBResult.maximum;
-    if (maxR >= maxG && maxR >= maxB) {
-        if (0 > maxRResult.cutLocation)
-            return !1;
-        direction = 'red';
-    } else
-        direction = maxG >= maxR && maxG >= maxB ? 'green' : 'blue';
-    two.r1 = one.r1;
-    two.g1 = one.g1;
-    two.b1 = one.b1;
-    switch (direction) {
-    case 'red':
-        one.r1 = maxRResult.cutLocation;
-        two.r0 = one.r1;
-        two.g0 = one.g0;
-        two.b0 = one.b0;
-        break;
-    case 'green':
-        one.g1 = maxGResult.cutLocation;
-        two.r0 = one.r0;
-        two.g0 = one.g1;
-        two.b0 = one.b0;
-        break;
-    case 'blue':
-        one.b1 = maxBResult.cutLocation;
-        two.r0 = one.r0;
-        two.g0 = one.g0;
-        two.b0 = one.b1;
-        break;
-    default:
-        throw Error('unexpected direction ' + direction);
-    }
-    one.vol = (one.r1 - one.r0) * (one.g1 - one.g0) * (one.b1 - one.b0);
-    two.vol = (two.r1 - two.r0) * (two.g1 - two.g0) * (two.b1 - two.b0);
-    return !0;
-};
-var JSCompiler_StaticMethods_variance = function (JSCompiler_StaticMethods_variance$self, cube) {
-    const dr = JSCompiler_StaticMethods_variance$self.volume(cube, JSCompiler_StaticMethods_variance$self.momentsR), dg = JSCompiler_StaticMethods_variance$self.volume(cube, JSCompiler_StaticMethods_variance$self.momentsG), db = JSCompiler_StaticMethods_variance$self.volume(cube, JSCompiler_StaticMethods_variance$self.momentsB), xx = JSCompiler_StaticMethods_variance$self.moments[JSCompiler_StaticMethods_getIndex(cube.r1, cube.g1, cube.b1)] - JSCompiler_StaticMethods_variance$self.moments[JSCompiler_StaticMethods_getIndex(cube.r1, cube.g1, cube.b0)] - JSCompiler_StaticMethods_variance$self.moments[JSCompiler_StaticMethods_getIndex(cube.r1, cube.g0, cube.b1)] + JSCompiler_StaticMethods_variance$self.moments[JSCompiler_StaticMethods_getIndex(cube.r1, cube.g0, cube.b0)] - JSCompiler_StaticMethods_variance$self.moments[JSCompiler_StaticMethods_getIndex(cube.r0, cube.g1, cube.b1)] + JSCompiler_StaticMethods_variance$self.moments[JSCompiler_StaticMethods_getIndex(cube.r0, cube.g1, cube.b0)] + JSCompiler_StaticMethods_variance$self.moments[JSCompiler_StaticMethods_getIndex(cube.r0, cube.g0, cube.b1)] - JSCompiler_StaticMethods_variance$self.moments[JSCompiler_StaticMethods_getIndex(cube.r0, cube.g0, cube.b0)], hypotenuse = dr * dr + dg * dg + db * db, volume = JSCompiler_StaticMethods_variance$self.volume(cube, JSCompiler_StaticMethods_variance$self.weights);
-    return xx - hypotenuse / volume;
-};
-var JSCompiler_StaticMethods_maximize = function (JSCompiler_StaticMethods_maximize$self, cube, direction, first, last, wholeR, wholeG, wholeB, wholeW) {
-    const bottomR = JSCompiler_StaticMethods_maximize$self.bottom(cube, direction, JSCompiler_StaticMethods_maximize$self.momentsR), bottomG = JSCompiler_StaticMethods_maximize$self.bottom(cube, direction, JSCompiler_StaticMethods_maximize$self.momentsG), bottomB = JSCompiler_StaticMethods_maximize$self.bottom(cube, direction, JSCompiler_StaticMethods_maximize$self.momentsB), bottomW = JSCompiler_StaticMethods_maximize$self.bottom(cube, direction, JSCompiler_StaticMethods_maximize$self.weights);
-    let max = 0, cut = -1, halfR, halfG, halfB, halfW;
-    for (let i = first; i < last; i++) {
-        halfR = bottomR + JSCompiler_StaticMethods_maximize$self.top(cube, direction, i, JSCompiler_StaticMethods_maximize$self.momentsR);
-        halfG = bottomG + JSCompiler_StaticMethods_maximize$self.top(cube, direction, i, JSCompiler_StaticMethods_maximize$self.momentsG);
-        halfB = bottomB + JSCompiler_StaticMethods_maximize$self.top(cube, direction, i, JSCompiler_StaticMethods_maximize$self.momentsB);
-        halfW = bottomW + JSCompiler_StaticMethods_maximize$self.top(cube, direction, i, JSCompiler_StaticMethods_maximize$self.weights);
-        if (0 === halfW)
-            continue;
-        let tempNumerator = halfR * halfR + halfG * halfG + halfB * halfB, tempDenominator = 1 * halfW, temp = tempNumerator / tempDenominator;
-        halfR = wholeR - halfR;
-        halfG = wholeG - halfG;
-        halfB = wholeB - halfB;
-        halfW = wholeW - halfW;
-        0 !== halfW && (tempNumerator = halfR * halfR + halfG * halfG + halfB * halfB, tempDenominator = 1 * halfW, temp += tempNumerator / tempDenominator, temp > max && (max = temp, cut = i));
-    }
-    return new quantize.quantizer_wu_MaximizeResult(cut, max);
-};
-var JSCompiler_StaticMethods_downloadZip = async function (JSCompiler_StaticMethods_downloadZip$self) {
-    const exportFiles = JSCompiler_StaticMethods_downloadZip$self.generate(), zip = new google3.index();
-    for (const file of exportFiles)
-        zip.file(file.path, file.content);
-    const fileName = JSCompiler_StaticMethods_downloadZip$self.name + '.zip', blob = await zip.generateAsync({ type: 'blob' });
-    await src.utils_downloadBlob(blob, fileName);
-};
-var JSCompiler_StaticMethods_generateThemeXML = function (JSCompiler_StaticMethods_generateThemeXML$self, colors, options) {
-    var _a;
-    const rootElement = JSCompiler_StaticMethods_getDocumentRoot()[1], doc = JSCompiler_StaticMethods_getDocumentRoot()[0], styleElement = doc.createElement('style');
-    styleElement.setAttribute('name', JSCompiler_StaticMethods_generateThemeXML$self.themeName);
-    !0 !== (null === options || void 0 === options ? void 0 : options.isLight) && void 0 !== (null === options || void 0 === options ? void 0 : options.isLight) || styleElement.setAttribute('parent', JSCompiler_StaticMethods_generateThemeXML$self.lightBaseTheme);
-    !1 === (null === options || void 0 === options ? void 0 : options.isLight) && styleElement.setAttribute('parent', JSCompiler_StaticMethods_generateThemeXML$self.darkBaseTheme);
-    const keys = Object.keys(colors).filter(obj => 'colors' !== obj);
-    for (const key of keys) {
-        const itemElement = doc.createElement('item');
-        let name = key;
-        switch (key) {
-        case 'inverseSurface':
-            name = 'colorSurfaceInverse';
-            break;
-        case 'inverseOnSurface':
-            name = 'colorOnSurfaceInverse';
-            break;
-        case 'background':
-            name = 'android:color' + exporters.android_capitalize(name);
-            break;
-        default:
-            name = 'color' + exporters.android_capitalize(name);
-        }
-        itemElement.setAttribute('name', name);
-        itemElement.appendChild(doc.createTextNode('@color/' + exporters.android_xmlifyProperty(key, {
-            isLight: null === options || void 0 === options ? void 0 : options.isLight,
-            prefix: null === options || void 0 === options ? void 0 : options.prefix
-        })));
-        styleElement.appendChild(itemElement);
-    }
-    styleElement.append(JSCompiler_StaticMethods_generatePrimaryInverseThemeAttribute(doc, options));
-    rootElement.appendChild(styleElement);
-    return {
-        path: `${ JSCompiler_StaticMethods_generateThemeXML$self.name }/${ null !== (_a = null === options || void 0 === options ? void 0 : options.path) && void 0 !== _a ? _a : 'values/themes.xml' }`,
-        content: JSCompiler_StaticMethods_generateThemeXML$self.serializer.serializeToString(rootElement).replace(/\n/g, '\n    '),
-        mimeType: 'text/xml'
-    };
-};
-var JSCompiler_StaticMethods_getDocumentRoot = function () {
-    const xmlDoc = document.implementation.createDocument(null, ''), rootElement = xmlDoc.createElement('resources');
-    return [
-        xmlDoc,
-        rootElement
-    ];
-};
-var JSCompiler_StaticMethods_generateColorSet = function (JSCompiler_StaticMethods_generateColorSet$self, doc, colors, options) {
-    const list = [], isLight = void 0 === (null === options || void 0 === options ? void 0 : options.isLight) || options.isLight;
-    for (const [key__tsickle_destructured_3, value__tsickle_destructured_4] of Object.entries(colors)) {
-        const key = key__tsickle_destructured_3, value = value__tsickle_destructured_4;
-        if (!key || !value)
-            continue;
-        const colorElement = doc.createElement('color');
-        colorElement.setAttribute('name', exporters.android_xmlifyProperty(key, {
-            isLight,
-            prefix: null === options || void 0 === options ? void 0 : options.prefix
-        }));
-        colorElement.appendChild(doc.createTextNode(value.toUpperCase()));
-        list.push(colorElement);
-    }
-    var JSCompiler_temp_const = list.push;
-    const isLight$jscomp$0 = void 0 === (null === options || void 0 === options ? void 0 : options.isLight) || options.isLight, colorElement$jscomp$0 = doc.createElement('color');
-    colorElement$jscomp$0.setAttribute('name', exporters.android_xmlifyProperty('primaryInverse', {
-        isLight: isLight$jscomp$0,
-        prefix: null === options || void 0 === options ? void 0 : options.prefix
-    }));
-    isLight$jscomp$0 ? colorElement$jscomp$0.appendChild(doc.createTextNode(JSCompiler_StaticMethods_generateColorSet$self.theme.primary.luminance80.toUpperCase())) : colorElement$jscomp$0.appendChild(doc.createTextNode(JSCompiler_StaticMethods_generateColorSet$self.theme.primary.luminance40.toUpperCase()));
-    JSCompiler_temp_const.call(list, colorElement$jscomp$0);
-    return list;
-};
-var JSCompiler_StaticMethods_generatePrimaryInverseThemeAttribute = function (doc, options) {
-    const element = doc.createElement('item');
-    element.setAttribute('name', 'colorPrimaryInverse');
-    element.appendChild(doc.createTextNode('@color/' + exporters.android_xmlifyProperty('primaryInverse', {
-        isLight: void 0 === (null === options || void 0 === options ? void 0 : options.isLight) || options.isLight,
-        prefix: null === options || void 0 === options ? void 0 : options.prefix
-    })));
-    return element;
-};
-var JSCompiler_StaticMethods_generateColors = function (colors, options) {
-    const colorStrings = [], keys = Object.keys(colors);
-    for (const key of keys)
-        'colors' !== key && colorStrings.push(`val ${ exporters.android_xmlifyProperty(key, { isLight: null === options || void 0 === options ? void 0 : options.isLight }) } = Color(0xFF${ exporters.android_capitalize(Object(colors)[key]).slice(1) })`);
-    return colorStrings.join('\n');
-};
-var JSCompiler_StaticMethods_generateColorScheme = function (colors, options) {
-    const themeStrings = [], keys = Object.keys(colors);
-    let declaration = 'private val ';
-    declaration = (null === options || void 0 === options ? 0 : options.isLight) ? declaration + 'LightThemeColors = lightColorScheme(\n' : declaration + 'DarkThemeColors = darkColorScheme(\n';
-    themeStrings.push(declaration);
-    for (const key of keys)
-        'colors' !== key && themeStrings.push(`\t${ key } = ${ exporters.android_xmlifyProperty(key, { isLight: null === options || void 0 === options ? void 0 : options.isLight }) },`);
-    themeStrings.push(')');
-    return themeStrings.join('\n');
-};
-var JSCompiler_StaticMethods_processFontProperty = function (key, value) {
-    switch (key) {
-    case 'fontFamilyStyle':
-        return 'Italic' === value ? `fontStyle = ${ JSCompiler_StaticMethods_processFontWeight(value) }` : `fontWeight = ${ JSCompiler_StaticMethods_processFontWeight(value) }`;
-    case 'letterSpacing':
-    case 'lineHeight':
-    case 'fontSize':
-        return `${ key } = ${ value }.sp`;
-    case 'fontFamilyName':
-        return `fontFamily = ${ value.replace(' ', '_') }`;
-    case 'textDecoration':
-        return `${ key } = TextDecoration.${ exporters.android_capitalize(null === value || void 0 === value ? void 0 : value.toLowerCase()) }`;
-    default:
-        return '';
-    }
-};
-var JSCompiler_StaticMethods_processFontWeight = function (value) {
-    switch (value) {
-    case 'Regular':
-    case 'Normal':
-    case 'Plain':
-        return 'FontWeight.W400';
-    case 'Medium':
-        return 'FontWeight.Medium';
-    case 'Italic':
-        return 'FontStyle.Italic';
-    default:
-        return value;
-    }
-};
-var JSCompiler_StaticMethods_generateTokens = function (JSCompiler_StaticMethods_generateTokens$self, config) {
-    return JSCompiler_StaticMethods_createSection(JSCompiler_StaticMethods_generateTokens$self, config, 'tokens', base => {
-        const addScheme = (section, scheme) => {
-            for (const [key__tsickle_destructured_1, value__tsickle_destructured_2] of Object.entries(scheme)) {
-                const value = value__tsickle_destructured_2, tokenKey = key__tsickle_destructured_1.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase();
-                base.entities.push(JSCompiler_StaticMethods_createToken({
-                    type: 'color',
-                    name: `md.sys.color.${ tokenKey }.${ section }`,
-                    category: `sys.color.${ section }`,
-                    value,
-                    config
-                }));
-            }
-        };
-        addScheme('light', JSCompiler_StaticMethods_generateTokens$self.theme.light);
-        addScheme('dark', JSCompiler_StaticMethods_generateTokens$self.theme.dark);
-        const schemeKeys = Object.keys(JSCompiler_StaticMethods_generateTokens$self.theme.light);
-        for (const key of schemeKeys) {
-            const tokenKey = key.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase();
-            base.entities.push(JSCompiler_StaticMethods_createToken({
-                type: 'alias',
-                name: `md.sys.color.${ tokenKey }`,
-                category: 'sys.color',
-                value: `{md.sys.color.${ tokenKey }.${ 'light' }}`,
-                config
-            }));
-        }
-        const tonalKeys = 'primary secondary tertiary neutral neutralVariant error'.split(' ');
-        for (const tonalKey of tonalKeys) {
-            const tonalGroup = Object(JSCompiler_StaticMethods_generateTokens$self.theme)[tonalKey], sectionKey = 'neutralVariant' === tonalKey ? 'neutral-variant' : tonalKey;
-            for (const [key__tsickle_destructured_3, value__tsickle_destructured_4] of Object.entries(tonalGroup)) {
-                const value = value__tsickle_destructured_4, luminance = key__tsickle_destructured_3.split('luminance')[1];
-                [
-                    '98',
-                    '35',
-                    '25'
-                ].includes(luminance) || base.entities.push(JSCompiler_StaticMethods_createToken({
-                    type: 'color',
-                    name: `md.ref.palette.${ `${ sectionKey }${ luminance }` }`,
-                    category: 'ref.palette',
-                    value,
-                    config
-                }));
-            }
-        }
-        base.categories = [
-            {
-                id: 'sys.color.light',
-                label: 'Light'
-            },
-            {
-                id: 'sys.color.dark',
-                label: 'Dark'
-            },
-            {
-                id: 'sys.color',
-                label: 'Default'
-            },
-            {
-                id: 'ref.palette',
-                label: 'Palette'
-            }
-        ];
-    });
-};
-var JSCompiler_StaticMethods_generateComponents = function (JSCompiler_StaticMethods_generateComponents$self, config) {
-    return JSCompiler_StaticMethods_createSection(JSCompiler_StaticMethods_generateComponents$self, config, 'components', () => {
-    });
-};
-var JSCompiler_StaticMethods_generateDocs = function (JSCompiler_StaticMethods_generateDocs$self, config) {
-    return JSCompiler_StaticMethods_createSection(JSCompiler_StaticMethods_generateDocs$self, config, 'docs', () => {
-    });
-};
-var JSCompiler_StaticMethods_generateFonts = function (JSCompiler_StaticMethods_generateFonts$self, config) {
-    return JSCompiler_StaticMethods_createSection(JSCompiler_StaticMethods_generateFonts$self, config, 'fonts', base => {
-        for (const [key__tsickle_destructured_5, value__tsickle_destructured_6] of Object.entries(JSCompiler_StaticMethods_generateFonts$self.theme.styles)) {
-            const key = key__tsickle_destructured_5, value = value__tsickle_destructured_6;
-            let name = key;
-            switch (key) {
-            case 'display2':
-                name = 'display-large';
-                break;
-            case 'display3':
-                name = 'display-medium';
-                break;
-            case 'headline1':
-                name = 'display-small';
-                break;
-            case 'headline2':
-                name = 'headline-large';
-                break;
-            case 'headline3':
-                name = 'headline-medium';
-                break;
-            case 'headline4':
-                name = 'headline-small';
-                break;
-            case 'headline5':
-                name = 'title-large';
-                break;
-            case 'subhead1':
-                name = 'title-medium';
-                break;
-            case 'subhead2':
-                name = 'title-small';
-                break;
-            case 'body1':
-                name = 'body-large';
-                break;
-            case 'body2':
-                name = 'body-medium';
-                break;
-            case 'caption':
-                name = 'body-small';
-                break;
-            case 'button':
-                name = 'label-large';
-                break;
-            case 'overline':
-                name = 'label-medium';
-                break;
-            case 'labelSmall':
-                name = 'label-small';
-            }
-            var JSCompiler_temp_const = base.entities, JSCompiler_temp_const$jscomp$0 = JSCompiler_temp_const.push, JSCompiler_object_inline_name_922 = name, JSCompiler_object_inline_value_923 = value, JSCompiler_object_inline_config_924 = config;
-            const token = `md.sys.typescale.${ JSCompiler_object_inline_name_922 }`;
-            var JSCompiler_inline_result = {
-                class: 'collection',
-                type: 'font',
-                id: token,
-                name: token,
-                description: '',
-                tags: [
-                    ...JSCompiler_object_inline_name_922.split('.'),
-                    'typography'
-                ],
-                last_updated_by: JSCompiler_object_inline_config_924.name,
-                last_updated: JSCompiler_object_inline_config_924.dateCreated,
-                tokens: [
-                    {
-                        id: `${ token }.font`,
-                        type: 'custom',
-                        value: `${ JSCompiler_object_inline_value_923.fontFamilyName }`,
-                        key: 'family'
-                    },
-                    {
-                        id: `${ token }.line-height`,
-                        type: 'size',
-                        value: `${ JSCompiler_object_inline_value_923.lineHeight }`,
-                        key: 'line-height'
-                    },
-                    {
-                        id: `${ token }.weight`,
-                        type: 'custom',
-                        value: `${ JSCompiler_object_inline_value_923.fontFamilyStyle }`,
-                        key: 'weight'
-                    },
-                    {
-                        id: `${ token }.tracking`,
-                        type: 'custom',
-                        value: `${ JSCompiler_object_inline_value_923.letterSpacing }`,
-                        key: 'tracking'
-                    },
-                    {
-                        id: `${ token }.size`,
-                        type: 'custom',
-                        value: `${ JSCompiler_object_inline_value_923.fontSize }`,
-                        key: 'size'
-                    }
-                ]
-            };
-            JSCompiler_temp_const$jscomp$0.call(JSCompiler_temp_const, JSCompiler_inline_result);
-        }
-    });
-};
-var JSCompiler_StaticMethods_createSection = function (JSCompiler_StaticMethods_createSection$self, config, section, update) {
-    const base = {
-        dsp_spec_version: config.version,
-        last_updated_by: config.name,
-        last_updated: config.dateCreated,
-        entities: [],
-        categories: []
-    };
-    update(base);
-    return {
-        path: `${ JSCompiler_StaticMethods_createSection$self.name }/data/${ section }.json`,
-        content: JSON.stringify(base, null, 2),
-        mimeType: 'application/json'
-    };
-};
-var JSCompiler_StaticMethods_createToken = function (options) {
-    return {
-        class: 'token',
-        type: options.type,
-        id: options.name,
-        name: options.name,
-        value: options.value,
-        description: '',
-        category_id: options.category,
-        last_updated_by: options.config.name,
-        last_updated: options.config.dateCreated,
-        tags: [
-            ...options.name.split('.'),
-            options.type
-        ]
-    };
+    return google3.QuantizerWu.getIndex(r, g, b)
 };
 var JSCompiler_StaticMethods_setCustomColor = function (JSCompiler_StaticMethods_setCustomColor$self, key, value) {
-    var _a, _b, _c, _d;
-    JSCompiler_StaticMethods_setCustomColor$self.props.isBaseline = !1;
-    null !== (_a = (_c = JSCompiler_StaticMethods_setCustomColor$self.props.overrides).source) && void 0 !== _a ? _a : _c.source = Object.assign({}, JSCompiler_StaticMethods_setCustomColor$self.source);
-    JSCompiler_StaticMethods_setCustomColor$self.props.overrides.source[key] = value;
-    if (google3.KEY_COLORS.includes(key)) {
-        null !== (_b = (_d = JSCompiler_StaticMethods_setCustomColor$self.props.overrides).tonalGroups) && void 0 !== _b ? _b : _d.tonalGroups = {};
-        try {
-            var JSCompiler_inline_result = google3.intFromHex(value);
-        } catch (error) {
-            console.log(`error converting [${ value }] to number`, error), JSCompiler_inline_result = google3.intFromHex('#000000');
-        }
-        var keyTones = new google3.CorePalette(JSCompiler_inline_result);
-        switch (key) {
-        case 'primary':
-            JSCompiler_StaticMethods_setCustomColor$self.props.overrides.tonalGroups.primary = theme.tonal_group_tonesToTonalGroup(keyTones.a1);
-            break;
-        case 'secondary':
-            JSCompiler_StaticMethods_setCustomColor$self.props.overrides.tonalGroups.secondary = theme.tonal_group_tonesToTonalGroup(keyTones.a1);
-            break;
-        case 'tertiary':
-            JSCompiler_StaticMethods_setCustomColor$self.props.overrides.tonalGroups.tertiary = theme.tonal_group_tonesToTonalGroup(keyTones.a1);
-            break;
-        case 'error':
-            JSCompiler_StaticMethods_setCustomColor$self.props.overrides.tonalGroups.error = theme.tonal_group_tonesToTonalGroup(keyTones.error);
-            break;
-        case 'neutral':
-            JSCompiler_StaticMethods_setCustomColor$self.props.overrides.tonalGroups.neutral = theme.tonal_group_tonesToTonalGroup(keyTones.n1);
-            break;
-        case 'neutralVariant':
-            JSCompiler_StaticMethods_setCustomColor$self.props.overrides.tonalGroups.neutralVariant = theme.tonal_group_tonesToTonalGroup(keyTones.n2);
-        }
-    }
+    return JSCompiler_StaticMethods_setCustomColor$self.setCustomColor(key, value)
 };
 var JSCompiler_StaticMethods_getColorGroup = function (JSCompiler_StaticMethods_getColorGroup$self, key, tones) {
-    var _a;
-    const groups = null !== (_a = JSCompiler_StaticMethods_getColorGroup$self.props.overrides.tonalGroups) && void 0 !== _a ? _a : {}, overrideGroup = Object(groups)[key];
-    return overrideGroup ? overrideGroup : theme.tonal_group_tonesToTonalGroup(tones);
-};
-var JSCompiler_StaticMethods_getPrimaryTonal = function (JSCompiler_StaticMethods_getPrimaryTonal$self, prefix, palettes) {
-    return (null !== palettes && void 0 !== palettes ? palettes : JSCompiler_StaticMethods_getPrimaryTonal$self.palettes).get(`${ prefix }-40`);
+    return JSCompiler_StaticMethods_getColorGroup$self.getColorGroup(key, tones);
 };
 const map$jscomp$20 = window.__litStyleMap;
 const existing$jscomp$16 = map$jscomp$20.get('ux/material/theme_generator/theme-generator.css');
@@ -1819,7 +1356,7 @@ var JSCompiler_StaticMethods_randomImage = async function (JSCompiler_StaticMeth
     }
 };
 var JSCompiler_StaticMethods_resetToBaseline = function (JSCompiler_StaticMethods_resetToBaseline$self) {
-    const theme = google3.default(!0);
+    const theme = google3.ThemeAdapter.default(!0);
     JSCompiler_StaticMethods_resetToBaseline$self.setTheme('material-theme', theme);
     JSCompiler_StaticMethods_resetToBaseline$self.start('material-theme');
 };
