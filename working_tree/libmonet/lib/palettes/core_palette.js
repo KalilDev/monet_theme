@@ -1,11 +1,8 @@
 'use strict';
-const utils = require('../utils/color_utils/code.js');
+const utils = require('../utils/color_utils.js');
 const hct = require('../hct.js')
 const tonalPalette = require('./tonal_palette.js')
 
-module.exports = {
-    CorePalette: CorePalette,
-}
 class CorePalette {
     constructor(argb) {
         const cam = hct.CAM16.fromIntInViewingConditions(argb);
@@ -19,3 +16,7 @@ class CorePalette {
         this.error = new tonalPalette.TonalPalette(25, 84);
     }
 };
+
+module.exports = {
+    CorePalette,
+}

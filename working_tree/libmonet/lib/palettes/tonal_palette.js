@@ -1,8 +1,6 @@
 'use strict';
 const hct = require('../hct.js');
-module.exports = {
-    TonalPalette: TonalPalette,
-}
+
 class TonalPalette {
     constructor(hue, chroma) {
         this.hue = hue;
@@ -22,4 +20,8 @@ function putIfAbsent(map, key, create) {
     const val = create();
     map.set(key, val);
     return val;
+}
+
+module.exports = {
+    TonalPalette,
 }

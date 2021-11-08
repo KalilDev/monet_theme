@@ -2,9 +2,6 @@
 
 const color_utils = require("../utils/color_utils");
 
-module.exports = {
-    ViewingConditions: ViewingConditions,
-}
 class ViewingConditions {
     constructor(n, aw, nbb, ncb, c, nc, rgbD, fl, fLRoot, z) {
         this.n = n;
@@ -45,3 +42,7 @@ ViewingConditions.DEFAULT = function (whitePoint = color_utils.WHITE_POINT_D65, 
     ];
     return new ViewingConditions(n, (2 * rgbA[0] + rgbA[1] + 0.05 * rgbA[2]) * nbb, nbb, nbb, JSCompiler_temp, f, rgbD, fl, Math.pow(fl, 0.25), 1.48 + Math.sqrt(n));
 }();
+
+module.exports = {
+    ViewingConditions,
+}

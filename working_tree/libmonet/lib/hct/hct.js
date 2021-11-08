@@ -4,10 +4,6 @@ const utils = require('../utils/utils.js');
 const cam16 = require('./cam16.js');
 const color_utils = require('../utils/color_utils.js');
 
-module.exports = {
-    HCT: HCT,
-    hct_getIntInViewingConditions: hct_getIntInViewingConditions,
-}
 class HCT {
     constructor(internalHue, internalChroma, internalTone) {
         this.internalHue = internalHue;
@@ -72,4 +68,9 @@ function hct_getIntInViewingConditions(hue$jscomp$0, chroma$jscomp$0, tone$jscom
         mid = low + (high - low) / 2;
     }
     return null === answer ? color_utils.intFromLstar(tone$jscomp$0) : answer.viewed();
+}
+
+module.exports = {
+    HCT,
+    hct_getIntInViewingConditions,
 }

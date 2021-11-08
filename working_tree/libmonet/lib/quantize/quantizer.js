@@ -1,10 +1,5 @@
 'use strict';
-module.exports = {
-    quantizer_wsmeans_DistanceAndIndex: quantizer_wsmeans_DistanceAndIndex,
-    quantizer_wu_Box: quantizer_wu_Box,
-    quantizer_wu_CreateBoxesResult: quantizer_wu_CreateBoxesResult,
-    quantizer_wu_MaximizeResult: quantizer_wu_MaximizeResult,
-}
+
 class quantizer_wsmeans_DistanceAndIndex {
     constructor() {
         this.index = this.distance = -1;
@@ -25,4 +20,11 @@ class quantizer_wu_MaximizeResult {
         this.cutLocation = cutLocation;
         this.maximum = maximum;
     }
+}
+
+module.exports = {
+    quantizer_wsmeans_DistanceAndIndex,
+    quantizer_wu_Box,
+    quantizer_wu_CreateBoxesResult,
+    quantizer_wu_MaximizeResult,
 }

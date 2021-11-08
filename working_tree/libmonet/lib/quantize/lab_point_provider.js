@@ -1,8 +1,6 @@
 'use strict';
 const utils = require('../utils/color_utils.js');
-module.exports = {
-    LabPointProvider: LabPointProvider,
-}
+
 class LabPointProvider {
     toInt(point) {
         var l = point[0];
@@ -19,3 +17,7 @@ class LabPointProvider {
         return dL * dL + dA * dA + dB * dB;
     }
 };
+
+module.exports = {
+    LabPointProvider,
+}

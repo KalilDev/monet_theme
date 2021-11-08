@@ -1,8 +1,5 @@
 'use strict';
-module.exports = {
-    QuantizerWu: QuantizerWu,
 
-}
 class QuantizerWu {
     constructor() {
         this.weights = [];
@@ -130,3 +127,7 @@ class QuantizerWu {
 QuantizerWu.getIndex = function (r, g, b) {
     return (r << 10) + (r << 6) + r + (g << 5) + g + b;
 };
+
+module.exports = {
+    QuantizerWu,
+}

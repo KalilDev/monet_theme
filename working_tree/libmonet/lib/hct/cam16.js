@@ -3,9 +3,6 @@ const viewingConditions = require('./viewing_conditions.js')
 const utils = require('../utils/utils.js')
 const color_utils = require('../utils/color_utils.js')
 
-module.exports = {
-    CAM16: CAM16,
-}
 class CAM16 {
     constructor(hue, chroma, j, q, s, jstar, astar, bstar) {
         this.hue = hue;
@@ -34,3 +31,7 @@ CAM16.fromJchInViewingConditions = function (j, c, h) {
     const hueRadians = h * Math.PI / 180, mstar = 1 / 0.0228 * Math.log(1 + 0.0228 * c * viewingConditions.ViewingConditions.DEFAULT.fLRoot);
     return new CAM16(h, c, j, 4 / viewingConditions.ViewingConditions.DEFAULT.c * Math.sqrt(j / 100) * (viewingConditions.ViewingConditions.DEFAULT.aw + 4) * viewingConditions.ViewingConditions.DEFAULT.fLRoot, 50 * Math.sqrt(c / Math.sqrt(j / 100) * viewingConditions.ViewingConditions.DEFAULT.c / (viewingConditions.ViewingConditions.DEFAULT.aw + 4)), (1 + 100 * 0.007) * j / (1 + 0.007 * j), mstar * Math.cos(hueRadians), mstar * Math.sin(hueRadians));
 };
+
+module.exports = {
+    CAM16,
+}

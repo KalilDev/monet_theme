@@ -2,10 +2,7 @@
 const utils = require('./utils/utils.js');
 const color_utils = require('./utils/color_utils.js');
 const cam16 = require('./hct/cam16.js')
-module.exports = {
-    score: score,
-    filter: filter,
-}
+
 function score(colorsToPopulation) {
     let populationSum = 0;
     for (const population of colorsToPopulation.values())
@@ -58,3 +55,8 @@ var filter = function (colorsToExcitedProportion, colorsToCam) {
     }
     return filtered;
 };
+
+module.exports = {
+    score,
+    filter,
+}

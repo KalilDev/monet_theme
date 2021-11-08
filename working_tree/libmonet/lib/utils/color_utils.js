@@ -1,17 +1,6 @@
 'use strict';
 const utils = require('./utils.js');
-module.exports = {
-    WHITE_POINT_D65: WHITE_POINT_D65,
-    lstarFromInt: lstarFromInt,
-    hexFromInt: hexFromInt,
-    intFromRgb: intFromRgb,
-    labFromInt: labFromInt,
-    intFromXyzComponents: intFromXyzComponents,
-    intFromHex: intFromHex,
-    intFromLstar: intFromLstar,
-    linearized: linearized,
-    delinearized: delinearized,
-}
+
 var WHITE_POINT_D65 = [
     95.047,
     100,
@@ -76,3 +65,16 @@ var intFromLstar = lstar => {
 };
 var linearized = rgb => 0.04045 >= rgb ? rgb / 12.92 : Math.pow((rgb + 0.055) / 1.055, 2.4);
 var delinearized = rgb => 0.0031308 >= rgb ? 12.92 * rgb : 1.055 * Math.pow(rgb, 1 / 2.4) - 0.055;
+
+module.exports = {
+    WHITE_POINT_D65,
+    lstarFromInt,
+    hexFromInt,
+    intFromRgb,
+    labFromInt,
+    intFromXyzComponents,
+    intFromHex,
+    intFromLstar,
+    linearized,
+    delinearized,
+}
