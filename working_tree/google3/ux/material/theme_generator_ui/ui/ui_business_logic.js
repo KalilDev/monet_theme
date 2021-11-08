@@ -2,9 +2,10 @@
 const src = require('../../../src/code.js');
 const google3 = require('google3');
 
-async function dynamic_handleImage(context, url) {
+// The user is responsible for implementing decodeImageData
+async function dynamic_handleImage(context, url, decodeImageData) {
     var _a;
-    const seed = await theme.index_seedFromImage(url);
+    const seed = await theme.index_seedFromImage(url, decodeImageData);
     const theme = google3.ThemeAdapter.fromColor(seed, true);
     const oldImageUrl = null === (_a = context.theme) || void 0 === _a ? void 0 : _a.imageUrl;
     theme.props.imageUrl = url;
@@ -35,8 +36,8 @@ function on_set_key_color(context, color) {
     context.updateTheme(theme);
 }
 
-function material_color_scheme_from_theme_adapter(adapter) {
-    var mc = darkMode ? theme.dark : theme.light;
+function material_color_scheme_from_theme_adapter(adapter, darkMode) {
+    var mc = darkMode ? adapter.dark : adapter.light;
     return {
         primary: mc.primary,
         on_primary: mc.onPrimary,

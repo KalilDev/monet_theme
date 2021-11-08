@@ -158,9 +158,9 @@ function dynamic_renderImagePreview(context) {
     ></drop-zone>
   </div>`;
 }
-async function dynamic_handleImage(context, e) {
+async function dynamic_handleImage(context, e, decodeImageData) {
   var _a;
-  const src = e.detail, seed = await theme.index_seedFromImage(src), theme = google3.ThemeAdapter.fromColor(seed, true), oldImageUrl = null === (_a = context.theme) || void 0 === _a ? void 0 : _a.imageUrl;
+  const src = e.detail, seed = await theme.index_seedFromImage(src, decodeImageData), theme = google3.ThemeAdapter.fromColor(seed, true), oldImageUrl = null === (_a = context.theme) || void 0 === _a ? void 0 : _a.imageUrl;
   theme.props.imageUrl = src;
   context.updateTheme(theme);
   context.updateImage(src);

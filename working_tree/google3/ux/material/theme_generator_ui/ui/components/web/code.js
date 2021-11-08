@@ -74,9 +74,9 @@ function dynamic_webDynamic(context) {
     </div>
   </div>`;
 }
-async function dynamic_handleImage(context, url) {
+async function dynamic_handleImage(context, url, decodeImageData) {
   var _a;
-  const seed = await theme.index_seedFromImage(url), theme = google3.ThemeAdapter.fromColor(seed, true), oldImageUrl = null === (_a = context.theme) || void 0 === _a ? void 0 : _a.imageUrl;
+  const seed = await theme.index_seedFromImage(url, decodeImageData), theme = google3.ThemeAdapter.fromColor(seed, true), oldImageUrl = null === (_a = context.theme) || void 0 === _a ? void 0 : _a.imageUrl;
   theme.props.imageUrl = url;
   context.updateTheme(theme);
   context.updateImage(url);
