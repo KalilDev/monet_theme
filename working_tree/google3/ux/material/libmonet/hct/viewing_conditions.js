@@ -16,7 +16,7 @@ class ViewingConditions {
         this.z = z;
     }
 };
-ViewingConditions.DEFAULT = function (whitePoint = google3.WHITE_POINT_D65, adaptingLuminance = 200 / Math.PI * 100 * Math.pow(66 / 116, 3) / 100, backgroundLstar = 50, surround = 2, discountingIlluminant = !1) {
+ViewingConditions.DEFAULT = function (whitePoint = google3.WHITE_POINT_D65, adaptingLuminance = 200 / Math.PI * 100 * Math.pow(66 / 116, 3) / 100, backgroundLstar = 50, surround = 2, discountingIlluminant = false) {
     const rW = 0.401288 * whitePoint[0] + 0.650173 * whitePoint[1] + -0.051461 * whitePoint[2], gW = -0.250268 * whitePoint[0] + 1.204414 * whitePoint[1] + 0.045854 * whitePoint[2], bW = -0.002079 * whitePoint[0] + 0.048952 * whitePoint[1] + 0.953127 * whitePoint[2], f = 0.8 + surround / 10;
     if (0.9 <= f) {
         var amount = 10 * (f - 0.9);

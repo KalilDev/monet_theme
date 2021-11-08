@@ -49,8 +49,8 @@ var $jscomp$polyfill = function (target, polyfill) {
             }
             var property = split[split.length - 1], orig = obj[property], impl = polyfill(orig);
             impl != orig && null != impl && $jscomp$defineProperty(obj, property, {
-                configurable: !0,
-                writable: !0,
+                configurable: true,
+                writable: true,
                 value: impl
             });
         }
@@ -159,22 +159,22 @@ var goog$dom$asserts$assertIsElementType_ = function (o) {
     }
 };
 var goog$dom$tags$VOID_TAGS_ = {
-    area: !0,
-    base: !0,
-    br: !0,
-    col: !0,
-    command: !0,
-    embed: !0,
-    hr: !0,
-    img: !0,
-    input: !0,
-    keygen: !0,
-    link: !0,
-    meta: !0,
-    param: !0,
-    source: !0,
-    track: !0,
-    wbr: !0
+    area: true,
+    base: true,
+    br: true,
+    col: true,
+    command: true,
+    embed: true,
+    hr: true,
+    img: true,
+    input: true,
+    keygen: true,
+    link: true,
+    meta: true,
+    param: true,
+    source: true,
+    track: true,
+    wbr: true
 };
 var goog$html$trustedtypes$cachedPolicy_;
 var goog$html$trustedtypes$getPolicyPrivateDoNotAccessOrElse = function () {
@@ -259,14 +259,14 @@ var goog$debug$freezeInternal_ = Object.freeze || function (arg) {
 var goog$events$Event = function (type, opt_target) {
     this.type = type;
     this.currentTarget = this.target = opt_target;
-    this.defaultPrevented = !1;
+    this.defaultPrevented = false;
 };
 var goog$events$BrowserFeature$PASSIVE_EVENTS = function () {
     if (!goog$global.addEventListener || !Object.defineProperty)
-        return !1;
-    var passive = !1, options = Object.defineProperty({}, 'passive', {
+        return false;
+    var passive = false, options = Object.defineProperty({}, 'passive', {
         get: function () {
-            passive = !0;
+            passive = true;
         }
     });
     try {
@@ -281,7 +281,7 @@ var goog$events$BrowserEvent = function (opt_e, opt_currentTarget) {
     this.button = this.screenY = this.screenX = this.clientY = this.clientX = this.offsetY = this.offsetX = 0;
     this.key = '';
     this.charCode = this.keyCode = 0;
-    this.metaKey = this.shiftKey = this.altKey = this.ctrlKey = !1;
+    this.metaKey = this.shiftKey = this.altKey = this.ctrlKey = false;
     this.state = null;
     this.pointerId = 0;
     this.pointerType = '';
@@ -303,10 +303,10 @@ var goog$events$Listener = function (listener, src, type, capture, opt_handler) 
     this.capture = !!capture;
     this.handler = opt_handler;
     this.key = ++goog$events$ListenableKey$counter_;
-    this.removed = this.callOnce = !1;
+    this.removed = this.callOnce = false;
 };
 var JSCompiler_StaticMethods_markAsRemoved = function (JSCompiler_StaticMethods_markAsRemoved$self) {
-    JSCompiler_StaticMethods_markAsRemoved$self.removed = !0;
+    JSCompiler_StaticMethods_markAsRemoved$self.removed = true;
     JSCompiler_StaticMethods_markAsRemoved$self.listener = null;
     JSCompiler_StaticMethods_markAsRemoved$self.proxy = null;
     JSCompiler_StaticMethods_markAsRemoved$self.src = null;
@@ -346,14 +346,14 @@ var goog$events$listenOnce = function (src, type, listener, opt_options$jscomp$0
             throw Error('Invalid event type');
         var capture = goog$isObject(opt_options) ? !!opt_options.capture : !!opt_options, listenerMap = goog$events$getListenerMap_(src);
         listenerMap || (src[goog$events$LISTENER_MAP_PROP_] = listenerMap = new goog$events$ListenerMap(src));
-        var listenerObj = listenerMap.add(type, listener, !0, capture, opt_handler);
+        var listenerObj = listenerMap.add(type, listener, true, capture, opt_handler);
         if (!listenerObj.proxy) {
             var proxy = goog$events$getProxy();
             listenerObj.proxy = proxy;
             proxy.src = src;
             proxy.listener = listenerObj;
             if (src.addEventListener)
-                goog$events$BrowserFeature$PASSIVE_EVENTS || (opt_options = capture), void 0 === opt_options && (opt_options = !1), src.addEventListener(type.toString(), proxy, opt_options);
+                goog$events$BrowserFeature$PASSIVE_EVENTS || (opt_options = capture), void 0 === opt_options && (opt_options = false), src.addEventListener(type.toString(), proxy, opt_options);
             else if (src.attachEvent)
                 src.attachEvent(goog$events$getOnString_(type.toString()), proxy);
             else if (src.addListener && src.removeListener)
@@ -369,7 +369,7 @@ var goog$events$getOnString_ = function (type) {
 };
 var goog$events$handleBrowserEvent_ = function (listener, opt_evt) {
     if (listener.removed)
-        var JSCompiler_temp = !0;
+        var JSCompiler_temp = true;
     else {
         var eventObject = new goog$events$BrowserEvent(opt_evt, this), listenerFn = listener.listener, listenerHandler = listener.handler || listener.src;
         if (listener.callOnce && 'number' !== typeof listener && listener && !listener.removed) {
@@ -445,7 +445,7 @@ var goog$log$LogBuffer = class {
     clear() {
         this.buffer_ = Array(this.capacity_);
         this.curIndex_ = -1;
-        this.isFull_ = !1;
+        this.isFull_ = false;
     }
 };
 var goog$log$LogBuffer$instance_;
@@ -520,12 +520,12 @@ var JSCompiler_StaticMethods_getPropertyDescriptor = function (name, key, option
             this[key] = value;
             JSCompiler_StaticMethods_requestUpdate(this, name, oldValue, options);
         },
-        configurable: !0,
-        enumerable: !0
+        configurable: true,
+        enumerable: true
     };
 };
 var JSCompiler_StaticMethods_createProperty = function (JSCompiler_StaticMethods_createProperty$self, name, options = reactive.$n2delement_defaultPropertyDeclaration) {
-    options.state && (options.attribute = !1);
+    options.state && (options.attribute = false);
     JSCompiler_StaticMethods_createProperty$self.finalize();
     JSCompiler_StaticMethods_createProperty$self.elementProperties.set(name, options);
     if (!options.noAccessor && !JSCompiler_StaticMethods_createProperty$self.prototype.hasOwnProperty(name)) {
@@ -534,8 +534,8 @@ var JSCompiler_StaticMethods_createProperty = function (JSCompiler_StaticMethods
     }
 };
 var JSCompiler_StaticMethods_requestUpdate = function (JSCompiler_StaticMethods_requestUpdate$self, name, oldValue, options) {
-    let shouldRequestUpdate = !0;
-    void 0 !== name && (options = options || JSCompiler_StaticMethods_requestUpdate$self.constructor.elementProperties.get(name) || reactive.$n2delement_defaultPropertyDeclaration, (options.hasChanged || google3.notEqual)(JSCompiler_StaticMethods_requestUpdate$self[name], oldValue) ? (JSCompiler_StaticMethods_requestUpdate$self._$changedProperties.has(name) || JSCompiler_StaticMethods_requestUpdate$self._$changedProperties.set(name, oldValue), !0 === options.reflect && JSCompiler_StaticMethods_requestUpdate$self.__reflectingProperty !== name && (void 0 === JSCompiler_StaticMethods_requestUpdate$self.__reflectingProperties && (JSCompiler_StaticMethods_requestUpdate$self.__reflectingProperties = new Map()), JSCompiler_StaticMethods_requestUpdate$self.__reflectingProperties.set(name, options))) : shouldRequestUpdate = !1);
+    let shouldRequestUpdate = true;
+    void 0 !== name && (options = options || JSCompiler_StaticMethods_requestUpdate$self.constructor.elementProperties.get(name) || reactive.$n2delement_defaultPropertyDeclaration, (options.hasChanged || google3.notEqual)(JSCompiler_StaticMethods_requestUpdate$self[name], oldValue) ? (JSCompiler_StaticMethods_requestUpdate$self._$changedProperties.has(name) || JSCompiler_StaticMethods_requestUpdate$self._$changedProperties.set(name, oldValue), true === options.reflect && JSCompiler_StaticMethods_requestUpdate$self.__reflectingProperty !== name && (void 0 === JSCompiler_StaticMethods_requestUpdate$self.__reflectingProperties && (JSCompiler_StaticMethods_requestUpdate$self.__reflectingProperties = new Map()), JSCompiler_StaticMethods_requestUpdate$self.__reflectingProperties.set(name, options))) : shouldRequestUpdate = false);
     !JSCompiler_StaticMethods_requestUpdate$self.isUpdatePending && shouldRequestUpdate && (JSCompiler_StaticMethods_requestUpdate$self.__updatePromise = JSCompiler_StaticMethods_requestUpdate$self.__enqueueUpdate());
 };
 var JSCompiler_StaticMethods_finalizeStyles = function (styles) {
@@ -560,14 +560,14 @@ var JSCompiler_StaticMethods_performUpdate = function (JSCompiler_StaticMethods_
             shadowedProperties.length && !JSCompiler_StaticMethods_performUpdate$self.__allowInstanceProperties && console.warn('The following properties will not trigger updates as expected because they are set using class fields: ' + `${shadowedProperties.join(', ')}. ` + 'Native class fields and some compiled output will overwrite accessors used for detecting changes. To fix this issue, either initialize properties in the constructor or adjust your compiler settings; for example, for TypeScript set `useDefineForClassFields: false` in your `tsconfig.json`.');
         }
         JSCompiler_StaticMethods_performUpdate$self.__instanceProperties && (JSCompiler_StaticMethods_performUpdate$self.__instanceProperties.forEach((v, p) => JSCompiler_StaticMethods_performUpdate$self[p] = v), JSCompiler_StaticMethods_performUpdate$self.__instanceProperties = void 0);
-        var shouldUpdate = !1, changedProperties = JSCompiler_StaticMethods_performUpdate$self._$changedProperties;
+        var shouldUpdate = false, changedProperties = JSCompiler_StaticMethods_performUpdate$self._$changedProperties;
         try {
-            shouldUpdate = !0, null === (_a$jscomp$0 = JSCompiler_StaticMethods_performUpdate$self.__controllers) || void 0 === _a$jscomp$0 ? void 0 : _a$jscomp$0.forEach(c => {
+            shouldUpdate = true, null === (_a$jscomp$0 = JSCompiler_StaticMethods_performUpdate$self.__controllers) || void 0 === _a$jscomp$0 ? void 0 : _a$jscomp$0.forEach(c => {
                 var _a;
                 return null === (_a = c.hostUpdate) || void 0 === _a ? void 0 : _a.call(c);
             }), JSCompiler_StaticMethods_performUpdate$self.update(changedProperties);
         } catch (e) {
-            throw shouldUpdate = !1, JSCompiler_StaticMethods_performUpdate$self.__markUpdated(), e;
+            throw shouldUpdate = false, JSCompiler_StaticMethods_performUpdate$self.__markUpdated(), e;
         }
         shouldUpdate && JSCompiler_StaticMethods_performUpdate$self._$didUpdate(changedProperties);
     }
@@ -691,7 +691,7 @@ var JSCompiler_StaticMethods_autoposition = function (JSCompiler_StaticMethods_a
     JSCompiler_inline_result & 1 || JSCompiler_StaticMethods_autoposition$self.adapter.addClass(google3.MDCMenuSurfaceFoundation.cssClasses.IS_OPEN_BELOW);
 };
 var JSCompiler_StaticMethods_maybeRestoreFocus = function (JSCompiler_StaticMethods_maybeRestoreFocus$self) {
-    const isRootFocused = JSCompiler_StaticMethods_maybeRestoreFocus$self.adapter.isFocused(), childHasFocus = (JSCompiler_StaticMethods_maybeRestoreFocus$self.adapter.getOwnerDocument ? JSCompiler_StaticMethods_maybeRestoreFocus$self.adapter.getOwnerDocument() : document).activeElement && !1;
+    const isRootFocused = JSCompiler_StaticMethods_maybeRestoreFocus$self.adapter.isFocused(), childHasFocus = (JSCompiler_StaticMethods_maybeRestoreFocus$self.adapter.getOwnerDocument ? JSCompiler_StaticMethods_maybeRestoreFocus$self.adapter.getOwnerDocument() : document).activeElement && false;
     (isRootFocused || childHasFocus) && setTimeout(() => {
         JSCompiler_StaticMethods_maybeRestoreFocus$self.adapter.restoreFocus();
     }, google3.numbers.TOUCH_EVENT_WAIT_MS);
@@ -711,11 +711,11 @@ var JSCompiler_StaticMethods_handleItemAction = function (JSCompiler_StaticMetho
 var JSCompiler_StaticMethods_defaultActivationState = function () {
     return {
         activationEvent: void 0,
-        hasDeactivationUXRun: !1,
-        isActivated: !1,
-        isProgrammatic: !1,
-        wasActivatedByPointer: !1,
-        wasElementMadeActive: !1
+        hasDeactivationUXRun: false,
+        isActivated: false,
+        isProgrammatic: false,
+        wasActivatedByPointer: false,
+        wasElementMadeActive: false
     };
 };
 var JSCompiler_StaticMethods_runDeactivationUXLogicIfReady = function (JSCompiler_StaticMethods_runDeactivationUXLogicIfReady$self) {
@@ -729,9 +729,9 @@ var JSCompiler_StaticMethods_activateImpl = function (JSCompiler_StaticMethods_a
         var activationState = JSCompiler_StaticMethods_activateImpl$self.activationState;
         if (!activationState.isActivated) {
             var previousActivationEvent = JSCompiler_StaticMethods_activateImpl$self.previousActivationEvent;
-            previousActivationEvent && void 0 !== evt && previousActivationEvent.type !== evt.type || (activationState.isActivated = !0, activationState.isProgrammatic = void 0 === evt, activationState.activationEvent = evt, activationState.wasActivatedByPointer = activationState.isProgrammatic ? !1 : void 0 !== evt && ('mousedown' === evt.type || 'touchstart' === evt.type || 'pointerdown' === evt.type), void 0 !== evt && 0 < ripple.foundation_activatedTargets.length && ripple.foundation_activatedTargets.some(() => !0) ? JSCompiler_StaticMethods_resetActivationState(JSCompiler_StaticMethods_activateImpl$self) : (void 0 !== evt && (ripple.foundation_activatedTargets.push(evt.target), JSCompiler_StaticMethods_registerDeactivationHandlers(JSCompiler_StaticMethods_activateImpl$self, evt)), activationState.wasElementMadeActive = void 0 !== evt && 'keydown' === evt.type ? JSCompiler_StaticMethods_activateImpl$self.adapter.isSurfaceActive() : !0, activationState.wasElementMadeActive && JSCompiler_StaticMethods_animateActivation(JSCompiler_StaticMethods_activateImpl$self), requestAnimationFrame(() => {
+            previousActivationEvent && void 0 !== evt && previousActivationEvent.type !== evt.type || (activationState.isActivated = true, activationState.isProgrammatic = void 0 === evt, activationState.activationEvent = evt, activationState.wasActivatedByPointer = activationState.isProgrammatic ? false : void 0 !== evt && ('mousedown' === evt.type || 'touchstart' === evt.type || 'pointerdown' === evt.type), void 0 !== evt && 0 < ripple.foundation_activatedTargets.length && ripple.foundation_activatedTargets.some(() => true) ? JSCompiler_StaticMethods_resetActivationState(JSCompiler_StaticMethods_activateImpl$self) : (void 0 !== evt && (ripple.foundation_activatedTargets.push(evt.target), JSCompiler_StaticMethods_registerDeactivationHandlers(JSCompiler_StaticMethods_activateImpl$self, evt)), activationState.wasElementMadeActive = void 0 !== evt && 'keydown' === evt.type ? JSCompiler_StaticMethods_activateImpl$self.adapter.isSurfaceActive() : true, activationState.wasElementMadeActive && JSCompiler_StaticMethods_animateActivation(JSCompiler_StaticMethods_activateImpl$self), requestAnimationFrame(() => {
                 ripple.foundation_activatedTargets = [];
-                activationState.wasElementMadeActive || void 0 === evt || ' ' !== evt.key && 32 !== evt.keyCode || (activationState.wasElementMadeActive = void 0 !== evt && 'keydown' === evt.type ? JSCompiler_StaticMethods_activateImpl$self.adapter.isSurfaceActive() : !0, activationState.wasElementMadeActive && JSCompiler_StaticMethods_animateActivation(JSCompiler_StaticMethods_activateImpl$self));
+                activationState.wasElementMadeActive || void 0 === evt || ' ' !== evt.key && 32 !== evt.keyCode || (activationState.wasElementMadeActive = void 0 !== evt && 'keydown' === evt.type ? JSCompiler_StaticMethods_activateImpl$self.adapter.isSurfaceActive() : true, activationState.wasElementMadeActive && JSCompiler_StaticMethods_animateActivation(JSCompiler_StaticMethods_activateImpl$self));
                 activationState.wasElementMadeActive || (JSCompiler_StaticMethods_activateImpl$self.activationState = JSCompiler_StaticMethods_defaultActivationState());
             })));
         }
@@ -744,7 +744,7 @@ var JSCompiler_StaticMethods_deactivateImpl = function (JSCompiler_StaticMethods
         activationState.isProgrammatic ? (requestAnimationFrame(() => {
             JSCompiler_StaticMethods_animateDeactivation(JSCompiler_StaticMethods_deactivateImpl$self, state);
         }), JSCompiler_StaticMethods_resetActivationState(JSCompiler_StaticMethods_deactivateImpl$self)) : (JSCompiler_StaticMethods_deregisterDeactivationHandlers(JSCompiler_StaticMethods_deactivateImpl$self), requestAnimationFrame(() => {
-            JSCompiler_StaticMethods_deactivateImpl$self.activationState.hasDeactivationUXRun = !0;
+            JSCompiler_StaticMethods_deactivateImpl$self.activationState.hasDeactivationUXRun = true;
             JSCompiler_StaticMethods_animateDeactivation(JSCompiler_StaticMethods_deactivateImpl$self, state);
             JSCompiler_StaticMethods_resetActivationState(JSCompiler_StaticMethods_deactivateImpl$self);
         }));
@@ -845,7 +845,7 @@ var JSCompiler_StaticMethods_getFgTranslationCoordinates = function (JSCompiler_
 };
 var JSCompiler_StaticMethods_rmBoundedActivationClasses = function (JSCompiler_StaticMethods_rmBoundedActivationClasses$self) {
     JSCompiler_StaticMethods_rmBoundedActivationClasses$self.adapter.removeClass(google3.MDCRippleFoundation.cssClasses.FG_ACTIVATION);
-    JSCompiler_StaticMethods_rmBoundedActivationClasses$self.activationAnimationHasEnded = !1;
+    JSCompiler_StaticMethods_rmBoundedActivationClasses$self.activationAnimationHasEnded = false;
     JSCompiler_StaticMethods_rmBoundedActivationClasses$self.adapter.computeBoundingRect();
 };
 var JSCompiler_StaticMethods_animateDeactivation = function (JSCompiler_StaticMethods_animateDeactivation$self, { wasActivatedByPointer, wasElementMadeActive }) {
@@ -868,9 +868,9 @@ var JSCompiler_StaticMethods_handleChange = function (JSCompiler_StaticMethods_h
 var JSCompiler_StaticMethods_setClickDebounceTimeout = function (JSCompiler_StaticMethods_setClickDebounceTimeout$self) {
     clearTimeout(JSCompiler_StaticMethods_setClickDebounceTimeout$self.clickDebounceTimeout);
     JSCompiler_StaticMethods_setClickDebounceTimeout$self.clickDebounceTimeout = setTimeout(() => {
-        JSCompiler_StaticMethods_setClickDebounceTimeout$self.recentlyClicked = !1;
+        JSCompiler_StaticMethods_setClickDebounceTimeout$self.recentlyClicked = false;
     }, google3.numbers.CLICK_DEBOUNCE_TIMEOUT_MS);
-    JSCompiler_StaticMethods_setClickDebounceTimeout$self.recentlyClicked = !0;
+    JSCompiler_StaticMethods_setClickDebounceTimeout$self.recentlyClicked = true;
 };
 var JSCompiler_StaticMethods_syncHelperTextValidity = function (JSCompiler_StaticMethods_syncHelperTextValidity$self, isValid) {
     if (JSCompiler_StaticMethods_syncHelperTextValidity$self.helperText) {
@@ -912,7 +912,7 @@ var JSCompiler_StaticMethods_calculateCurrentTranslateX = function (JSCompiler_S
     return parseFloat(tx__tsickle_destructured_5);
 };
 var JSCompiler_StaticMethods_stopScrollAnimation = function (JSCompiler_StaticMethods_stopScrollAnimation$self) {
-    JSCompiler_StaticMethods_stopScrollAnimation$self.isAnimating = !1;
+    JSCompiler_StaticMethods_stopScrollAnimation$self.isAnimating = false;
     const currentScrollPosition = JSCompiler_StaticMethods_stopScrollAnimation$self.getAnimatingScrollPosition();
     JSCompiler_StaticMethods_stopScrollAnimation$self.adapter.removeClass(google3.MDCTabScrollerFoundation.cssClasses.ANIMATING);
     JSCompiler_StaticMethods_stopScrollAnimation$self.adapter.setScrollContentStyleProperty('transform', 'translateX(0px)');
@@ -938,14 +938,14 @@ var JSCompiler_StaticMethods_getRTLScroller = function (JSCompiler_StaticMethods
     return JSCompiler_StaticMethods_getRTLScroller$self.rtlScrollerInstance;
 };
 var JSCompiler_StaticMethods_activateFocus = function (JSCompiler_StaticMethods_activateFocus$self) {
-    JSCompiler_StaticMethods_activateFocus$self.isFocused = !0;
+    JSCompiler_StaticMethods_activateFocus$self.isFocused = true;
     JSCompiler_StaticMethods_styleFocused(JSCompiler_StaticMethods_activateFocus$self, JSCompiler_StaticMethods_activateFocus$self.isFocused);
     JSCompiler_StaticMethods_activateFocus$self.adapter.activateLineRipple();
     JSCompiler_StaticMethods_activateFocus$self.adapter.hasLabel() && (JSCompiler_StaticMethods_activateFocus$self.notchOutline(JSCompiler_StaticMethods_activateFocus$self.shouldFloat), JSCompiler_StaticMethods_activateFocus$self.adapter.floatLabel(JSCompiler_StaticMethods_activateFocus$self.shouldFloat), JSCompiler_StaticMethods_styleFloating(JSCompiler_StaticMethods_activateFocus$self, JSCompiler_StaticMethods_activateFocus$self.shouldFloat), JSCompiler_StaticMethods_activateFocus$self.adapter.shakeLabel(JSCompiler_StaticMethods_activateFocus$self.shouldShake));
     !JSCompiler_StaticMethods_activateFocus$self.helperText || !JSCompiler_StaticMethods_activateFocus$self.helperText.isPersistent() && JSCompiler_StaticMethods_activateFocus$self.helperText.isValidation() && JSCompiler_StaticMethods_activateFocus$self.valid || JSCompiler_StaticMethods_activateFocus$self.helperText.showToScreenReader();
 };
 var JSCompiler_StaticMethods_handleValidationAttributeChange = function (JSCompiler_StaticMethods_handleValidationAttributeChange$self, attributesList) {
-    attributesList.some(attributeName => -1 < google3.VALIDATION_ATTR_WHITELIST.indexOf(attributeName) ? (JSCompiler_StaticMethods_styleValidity(JSCompiler_StaticMethods_handleValidationAttributeChange$self, !0), JSCompiler_StaticMethods_handleValidationAttributeChange$self.adapter.setLabelRequired(JSCompiler_StaticMethods_handleValidationAttributeChange$self.getNativeInput().required), !0) : !1);
+    attributesList.some(attributeName => -1 < google3.VALIDATION_ATTR_WHITELIST.indexOf(attributeName) ? (JSCompiler_StaticMethods_styleValidity(JSCompiler_StaticMethods_handleValidationAttributeChange$self, true), JSCompiler_StaticMethods_handleValidationAttributeChange$self.adapter.setLabelRequired(JSCompiler_StaticMethods_handleValidationAttributeChange$self.getNativeInput().required), true) : false);
     -1 < attributesList.indexOf('maxlength') && JSCompiler_StaticMethods_setcharacterCounter(JSCompiler_StaticMethods_handleValidationAttributeChange$self, JSCompiler_StaticMethods_handleValidationAttributeChange$self.getValue().length);
 };
 var JSCompiler_StaticMethods_styleFloating = function (JSCompiler_StaticMethods_styleFloating$self, isFloating) {
@@ -986,7 +986,7 @@ var JSCompiler_StaticMethods_ensureUntabbable = function (JSCompiler_StaticMetho
     if (JSCompiler_StaticMethods_ensureUntabbable$self.node.nodeType === Node.ELEMENT_NODE) {
         var element = JSCompiler_StaticMethods_ensureUntabbable$self.node;
         javascript.wicg_inert_matches.call(element, 'a[href],area[href],input:not([disabled]),select:not([disabled]),textarea:not([disabled]),button:not([disabled]),iframe,object,embed,[contenteditable]') ? -1 === element.tabIndex && JSCompiler_StaticMethods_ensureUntabbable$self.hasSavedTabIndex || (element.hasAttribute('tabindex') && (JSCompiler_StaticMethods_ensureUntabbable$self._savedTabIndex = element.tabIndex), element.setAttribute('tabindex', '-1'), element.nodeType === Node.ELEMENT_NODE && (element.focus = function () {
-        }, JSCompiler_StaticMethods_ensureUntabbable$self._overrodeFocusMethod = !0)) : element.hasAttribute('tabindex') && (JSCompiler_StaticMethods_ensureUntabbable$self._savedTabIndex = element.tabIndex, element.removeAttribute('tabindex'));
+        }, JSCompiler_StaticMethods_ensureUntabbable$self._overrodeFocusMethod = true)) : element.hasAttribute('tabindex') && (JSCompiler_StaticMethods_ensureUntabbable$self._savedTabIndex = element.tabIndex, element.removeAttribute('tabindex'));
     }
 };
 var JSCompiler_StaticMethods_setInert = function (JSCompiler_StaticMethods_setInert$self, root, inert) {
@@ -1043,8 +1043,8 @@ var JSCompiler_StaticMethods_isIndexValid_ = function (JSCompiler_StaticMethods_
         if (!JSCompiler_StaticMethods_isIndexValid_$self.isMulti_)
             throw Error('MDCListFoundation: Array of index is only supported for checkbox based list');
         if (0 === index.size)
-            return !0;
-        let isOneInRange = !1;
+            return true;
+        let isOneInRange = false;
         for (const entry of index)
             if (isOneInRange = JSCompiler_StaticMethods_isIndexInRange_(JSCompiler_StaticMethods_isIndexValid_$self, entry))
                 break;
@@ -1055,9 +1055,9 @@ var JSCompiler_StaticMethods_isIndexValid_ = function (JSCompiler_StaticMethods_
             throw Error('MDCListFoundation: Expected array of index for checkbox based list but got number: ' + index);
         return index === google3.numbers.UNSET_INDEX || JSCompiler_StaticMethods_isIndexInRange_(JSCompiler_StaticMethods_isIndexValid_$self, index);
     }
-    return !1;
+    return false;
 };
-var JSCompiler_StaticMethods_setMultiSelectionAtIndex_ = function (JSCompiler_StaticMethods_setMultiSelectionAtIndex_$self, newIndex, isInteraction = !0) {
+var JSCompiler_StaticMethods_setMultiSelectionAtIndex_ = function (JSCompiler_StaticMethods_setMultiSelectionAtIndex_$self, newIndex, isInteraction = true) {
     const oldArr = Array.from(google3.createSetFromIndex(JSCompiler_StaticMethods_setMultiSelectionAtIndex_$self.selectedIndex_)), newArr = Array.from(newIndex), diff = {
         added: [],
         removed: []
@@ -1069,18 +1069,18 @@ var JSCompiler_StaticMethods_setMultiSelectionAtIndex_ = function (JSCompiler_St
     }
     if (diff.removed.length || diff.added.length) {
         for (const removed of diff.removed)
-            isInteraction && JSCompiler_StaticMethods_setMultiSelectionAtIndex_$self.adapter.setSelectedStateForElementIndex(removed, !1), JSCompiler_StaticMethods_setMultiSelectionAtIndex_$self.useActivatedClass_ && JSCompiler_StaticMethods_setMultiSelectionAtIndex_$self.adapter.setActivatedStateForElementIndex(removed, !1);
+            isInteraction && JSCompiler_StaticMethods_setMultiSelectionAtIndex_$self.adapter.setSelectedStateForElementIndex(removed, false), JSCompiler_StaticMethods_setMultiSelectionAtIndex_$self.useActivatedClass_ && JSCompiler_StaticMethods_setMultiSelectionAtIndex_$self.adapter.setActivatedStateForElementIndex(removed, false);
         for (const added of diff.added)
-            isInteraction && JSCompiler_StaticMethods_setMultiSelectionAtIndex_$self.adapter.setSelectedStateForElementIndex(added, !0), JSCompiler_StaticMethods_setMultiSelectionAtIndex_$self.useActivatedClass_ && JSCompiler_StaticMethods_setMultiSelectionAtIndex_$self.adapter.setActivatedStateForElementIndex(added, !0);
+            isInteraction && JSCompiler_StaticMethods_setMultiSelectionAtIndex_$self.adapter.setSelectedStateForElementIndex(added, true), JSCompiler_StaticMethods_setMultiSelectionAtIndex_$self.useActivatedClass_ && JSCompiler_StaticMethods_setMultiSelectionAtIndex_$self.adapter.setActivatedStateForElementIndex(added, true);
         JSCompiler_StaticMethods_setMultiSelectionAtIndex_$self.selectedIndex_ = newIndex;
         JSCompiler_StaticMethods_setMultiSelectionAtIndex_$self.adapter.notifySelected(newIndex, diff);
     }
 };
-var JSCompiler_StaticMethods_setSingleSelectionAtIndex_ = function (JSCompiler_StaticMethods_setSingleSelectionAtIndex_$self, index, isInteraction = !0) {
+var JSCompiler_StaticMethods_setSingleSelectionAtIndex_ = function (JSCompiler_StaticMethods_setSingleSelectionAtIndex_$self, index, isInteraction = true) {
     if (JSCompiler_StaticMethods_setSingleSelectionAtIndex_$self.selectedIndex_ !== index) {
-        JSCompiler_StaticMethods_setSingleSelectionAtIndex_$self.selectedIndex_ !== google3.numbers.UNSET_INDEX && (JSCompiler_StaticMethods_setSingleSelectionAtIndex_$self.adapter.setSelectedStateForElementIndex(JSCompiler_StaticMethods_setSingleSelectionAtIndex_$self.selectedIndex_, !1), JSCompiler_StaticMethods_setSingleSelectionAtIndex_$self.useActivatedClass_ && JSCompiler_StaticMethods_setSingleSelectionAtIndex_$self.adapter.setActivatedStateForElementIndex(JSCompiler_StaticMethods_setSingleSelectionAtIndex_$self.selectedIndex_, !1));
-        isInteraction && JSCompiler_StaticMethods_setSingleSelectionAtIndex_$self.adapter.setSelectedStateForElementIndex(index, !0);
-        JSCompiler_StaticMethods_setSingleSelectionAtIndex_$self.useActivatedClass_ && JSCompiler_StaticMethods_setSingleSelectionAtIndex_$self.adapter.setActivatedStateForElementIndex(index, !0);
+        JSCompiler_StaticMethods_setSingleSelectionAtIndex_$self.selectedIndex_ !== google3.numbers.UNSET_INDEX && (JSCompiler_StaticMethods_setSingleSelectionAtIndex_$self.adapter.setSelectedStateForElementIndex(JSCompiler_StaticMethods_setSingleSelectionAtIndex_$self.selectedIndex_, false), JSCompiler_StaticMethods_setSingleSelectionAtIndex_$self.useActivatedClass_ && JSCompiler_StaticMethods_setSingleSelectionAtIndex_$self.adapter.setActivatedStateForElementIndex(JSCompiler_StaticMethods_setSingleSelectionAtIndex_$self.selectedIndex_, false));
+        isInteraction && JSCompiler_StaticMethods_setSingleSelectionAtIndex_$self.adapter.setSelectedStateForElementIndex(index, true);
+        JSCompiler_StaticMethods_setSingleSelectionAtIndex_$self.useActivatedClass_ && JSCompiler_StaticMethods_setSingleSelectionAtIndex_$self.adapter.setActivatedStateForElementIndex(index, true);
         JSCompiler_StaticMethods_setSingleSelectionAtIndex_$self.selectedIndex_ === google3.numbers.UNSET_INDEX && (JSCompiler_StaticMethods_setSingleSelectionAtIndex_$self.ariaCurrentAttrValue_ = JSCompiler_StaticMethods_setSingleSelectionAtIndex_$self.adapter.getAttributeForElementIndex(index, google3.strings.ARIA_CURRENT));
         const isAriaCurrent = null !== JSCompiler_StaticMethods_setSingleSelectionAtIndex_$self.ariaCurrentAttrValue_, ariaAttribute = isAriaCurrent ? google3.strings.ARIA_CURRENT : google3.strings.ARIA_SELECTED;
         JSCompiler_StaticMethods_setSingleSelectionAtIndex_$self.selectedIndex_ !== google3.numbers.UNSET_INDEX && JSCompiler_StaticMethods_setSingleSelectionAtIndex_$self.adapter.setAttributeForElementIndex(JSCompiler_StaticMethods_setSingleSelectionAtIndex_$self.selectedIndex_, ariaAttribute, 'false');
@@ -1126,7 +1126,7 @@ var JSCompiler_StaticMethods_isIndexInRange_ = function (JSCompiler_StaticMethod
     const listSize = JSCompiler_StaticMethods_isIndexInRange_$self.adapter.getListItemCount();
     return 0 <= index && index < listSize;
 };
-var JSCompiler_StaticMethods_toggleMultiAtIndex = function (JSCompiler_StaticMethods_toggleMultiAtIndex$self, index, force, isInteraction = !0) {
+var JSCompiler_StaticMethods_toggleMultiAtIndex = function (JSCompiler_StaticMethods_toggleMultiAtIndex$self, index, force, isInteraction = true) {
     const newSet = google3.createSetFromIndex(JSCompiler_StaticMethods_toggleMultiAtIndex$self.selectedIndex_);
     (void 0 === force ? !JSCompiler_StaticMethods_toggleMultiAtIndex$self.adapter.getSelectedStateForElementIndex(index) : force) ? newSet.add(index) : newSet.delete(index);
     JSCompiler_StaticMethods_setMultiSelectionAtIndex_(JSCompiler_StaticMethods_toggleMultiAtIndex$self, newSet, isInteraction);
@@ -1142,8 +1142,8 @@ var JSCompiler_StaticMethods_onDown = function (JSCompiler_StaticMethods_onDown$
 var JSCompiler_StaticMethods_fireRequestSelected = function (JSCompiler_StaticMethods_fireRequestSelected$self, selected, source) {
     if (!JSCompiler_StaticMethods_fireRequestSelected$self.noninteractive) {
         var customEv = new CustomEvent('request-selected', {
-            bubbles: !0,
-            composed: !0,
+            bubbles: true,
+            composed: true,
             detail: {
                 source,
                 selected
@@ -1172,8 +1172,8 @@ var JSCompiler_StaticMethods_updateItems = function (JSCompiler_StaticMethods_up
         JSCompiler_StaticMethods_updateItems$self.select(index);
     }
     const itemsUpdatedEv = new Event('items-updated', {
-        bubbles: !0,
-        composed: !0
+        bubbles: true,
+        composed: true
     });
     JSCompiler_StaticMethods_updateItems$self.dispatchEvent(itemsUpdatedEv);
 };
@@ -1202,7 +1202,7 @@ var JSCompiler_StaticMethods_selectByValue = function (JSCompiler_StaticMethods_
             indexToSelect = i;
             break;
         }
-    JSCompiler_StaticMethods_selectByValue$self.valueSetDirectly = !0;
+    JSCompiler_StaticMethods_selectByValue$self.valueSetDirectly = true;
     JSCompiler_StaticMethods_selectByValue$self.select(indexToSelect);
     JSCompiler_StaticMethods_handleChange(JSCompiler_StaticMethods_selectByValue$self.mdcFoundation);
 };
@@ -1221,7 +1221,7 @@ const map$jscomp$16 = window.__litStyleMap;
 const existing$jscomp$13 = map$jscomp$16.get('blaze-out/k8-fastbuild/bin/third_party/javascript/material_web_components/tab_scroller/mwc-tab-scroller.css');
 const map$jscomp$17 = window.__litStyleMap;
 const existing$jscomp$14 = map$jscomp$17.get('blaze-out/k8-fastbuild/bin/third_party/javascript/material_web_components/tab_bar/mwc-tab-bar.css');
-var JSCompiler_StaticMethods_renderAffix = function (content, isSuffix = !1) {
+var JSCompiler_StaticMethods_renderAffix = function (content, isSuffix = false) {
     return google3.html`<span class="mdc-text-field__affix ${google3.classMap({
         'mdc-text-field__affix--prefix': !isSuffix,
         'mdc-text-field__affix--suffix': isSuffix
@@ -1236,7 +1236,7 @@ var JSCompiler_StaticMethods_getRootAdapterMethods = function (JSCompiler_Static
             const getAttributesList = mutationsList => mutationsList.map(mutation => mutation.attributeName).filter(attributeName => attributeName), observer = new MutationObserver(mutationsList => {
                 handler(getAttributesList(mutationsList));
             });
-            observer.observe(JSCompiler_StaticMethods_getRootAdapterMethods$self.formElement, { attributes: !0 });
+            observer.observe(JSCompiler_StaticMethods_getRootAdapterMethods$self.formElement, { attributes: true });
             return observer;
         },
         deregisterValidationAttributeChangeHandler: observer => observer.disconnect()
@@ -1249,7 +1249,7 @@ var JSCompiler_StaticMethods_getInputAdapterMethods = function (JSCompiler_Stati
         },
         removeInputAttr: () => {
         },
-        isFocused: () => JSCompiler_StaticMethods_getInputAdapterMethods$self.shadowRoot ? JSCompiler_StaticMethods_getInputAdapterMethods$self.shadowRoot.activeElement === JSCompiler_StaticMethods_getInputAdapterMethods$self.formElement : !1,
+        isFocused: () => JSCompiler_StaticMethods_getInputAdapterMethods$self.shadowRoot ? JSCompiler_StaticMethods_getInputAdapterMethods$self.shadowRoot.activeElement === JSCompiler_StaticMethods_getInputAdapterMethods$self.formElement : false,
         registerInputInteractionHandler: (evtType, handler) => JSCompiler_StaticMethods_getInputAdapterMethods$self.formElement.addEventListener(evtType, handler, { passive: evtType in $m2dtextfield.$n2dbase_passiveEvents }),
         deregisterInputInteractionHandler: (evtType, handler) => JSCompiler_StaticMethods_getInputAdapterMethods$self.formElement.removeEventListener(evtType, handler)
     };
@@ -1289,10 +1289,10 @@ var JSCompiler_StaticMethods_getLineRippleAdapterMethods = function (JSCompiler_
 };
 var JSCompiler_StaticMethods_getOutlineAdapterMethods = function (JSCompiler_StaticMethods_getOutlineAdapterMethods$self) {
     return {
-        closeOutline: () => JSCompiler_StaticMethods_getOutlineAdapterMethods$self.outlineElement && (JSCompiler_StaticMethods_getOutlineAdapterMethods$self.outlineOpen = !1),
+        closeOutline: () => JSCompiler_StaticMethods_getOutlineAdapterMethods$self.outlineElement && (JSCompiler_StaticMethods_getOutlineAdapterMethods$self.outlineOpen = false),
         hasOutline: () => !!JSCompiler_StaticMethods_getOutlineAdapterMethods$self.outlineElement,
         notchOutline: labelWidth => {
-            JSCompiler_StaticMethods_getOutlineAdapterMethods$self.outlineElement && !JSCompiler_StaticMethods_getOutlineAdapterMethods$self.outlineOpen && (JSCompiler_StaticMethods_getOutlineAdapterMethods$self.outlineWidth = labelWidth, JSCompiler_StaticMethods_getOutlineAdapterMethods$self.outlineOpen = !0);
+            JSCompiler_StaticMethods_getOutlineAdapterMethods$self.outlineElement && !JSCompiler_StaticMethods_getOutlineAdapterMethods$self.outlineOpen && (JSCompiler_StaticMethods_getOutlineAdapterMethods$self.outlineWidth = labelWidth, JSCompiler_StaticMethods_getOutlineAdapterMethods$self.outlineOpen = true);
         }
     };
 };
@@ -1333,8 +1333,8 @@ var JSCompiler_StaticMethods_handleFiles = async function (JSCompiler_StaticMeth
 };
 var JSCompiler_StaticMethods_requestFile = function (JSCompiler_StaticMethods_requestFile$self) {
     JSCompiler_StaticMethods_requestFile$self.dispatchEvent(new CustomEvent('requestfile', {
-        bubbles: !0,
-        cancelable: !0,
+        bubbles: true,
+        cancelable: true,
         detail: { accept: JSCompiler_StaticMethods_requestFile$self.accept }
     }));
     drop.$n2dzone_uploadFile(files => JSCompiler_StaticMethods_handleFiles(JSCompiler_StaticMethods_requestFile$self, files), {
@@ -1349,14 +1349,14 @@ var JSCompiler_StaticMethods_randomImage = async function (JSCompiler_StaticMeth
     if (JSCompiler_StaticMethods_randomImage$self.baseline)
         JSCompiler_StaticMethods_resetToBaseline(JSCompiler_StaticMethods_randomImage$self);
     else {
-        const image = google3.IMAGES[Math.floor(Math.random() * google3.IMAGES.length)], seed = await theme.index_seedFromImage(image.wallpaper), theme = google3.ThemeAdapter.fromColor(seed, !0);
+        const image = google3.IMAGES[Math.floor(Math.random() * google3.IMAGES.length)], seed = await theme.index_seedFromImage(image.wallpaper), theme = google3.ThemeAdapter.fromColor(seed, true);
         theme.props.imageUrl = image.wallpaper;
         JSCompiler_StaticMethods_randomImage$self.setTheme('material-theme', theme);
         JSCompiler_StaticMethods_randomImage$self.start('material-theme');
     }
 };
 var JSCompiler_StaticMethods_resetToBaseline = function (JSCompiler_StaticMethods_resetToBaseline$self) {
-    const theme = google3.ThemeAdapter.default(!0);
+    const theme = google3.ThemeAdapter.default(true);
     JSCompiler_StaticMethods_resetToBaseline$self.setTheme('material-theme', theme);
     JSCompiler_StaticMethods_resetToBaseline$self.start('material-theme');
 };

@@ -5,7 +5,7 @@ const google3 = require('google3');
 async function dynamic_handleImage(context, url) {
     var _a;
     const seed = await theme.index_seedFromImage(url);
-    const theme = google3.ThemeAdapter.fromColor(seed, !0);
+    const theme = google3.ThemeAdapter.fromColor(seed, true);
     const oldImageUrl = null === (_a = context.theme) || void 0 === _a ? void 0 : _a.imageUrl;
     theme.props.imageUrl = url;
     context.updateTheme(theme);
@@ -17,13 +17,13 @@ async function dynamic_handleImage(context, url) {
 function on_shuffle() {
     const color = src.utils_randomColor();
     console.log('shuffle', color);
-    const adapter = google3.ThemeAdapter.fromColor(color, !0);
+    const adapter = google3.ThemeAdapter.fromColor(color, true);
     context.updateTheme(adapter);
 }
 
 function on_set_key_color(context, color) {
     if (!context.theme) {
-        var theme = google3.ThemeAdapter.fromColor(color, !0);
+        var theme = google3.ThemeAdapter.fromColor(color, true);
         context.updateTheme(theme);
     }
     let theme = context.theme;

@@ -45,7 +45,7 @@ function dynamic_webDynamic(context) {
           @click=${() => {
       const color = src.utils_randomColor();
       console.log('shuffle', color);
-      const adapter = google3.ThemeAdapter.fromColor(color, !0);
+      const adapter = google3.ThemeAdapter.fromColor(color, true);
       context.updateTheme(adapter);
     }}
         >
@@ -76,7 +76,7 @@ function dynamic_webDynamic(context) {
 }
 async function dynamic_handleImage(context, url) {
   var _a;
-  const seed = await theme.index_seedFromImage(url), theme = google3.ThemeAdapter.fromColor(seed, !0), oldImageUrl = null === (_a = context.theme) || void 0 === _a ? void 0 : _a.imageUrl;
+  const seed = await theme.index_seedFromImage(url), theme = google3.ThemeAdapter.fromColor(seed, true), oldImageUrl = null === (_a = context.theme) || void 0 === _a ? void 0 : _a.imageUrl;
   theme.props.imageUrl = url;
   context.updateTheme(theme);
   context.updateImage(url);
@@ -134,7 +134,7 @@ function info_dialog_infoDialogTemplate(context) {
   return google3.html` <mwc-dialog
     ?open=${context.showInfo}
     @closed=${() => {
-      context.onShowInfoChanged(!1);
+      context.onShowInfoChanged(false);
     }}
   >
     <div class="info-dialog">
@@ -174,7 +174,7 @@ function static_buildKeyColors(context) {
   Object.keys(colors).filter(e => !defaultKeys.includes(e)).sort();
   const buildColorInput = (key, value) => components.color_input_colorInput(src.utils_keyToLabel(key), null !== value && void 0 !== value ? value : '#FFFFFF', color => {
     if (!context.theme) {
-      var theme = google3.ThemeAdapter.fromColor(color, !0);
+      var theme = google3.ThemeAdapter.fromColor(color, true);
       context.updateTheme(theme);
     }
     let theme$jscomp$0 = context.theme;
@@ -189,7 +189,7 @@ function static_buildKeyColors(context) {
     ${buildColorInput('neutral', source.neutral)}`;
 }
 function static_buildScheme(colors$jscomp$0) {
-  const colorBox = (label, color, onColor, is2x = !1) => {
+  const colorBox = (label, color, onColor, is2x = false) => {
     const div = document.createElement('div');
     div.className = 'color-item';
     is2x && div.classList.add('color-item-2x');
@@ -240,7 +240,7 @@ function static_buildScheme(colors$jscomp$0) {
     <div class="color-family surface-variant">
       ${colorBox('surface-variant', null === colors$jscomp$0 || void 0 === colors$jscomp$0 ? void 0 : colors$jscomp$0.surfaceVariant, null === colors$jscomp$0 || void 0 === colors$jscomp$0 ? void 0 : colors$jscomp$0.onSurfaceVariant)}
       ${colorBox('on surface-variant', null === colors$jscomp$0 || void 0 === colors$jscomp$0 ? void 0 : colors$jscomp$0.onSurfaceVariant, null === colors$jscomp$0 || void 0 === colors$jscomp$0 ? void 0 : colors$jscomp$0.surfaceVariant)}
-      ${colorBox('outline', null === colors$jscomp$0 || void 0 === colors$jscomp$0 ? void 0 : colors$jscomp$0.outline, null === colors$jscomp$0 || void 0 === colors$jscomp$0 ? void 0 : colors$jscomp$0.surface, !0)}
+      ${colorBox('outline', null === colors$jscomp$0 || void 0 === colors$jscomp$0 ? void 0 : colors$jscomp$0.outline, null === colors$jscomp$0 || void 0 === colors$jscomp$0 ? void 0 : colors$jscomp$0.surface, true)}
     </div>
   </div>`;
 }

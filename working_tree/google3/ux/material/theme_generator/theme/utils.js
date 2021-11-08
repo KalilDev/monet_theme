@@ -22,7 +22,7 @@ function checks_isTheme3p(theme) {
     return 'Roboto' === (null === (_b = null === (_a = null === theme || void 0 === theme ? void 0 : theme.styles) || void 0 === _a ? void 0 : _a.headline1) || void 0 === _b ? void 0 : _b.fontFamilyName);
 }
 function checks_isThemeBaseline(theme) {
-    let match$jscomp$0 = !0;
+    let match$jscomp$0 = true;
     const target = checks_isTheme3p(theme) ? b3p.BASELINE_3P : b1p.BASELINE_1P, checkGroup = (name, group, targetGroup) => {
         if (match$jscomp$0) {
             let match;
@@ -119,12 +119,9 @@ const defaults_COLORS_1P = {
     neutralVariant: '#585F65',
     error: '#BA1B1B'
 };
-// TODO: this is a placeholder
-async function image_utils_decodeToImageData(bytes) {
-    return null;
-}
-async function image_utils_bufferToPixels(buffer) {
-    const imageBytes = new Uint8Array(buffer), imageData = await theme.image_utils_decodeToImageData(imageBytes), pixels = [];
+// The user of the api has to implement decodeImageData
+async function image_utils_bufferToPixels(buffer, decodeImageData) {
+    const imageBytes = new Uint8Array(buffer), imageData = await decodeImageData(imageBytes), pixels = [];
     for (let i = 0; i < imageData.data.length; i += 4)
         255 > imageData.data[i + 3] || pixels.push(google3.intFromRgb([
             imageData.data[i],
@@ -133,9 +130,10 @@ async function image_utils_bufferToPixels(buffer) {
         ]));
     return pixels;
 }
-async function index_seedFromImage(image) {
+// The user of the api has to implement decodeImageData
+async function index_seedFromImage(image, decodeImageData) {
     const imageBuffer = 'string' === typeof image ? await (await fetch(image)).arrayBuffer() : image;
-    var pixels = await theme.image_utils_bufferToPixels(imageBuffer), quantizer = new google3.QuantizerWu(), JSCompiler__a;
+    var pixels = await theme.image_utils_bufferToPixels(imageBuffer, decodeImageData), quantizer = new google3.QuantizerWu(), JSCompiler__a;
     quantizer.weights = Array.from({ length: 35937 }).fill(0);
     quantizer.momentsR = Array.from({ length: 35937 }).fill(0);
     quantizer.momentsG = Array.from({ length: 35937 }).fill(0);
@@ -145,7 +143,7 @@ async function index_seedFromImage(image) {
     const countByColor = new Map();
     for (let i = 0; i < pixels.length; i++) {
         const pixel = pixels[i];
-        255 > (pixel & 4278190080) >> 24 >>> 0 || countByColor.set(pixel, (null !== (JSCompiler__a$jscomp$0 = countByColor.get(pixel)) && void 0 !== JSCompiler__a$jscomp$0 ? JSCompiler__a$jscomp$0 : 0) + 1);
+        255 > (pixel & 0xff000000) >> 24 >>> 0 || countByColor.set(pixel, (null !== (JSCompiler__a$jscomp$0 = countByColor.get(pixel)) && void 0 !== JSCompiler__a$jscomp$0 ? JSCompiler__a$jscomp$0 : 0) + 1);
     }
     for (const [pixel__tsickle_destructured_1, count__tsickle_destructured_2] of countByColor.entries()) {
         const pixel = pixel__tsickle_destructured_1, count = count__tsickle_destructured_2, red = (pixel & 16711680) >> 16, green = (pixel & 65280) >> 8, blue = pixel & 255, index = google3.QuantizerWu.getIndex((red >> 3) + 1, (green >> 3) + 1, (blue >> 3) + 1);

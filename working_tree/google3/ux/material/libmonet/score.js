@@ -33,12 +33,12 @@ function score(colorsToPopulation) {
     }
     const filteredColors = filter(colorsToExcitedProportion, colorsToCam), dedupedColorsToScore = new Map();
     for (const color of filteredColors) {
-        let duplicateHue = !1;
+        let duplicateHue = false;
         const hue = colorsToCam.get(color).hue;
         for (const [alreadyChosenColor__tsickle_destructured_7] of dedupedColorsToScore) {
             const alreadyChosenHue = colorsToCam.get(alreadyChosenColor__tsickle_destructured_7).hue;
             if (15 > 180 - Math.abs(Math.abs(hue - alreadyChosenHue) - 180)) {
-                duplicateHue = !0;
+                duplicateHue = true;
                 break;
             }
         }

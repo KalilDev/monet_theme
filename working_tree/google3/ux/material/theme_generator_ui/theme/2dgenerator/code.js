@@ -4,10 +4,10 @@ const google3 = require('google3');
 var MaterialThemeGenerator = class extends google3.LitElement {
     constructor() {
         super(...arguments);
-        this.plugin = this.baseline = !1;
+        this.plugin = this.baseline = false;
         this.darkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
         this.tabIndex = 0;
-        this.showInfo = this.showAddTheme = this.showExport = !1;
+        this.showInfo = this.showAddTheme = this.showExport = false;
         this.messenger = new google3.ThemeMessenger(this, this.plugin, {
             themeName: this.plugin ? void 0 : 'material-theme',
             onThemeUpdate: theme => theme.$n2dgenerator_updatePluginColors(theme, this.main, this.darkMode)

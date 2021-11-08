@@ -43,7 +43,7 @@ function hct_getIntInViewingConditions(hue$jscomp$0, chroma$jscomp$0, tone$jscom
     if (1 > chroma$jscomp$0 || 0 >= Math.round(tone$jscomp$0) || 100 <= Math.round(tone$jscomp$0))
         return google3.intFromLstar(tone$jscomp$0);
     hue$jscomp$0 = utils.math_utils_sanitizeDegrees(hue$jscomp$0);
-    let high = chroma$jscomp$0, mid = chroma$jscomp$0, low = 0, isFirstLoop = !0, answer = null;
+    let high = chroma$jscomp$0, mid = chroma$jscomp$0, low = 0, isFirstLoop = true, answer = null;
     for (; 0.4 <= Math.abs(low - high);) {
         var hue = hue$jscomp$0, chroma = mid, tone = tone$jscomp$0;
         let low$jscomp$0 = 0, high$jscomp$0 = 100, mid$jscomp$0, bestdL = 1000, bestdE = 1000, bestCam = null;
@@ -62,7 +62,7 @@ function hct_getIntInViewingConditions(hue$jscomp$0, chroma$jscomp$0, tone$jscom
         if (isFirstLoop) {
             if (null != possibleAnswer)
                 return possibleAnswer.viewed();
-            isFirstLoop = !1;
+            isFirstLoop = false;
         } else
             null === possibleAnswer ? high = mid : (answer = possibleAnswer, low = mid);
         mid = low + (high - low) / 2;

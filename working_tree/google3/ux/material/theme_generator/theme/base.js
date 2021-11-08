@@ -19,7 +19,7 @@ class ThemeAdapterBase {
         return this.props.is3p;
     }
     get styles() {
-        return this.props.is3p ? b3p.BASELINE_3P.styles : b1p.BASELINE_3P.styles;
+        return this.props.is3p ? b3p.BASELINE_3P.styles : b1p.BASELINE_1P.styles;
     }
     get imageUrl() {
         return this.props.imageUrl;

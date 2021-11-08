@@ -1,5 +1,4 @@
 'use strict';
-const utils = require('./utils.js');
 const themeAdapter = require('./theme/index.js');
 
 module.exports = {
@@ -9,12 +8,13 @@ module.exports = {
     dsp_processFontToken: dsp_processFontToken,
 }
 
-async function dsp_fileListToTextFiles(files) {
+// The user is the one in charge of implementing the readFileString function
+async function dsp_fileListToTextFiles(files, readFileString) {
     const result = [];
     if (!files || 0 === files.length)
         return result;
     for (const file of files) {
-        const path = file.name, content = await utils.utils_readFileString(file);
+        const path = file.name, content = await readFileString(file);
         result.push({
             path,
             content
@@ -34,8 +34,8 @@ function dsp_dspFilesToTheme(files) {
             'docs.json'
         ])
             if (fileName.endsWith(suffix))
-                return !0;
-        return !1;
+                return true;
+        return false;
     };
     for (const file of files) {
         if (!isValid(file.path))

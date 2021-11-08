@@ -22,7 +22,7 @@ function get_started_pluginGetStarted(context) {
             <div
               class="welcome-logo"
               @click=${() => {
-      const theme = google3.ThemeAdapter.default(!0);
+      const theme = google3.ThemeAdapter.default(true);
       context.onThemeCreate('material-theme', theme);
     }}
             >
@@ -77,16 +77,16 @@ function theme_add_pluginAddTheme(context) {
       else if (themeName.includes('/'))
         themeNameInput.setCustomValidity('Name cannot include /');
       else {
-        const theme = google3.ThemeAdapter.default(!0);
+        const theme = google3.ThemeAdapter.default(true);
         context.onThemeCreate(themeName, theme);
-        context.onShowNewThemeChange(!1);
+        context.onShowNewThemeChange(false);
       }
     }}
         ></mwc-button>
         <mwc-button
           label="Cancel"
           @click=${() => {
-      context.onShowNewThemeChange(!1);
+      context.onShowNewThemeChange(false);
     }}
         ></mwc-button>
       </div>
@@ -139,7 +139,7 @@ function dynamic_pluginDynamic(context) {
     >
     ${plugin.dynamic_renderImagePreview(context)}
     ${components.seed_input_seedInput(null !== (_b = null === (_a = null === context || void 0 === context ? void 0 : context.theme) || void 0 === _a ? void 0 : _a.seedValue) && void 0 !== _b ? _b : '', color => {
-    const theme = google3.ThemeAdapter.fromColor(color, !0);
+    const theme = google3.ThemeAdapter.fromColor(color, true);
     context.updateTheme(theme);
   })}
     <div style="height: 20px;"></div>
@@ -160,7 +160,7 @@ function dynamic_renderImagePreview(context) {
 }
 async function dynamic_handleImage(context, e) {
   var _a;
-  const src = e.detail, seed = await theme.index_seedFromImage(src), theme = google3.ThemeAdapter.fromColor(seed, !0), oldImageUrl = null === (_a = context.theme) || void 0 === _a ? void 0 : _a.imageUrl;
+  const src = e.detail, seed = await theme.index_seedFromImage(src), theme = google3.ThemeAdapter.fromColor(seed, true), oldImageUrl = null === (_a = context.theme) || void 0 === _a ? void 0 : _a.imageUrl;
   theme.props.imageUrl = src;
   context.updateTheme(theme);
   context.updateImage(src);
@@ -176,7 +176,7 @@ function static_pluginStatic(context) {
   colorKeys.sort();
   const buildColorInput = (key, value) => components.color_input_colorInput(src.utils_keyToLabel(key), null !== value && void 0 !== value ? value : '#FFFFFF', color => {
     if (!context.theme) {
-      var theme = google3.ThemeAdapter.fromColor(color, !0);
+      var theme = google3.ThemeAdapter.fromColor(color, true);
       context.updateTheme(theme);
     }
     let theme$jscomp$0 = context.theme;
@@ -213,7 +213,7 @@ function static_pluginStatic(context) {
               @click=${() => {
         const newKey = `Custom${colorKeys.length}`;
         if (!context.theme) {
-          var theme = google3.ThemeAdapter.fromColor('#FFFFFF', !0);
+          var theme = google3.ThemeAdapter.fromColor('#FFFFFF', true);
           context.updateTheme(theme);
         }
         const theme$jscomp$0 = context.theme;
@@ -234,7 +234,7 @@ function tabs_pluginTabs(context) {
     active: 0 === context.activeIndex,
     callback: () => {
       context.onTabChange(0);
-      const oldTheme = context.theme, seedColor = oldTheme.save().source.primary, theme = oldTheme.isBaseline ? google3.ThemeAdapter.default(!0) : google3.ThemeAdapter.fromColor(seedColor, !0);
+      const oldTheme = context.theme, seedColor = oldTheme.save().source.primary, theme = oldTheme.isBaseline ? google3.ThemeAdapter.default(true) : google3.ThemeAdapter.fromColor(seedColor, true);
       context.updateTheme(theme);
     }
   })}
@@ -244,7 +244,7 @@ function tabs_pluginTabs(context) {
     active: 1 === context.activeIndex,
     callback: () => {
       context.onTabChange(1);
-      const oldTheme = context.theme, themeSnapshot = oldTheme.save(), seedColor = themeSnapshot.source.seed, theme = oldTheme.isBaseline ? google3.ThemeAdapter.default(!0) : google3.ThemeAdapter.fromColor(seedColor, !0, { source: themeSnapshot.source });
+      const oldTheme = context.theme, themeSnapshot = oldTheme.save(), seedColor = themeSnapshot.source.seed, theme = oldTheme.isBaseline ? google3.ThemeAdapter.default(true) : google3.ThemeAdapter.fromColor(seedColor, true, { source: themeSnapshot.source });
       context.updateTheme(theme);
     }
   })}
@@ -263,7 +263,7 @@ function theme_select_pluginThemeSelect(context) {
         icon="add"
         label="Add new theme"
         @click=${() => {
-      context.onShowNewThemeChange(!0);
+      context.onShowNewThemeChange(true);
     }}
       ></mwc-button>
       ${google3.html` <mwc-button
@@ -289,7 +289,7 @@ function theme_select_pluginThemeSelect(context) {
       <br />
       <mwc-list-item
         @click=${() => {
-      const theme = google3.ThemeAdapter.default(!0);
+      const theme = google3.ThemeAdapter.default(true);
       context.updateTheme(theme);
     }}
         >Baseline</mwc-list-item

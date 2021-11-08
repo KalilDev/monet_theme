@@ -65,7 +65,7 @@ class QuantizerWu {
         const maxR = maxRResult.maximum, maxG = maxGResult.maximum, maxB = maxBResult.maximum;
         if (maxR >= maxG && maxR >= maxB) {
             if (0 > maxRResult.cutLocation)
-                return !1;
+                return false;
             direction = 'red';
         } else
             direction = maxG >= maxR && maxG >= maxB ? 'green' : 'blue';
@@ -96,7 +96,7 @@ class QuantizerWu {
         }
         one.vol = (one.r1 - one.r0) * (one.g1 - one.g0) * (one.b1 - one.b0);
         two.vol = (two.r1 - two.r0) * (two.g1 - two.g0) * (two.b1 - two.b0);
-        return !0;
+        return true;
     };
     variance(cube) {
         const dr = this.volume(cube, this.momentsR), dg = this.volume(cube, this.momentsG), db = this.volume(cube, this.momentsB), xx = this.moments[QuantizerWu.getIndex(cube.r1, cube.g1, cube.b1)] - this.moments[QuantizerWu.getIndex(cube.r1, cube.g1, cube.b0)] - this.moments[QuantizerWu.getIndex(cube.r1, cube.g0, cube.b1)] + this.moments[QuantizerWu.getIndex(cube.r1, cube.g0, cube.b0)] - this.moments[QuantizerWu.getIndex(cube.r0, cube.g1, cube.b1)] + this.moments[QuantizerWu.getIndex(cube.r0, cube.g1, cube.b0)] + this.moments[QuantizerWu.getIndex(cube.r0, cube.g0, cube.b1)] - this.moments[QuantizerWu.getIndex(cube.r0, cube.g0, cube.b0)], hypotenuse = dr * dr + dg * dg + db * db, volume = this.volume(cube, this.weights);

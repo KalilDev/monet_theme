@@ -5,7 +5,7 @@ var ThemeMessenger = class {
         this.isPlugin = isPlugin;
         this.props = props;
         this.userThemesMap = new Map();
-        this.showExport = !1;
+        this.showExport = false;
         var JSCompiler_StaticMethods_addController$self = this.host, JSCompiler__a, JSCompiler__b;
         (null !== (JSCompiler__a = JSCompiler_StaticMethods_addController$self.__controllers) && void 0 !== JSCompiler__a ? JSCompiler__a : JSCompiler_StaticMethods_addController$self.__controllers = []).push(this);
         void 0 !== JSCompiler_StaticMethods_addController$self.renderRoot && JSCompiler_StaticMethods_addController$self.isConnected && (null === (JSCompiler__b = this.hostConnected) || void 0 === JSCompiler__b ? void 0 : JSCompiler__b.call(this));
@@ -38,20 +38,20 @@ var ThemeMessenger = class {
     }
     notify(type) {
         const theme = this.theme(), materialTheme = null === theme || void 0 === theme ? void 0 : theme.save(), msg = {
-                themeName: this.currentTheme(),
-                theme: materialTheme,
-                is3p: !0,
-                imageUrl: null === theme || void 0 === theme ? void 0 : theme.imageUrl
-            };
+            themeName: this.currentTheme(),
+            theme: materialTheme,
+            is3p: true,
+            imageUrl: null === theme || void 0 === theme ? void 0 : theme.imageUrl
+        };
         this.elem.dispatchEvent(new CustomEvent(type, {
             detail: msg,
-            bubbles: !0,
-            cancelable: !0
+            bubbles: true,
+            cancelable: true
         }));
         window.dispatchEvent(new CustomEvent(type, {
             detail: msg,
-            bubbles: !0,
-            cancelable: !0
+            bubbles: true,
+            cancelable: true
         }));
         console.log('notify', type, msg);
     }

@@ -40,7 +40,7 @@ function export_exportButton(context) {
       id="export-menu"
       ?open=${context.showExport}
       @closed=${() => {
-      context.onExportChange(!1);
+      context.onExportChange(false);
     }}
       @selected=${e => {
       const platform = components.export_exportOptions[e.detail.index], materialTheme = context.theme.save();

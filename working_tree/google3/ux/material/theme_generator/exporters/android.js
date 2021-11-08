@@ -14,7 +14,7 @@ class AndroidExporter extends base.ThemeExporter {
     }
     generate() {
         const rootElement = getDocumentRoot()[1], lightColors = this.generateColorSet(getDocumentRoot()[0], this.theme.light, { prefix: void 0 }), darkColors = this.generateColorSet(getDocumentRoot()[0], this.theme.dark, {
-            isLight: !1,
+            isLight: false,
             prefix: void 0
         });
         var doc = getDocumentRoot()[0];
@@ -48,7 +48,7 @@ class AndroidExporter extends base.ThemeExporter {
             },
             this.generateThemeXML(this.theme.light),
             this.generateThemeXML(this.theme.dark, {
-                isLight: !1,
+                isLight: false,
                 path: 'values-night/themes.xml'
             })
         ];
@@ -58,8 +58,8 @@ class AndroidExporter extends base.ThemeExporter {
         var _a;
         const rootElement = getDocumentRoot()[1], doc = getDocumentRoot()[0], styleElement = doc.createElement('style');
         styleElement.setAttribute('name', this.themeName);
-        !0 !== (null === options || void 0 === options ? void 0 : options.isLight) && void 0 !== (null === options || void 0 === options ? void 0 : options.isLight) || styleElement.setAttribute('parent', this.lightBaseTheme);
-        !1 === (null === options || void 0 === options ? void 0 : options.isLight) && styleElement.setAttribute('parent', this.darkBaseTheme);
+        true !== (null === options || void 0 === options ? void 0 : options.isLight) && void 0 !== (null === options || void 0 === options ? void 0 : options.isLight) || styleElement.setAttribute('parent', this.lightBaseTheme);
+        false === (null === options || void 0 === options ? void 0 : options.isLight) && styleElement.setAttribute('parent', this.darkBaseTheme);
         const keys = Object.keys(colors).filter(obj => 'colors' !== obj);
         for (const key of keys) {
             const itemElement = doc.createElement('item');

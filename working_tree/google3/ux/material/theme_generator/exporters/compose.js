@@ -72,7 +72,7 @@ class ComposeExporter extends base.ThemeExporter {
         ]);
     }
     generate() {
-        const lightColors = generateColors(this.theme.light, { isLight: !0 }), darkColors = generateColors(this.theme.dark, { isLight: !1 }), list = [], colors = Object.assign({}, this.theme.source), colorsToExclude = [
+        const lightColors = generateColors(this.theme.light, { isLight: true }), darkColors = generateColors(this.theme.dark, { isLight: false }), list = [], colors = Object.assign({}, this.theme.source), colorsToExclude = [
             'neutral',
             'neutralVariant',
             'primary',
@@ -88,7 +88,7 @@ class ComposeExporter extends base.ThemeExporter {
             content: `${'package com.example.compose\nimport androidx.compose.ui.graphics.Color\n\n'}\n${lightColors}\n\n${darkColors}\n\n${list.join('\n')}`,
             mimeType: 'text/plain'
         };
-        const lightColorScheme = generateColorScheme(this.theme.light, { isLight: !0 }), darkColorScheme = generateColorScheme(this.theme.dark, { isLight: !1 });
+        const lightColorScheme = generateColorScheme(this.theme.light, { isLight: true }), darkColorScheme = generateColorScheme(this.theme.dark, { isLight: false });
         var JSCompiler_inline_result$jscomp$0 = {
             path: `${this.name}/ui/theme/Theme.kt`,
             content: `${'package com.example.compose\n\nimport androidx.compose.foundation.isSystemInDarkTheme\nimport androidx.compose.material3.MaterialTheme\nimport androidx.compose.material3.lightColorScheme\nimport androidx.compose.material3.darkColorScheme\nimport androidx.compose.runtime.Composable\n'}\n ${lightColorScheme} \n ${darkColorScheme}` + ('\n' + `@Composable

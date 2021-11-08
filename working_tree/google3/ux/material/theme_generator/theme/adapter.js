@@ -20,8 +20,8 @@ ThemeAdapter.fromColor = function (value, is3p, overrides = {}) {
         seed: value,
         is3p,
         overrides,
-        blend: !1,
-        isBaseline: !1
+        blend: false,
+        isBaseline: false
     });
 };
 ThemeAdapter.baselineSeed = function (is3p) {
@@ -51,10 +51,10 @@ ThemeAdapter.fromTheme = function (theme) {
         imageUrl,
         isBaseline,
         overrides: themeOverrides,
-        blend: !1
+        blend: false
     });
 };
-ThemeAdapter.default = function (is3p = !1) {
+ThemeAdapter.default = function (is3p = false) {
     console.log('theme adapter default');
     const seed = ThemeAdapter.baselineSeed(is3p), keyTones = new google3.CorePalette(google3.intFromHex(seed));
     return is3p ? new ThemeAdapter({
@@ -71,8 +71,8 @@ ThemeAdapter.default = function (is3p = !1) {
                 error: b3p.BASELINE_3P.error
             }
         },
-        blend: !1,
-        isBaseline: !0
+        blend: false,
+        isBaseline: true
     }) : new ThemeAdapter({
         tones: keyTones,
         seed,
@@ -87,7 +87,7 @@ ThemeAdapter.default = function (is3p = !1) {
                 error: b1p.BASELINE_1P.error
             }
         },
-        blend: !1,
-        isBaseline: !0
+        blend: false,
+        isBaseline: true
     });
 };
