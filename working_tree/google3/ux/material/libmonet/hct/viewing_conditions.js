@@ -1,4 +1,7 @@
 'use strict';
+exports = {
+    ViewingConditions: ViewingConditions,
+}
 class ViewingConditions {
     constructor(n, aw, nbb, ncb, c, nc, rgbD, fl, fLRoot, z) {
         this.n = n;

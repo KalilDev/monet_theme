@@ -1,6 +1,44 @@
 'use strict';
-const utils = require('../utils/code.js');
-const google3 = require('google3');
+const utils = require('../utils/utils.js');
+exports = {
+    HCT: HCT,
+    hct_getIntInViewingConditions: hct_getIntInViewingConditions,
+}
+class HCT {
+    constructor(internalHue, internalChroma, internalTone) {
+        this.internalHue = internalHue;
+        this.internalChroma = internalChroma;
+        this.internalTone = internalTone;
+        this.setInternalState(this.toInt());
+    }
+    toInt() {
+        return hct_getIntInViewingConditions(utils.math_utils_sanitizeDegrees(this.internalHue), this.internalChroma, utils.math_utils_clamp(100, this.internalTone));
+    }
+    setInternalState(argb) {
+        const cam = google3.CAM16.fromIntInViewingConditions(argb), tone = google3.lstarFromInt(argb);
+        this.internalHue = cam.hue;
+        this.internalChroma = cam.chroma;
+        this.internalTone = tone;
+    }
+    get hue() {
+        return this.internalHue;
+    }
+    set hue(newHue) {
+        this.setInternalState(hct_getIntInViewingConditions(utils.math_utils_sanitizeDegrees(utils.math_utils_sanitizeDegrees(newHue)), this.internalChroma, utils.math_utils_clamp(100, this.internalTone)));
+    }
+    get chroma() {
+        return this.internalChroma;
+    }
+    set chroma(newChroma) {
+        this.setInternalState(hct_getIntInViewingConditions(utils.math_utils_sanitizeDegrees(this.internalHue), newChroma, utils.math_utils_clamp(100, this.internalTone)));
+    }
+    get tone() {
+        return this.internalTone;
+    }
+    set tone(newTone) {
+        this.setInternalState(hct_getIntInViewingConditions(utils.math_utils_sanitizeDegrees(this.internalHue), this.internalChroma, utils.math_utils_clamp(100, newTone)));
+    }
+};
 function hct_getIntInViewingConditions(hue$jscomp$0, chroma$jscomp$0, tone$jscomp$0) {
     if (1 > chroma$jscomp$0 || 0 >= Math.round(tone$jscomp$0) || 100 <= Math.round(tone$jscomp$0))
         return google3.intFromLstar(tone$jscomp$0);

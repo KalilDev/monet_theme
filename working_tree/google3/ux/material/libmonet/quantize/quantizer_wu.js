@@ -1,4 +1,8 @@
 'use strict';
+exports = {
+    QuantizerWu: QuantizerWu,
+
+}
 class QuantizerWu {
     constructor() {
         this.weights = [];

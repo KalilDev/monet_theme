@@ -1,4 +1,7 @@
 'use strict';
+exports = {
+    CAM16: CAM16,
+}
 class CAM16 {
     constructor(hue, chroma, j, q, s, jstar, astar, bstar) {
         this.hue = hue;

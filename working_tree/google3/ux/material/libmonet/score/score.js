@@ -1,7 +1,12 @@
 'use strict';
-const utils = require('../../../utils/code.js');
-const google3 = require('google3');
-var score = function (colorsToPopulation) {
+const utils = require('../utils/utils.js');
+const color_utils = require('../utils/color_utils.js');
+const cam16 = require('../hct/cam16.js')
+exports = {
+    score: score,
+    filter: filter,
+}
+function score(colorsToPopulation) {
     let populationSum = 0;
     for (const population of colorsToPopulation.values())
         populationSum += population;
@@ -9,7 +14,7 @@ var score = function (colorsToPopulation) {
     for (const [color__tsickle_destructured_1, population__tsickle_destructured_2] of colorsToPopulation.entries()) {
         const color = color__tsickle_destructured_1, proportion = population__tsickle_destructured_2 / populationSum;
         colorsToProportion.set(color, proportion);
-        const cam = google3.CAM16.fromIntInViewingConditions(color);
+        const cam = cam16.CAM16.fromIntInViewingConditions(color);
         colorsToCam.set(color, cam);
         hueProportions[Math.round(cam.hue)] += proportion;
     }
@@ -26,7 +31,7 @@ var score = function (colorsToPopulation) {
         const color = color__tsickle_destructured_5, cam = cam__tsickle_destructured_6, proportionScore = 70 * colorsToExcitedProportion.get(color);
         colorsToScore.set(color, proportionScore + (cam.chroma - 48) * (48 > cam.chroma ? 0.1 : 0.3));
     }
-    const filteredColors = google3.filter(colorsToExcitedProportion, colorsToCam), dedupedColorsToScore = new Map();
+    const filteredColors = filter(colorsToExcitedProportion, colorsToCam), dedupedColorsToScore = new Map();
     for (const color of filteredColors) {
         let duplicateHue = !1;
         const hue = colorsToCam.get(color).hue;
@@ -49,7 +54,7 @@ var filter = function (colorsToExcitedProportion, colorsToCam) {
     const filtered = [];
     for (const [color__tsickle_destructured_8, cam__tsickle_destructured_9] of colorsToCam.entries()) {
         const color = color__tsickle_destructured_8, cam = cam__tsickle_destructured_9, proportion = colorsToExcitedProportion.get(color);
-        15 <= cam.chroma && 10 <= google3.lstarFromInt(color) && 0.01 <= proportion && filtered.push(color);
+        15 <= cam.chroma && 10 <= color_utils.lstarFromInt(color) && 0.01 <= proportion && filtered.push(color);
     }
     return filtered;
 };

@@ -1,4 +1,10 @@
 'use strict';
+exports = {
+    quantizer_wsmeans_DistanceAndIndex: quantizer_wsmeans_DistanceAndIndex,
+    quantizer_wu_Box: quantizer_wu_Box,
+    quantizer_wu_CreateBoxesResult: quantizer_wu_CreateBoxesResult,
+    quantizer_wu_MaximizeResult: quantizer_wu_MaximizeResult,
+}
 class quantizer_wsmeans_DistanceAndIndex {
     constructor() {
         this.index = this.distance = -1;
