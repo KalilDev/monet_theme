@@ -1,0 +1,26 @@
+{
+  "name": "theme_generator",
+  "version": "0.0.0",
+  "description": "An reverse-engineered version of theme_generator from the md3 theme builder",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KalilDev/material_theme_reverse.git",
+    "directory": "theme_generator"
+  },
+  "keywords": [
+    "material-design"
+  ],
+  "author": "KalilDev",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/KalilDev/material_theme_reverse/issues"
+  },
+  "homepage": "https://github.com/KalilDev/material_theme_reverse#readme",
+  "dependencies": {
+    "jszip": "^3.7.1",
+    "libmonet": "github:kalildev/material_theme_reverse/libmonet"
+  }
+}

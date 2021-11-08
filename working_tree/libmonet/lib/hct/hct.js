@@ -1,7 +1,7 @@
 'use strict';
 
 const utils = require('../utils/utils.js');
-const cam16 = require('../hct/cam16.js');
+const cam16 = require('./cam16.js');
 const color_utils = require('../utils/color_utils.js');
 
 module.exports = {

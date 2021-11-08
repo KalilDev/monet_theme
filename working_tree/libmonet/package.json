@@ -1,0 +1,23 @@
+{
+  "name": "libmonet",
+  "version": "0.0.0",
+  "description": "An reverse-engineered version of libmonet from the md3 theme builder",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KalilDev/material_theme_reverse.git",
+    "directory": "libmonet"
+  },
+  "keywords": [
+    "material-design"
+  ],
+  "author": "KalilDev",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/KalilDev/material_theme_reverse/issues"
+  },
+  "homepage": "https://github.com/KalilDev/material_theme_reverse#readme"
+}
