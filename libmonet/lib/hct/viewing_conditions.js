@@ -2,7 +2,7 @@
 
 import { WHITE_POINT_D65 } from "../utils/color_utils";
 
-class ViewingConditions {
+export class ViewingConditions {
     constructor(n, aw, nbb, ncb, c, nc, rgbD, fl, fLRoot, z) {
         this.n = n;
         this.aw = aw;
@@ -42,7 +42,3 @@ ViewingConditions.DEFAULT = function (whitePoint = WHITE_POINT_D65, adaptingLumi
     ];
     return new ViewingConditions(n, (2 * rgbA[0] + rgbA[1] + 0.05 * rgbA[2]) * nbb, nbb, nbb, JSCompiler_temp, f, rgbD, fl, Math.pow(fl, 0.25), 1.48 + Math.sqrt(n));
 }();
-
-export default {
-    ViewingConditions,
-}

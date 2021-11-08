@@ -1,7 +1,5 @@
-import hct from './hct.js'
-import palette from './palettes.js'
-import quantize from './quantize.js'
-import score from './score.js'
-import utils from './utils.js'
-
-export default Object.assign({}, hct, palette, quantize, score, utils)
+export * from './hct.js'
+export * from './palettes.js'
+export * from './quantize.js'
+export * from './score.js'
+export * from './utils.js'

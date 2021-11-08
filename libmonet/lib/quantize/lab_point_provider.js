@@ -1,7 +1,7 @@
 'use strict';
 import { WHITE_POINT_D65, intFromXyzComponents } from '../utils/color_utils.js';
 
-class LabPointProvider {
+export class LabPointProvider {
     toInt(point) {
         var l = point[0];
         const e = 216 / 24389, kappa = 24389 / 27, fy = (l + 16) / 116, fx = point[1] / 500 + fy, fz = fy - point[2] / 200, fx3 = fx * fx * fx, fz3 = fz * fz * fz;
@@ -17,7 +17,3 @@ class LabPointProvider {
         return dL * dL + dA * dA + dB * dB;
     }
 };
-
-export default {
-    LabPointProvider,
-}

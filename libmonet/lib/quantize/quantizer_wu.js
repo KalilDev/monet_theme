@@ -1,6 +1,6 @@
 'use strict';
 
-class QuantizerWu {
+export class QuantizerWu {
     constructor() {
         this.weights = [];
         this.momentsR = [];
@@ -127,7 +127,3 @@ class QuantizerWu {
 QuantizerWu.getIndex = function (r, g, b) {
     return (r << 10) + (r << 6) + r + (g << 5) + g + b;
 };
-
-export default {
-    QuantizerWu,
-}

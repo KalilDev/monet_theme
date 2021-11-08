@@ -3,7 +3,7 @@ import { ViewingConditions } from './viewing_conditions.js';
 import { math_utils_signum } from '../utils/utils.js';
 import { intFromXyzComponents, linearized } from '../utils/color_utils.js';
 
-class CAM16 {
+export class CAM16 {
     constructor(hue, chroma, j, q, s, jstar, astar, bstar) {
         this.hue = hue;
         this.chroma = chroma;
@@ -31,7 +31,3 @@ CAM16.fromJchInViewingConditions = function (j, c, h) {
     const hueRadians = h * Math.PI / 180, mstar = 1 / 0.0228 * Math.log(1 + 0.0228 * c * ViewingConditions.DEFAULT.fLRoot);
     return new CAM16(h, c, j, 4 / ViewingConditions.DEFAULT.c * Math.sqrt(j / 100) * (ViewingConditions.DEFAULT.aw + 4) * ViewingConditions.DEFAULT.fLRoot, 50 * Math.sqrt(c / Math.sqrt(j / 100) * ViewingConditions.DEFAULT.c / (ViewingConditions.DEFAULT.aw + 4)), (1 + 100 * 0.007) * j / (1 + 0.007 * j), mstar * Math.cos(hueRadians), mstar * Math.sin(hueRadians));
 };
-
-export default {
-    CAM16,
-}

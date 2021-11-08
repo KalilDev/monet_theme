@@ -4,7 +4,7 @@ import { math_utils_sanitizeDegrees, math_utils_clamp } from '../utils/utils.js'
 import { CAM16 } from './cam16.js';
 import { lstarFromInt, intFromLstar } from '../utils/color_utils.js';
 
-class HCT {
+export class HCT {
     constructor(internalHue, internalChroma, internalTone) {
         this.internalHue = internalHue;
         this.internalChroma = internalChroma;
@@ -39,7 +39,7 @@ class HCT {
         this.setInternalState(hct_getIntInViewingConditions(math_utils_sanitizeDegrees(this.internalHue), this.internalChroma, math_utils_clamp(100, newTone)));
     }
 };
-function hct_getIntInViewingConditions(hue$jscomp$0, chroma$jscomp$0, tone$jscomp$0) {
+export function hct_getIntInViewingConditions(hue$jscomp$0, chroma$jscomp$0, tone$jscomp$0) {
     if (1 > chroma$jscomp$0 || 0 >= Math.round(tone$jscomp$0) || 100 <= Math.round(tone$jscomp$0))
         return intFromLstar(tone$jscomp$0);
     hue$jscomp$0 = math_utils_sanitizeDegrees(hue$jscomp$0);
@@ -68,9 +68,4 @@ function hct_getIntInViewingConditions(hue$jscomp$0, chroma$jscomp$0, tone$jscom
         mid = low + (high - low) / 2;
     }
     return null === answer ? intFromLstar(tone$jscomp$0) : answer.viewed();
-}
-
-export default {
-    HCT,
-    hct_getIntInViewingConditions,
 }

@@ -3,7 +3,7 @@ import { lstarFromInt } from '../utils/color_utils.js';
 import { CAM16, HCT } from '../hct.js';
 import { TonalPalette } from './tonal_palette.js';
 
-class CorePalette {
+export class CorePalette {
     constructor(argb) {
         const cam = CAM16.fromIntInViewingConditions(argb);
         var JSCompiler_inline_result = new HCT(cam.hue, cam.chroma, lstarFromInt(argb));
@@ -16,7 +16,3 @@ class CorePalette {
         this.error = new TonalPalette(25, 84);
     }
 };
-
-export default {
-    CorePalette,
-}

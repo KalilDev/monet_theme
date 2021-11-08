@@ -3,7 +3,7 @@ import { math_utils_sanitizeDegrees } from './utils/utils.js';
 import { lstarFromInt } from './utils/color_utils.js';
 import { CAM16 } from './hct/cam16.js';
 
-function score(colorsToPopulation) {
+export function score(colorsToPopulation) {
     let populationSum = 0;
     for (const population of colorsToPopulation.values())
         populationSum += population;
@@ -47,16 +47,11 @@ function score(colorsToPopulation) {
     0 === answer.length && answer.push(4282549748);
     return answer;
 };
-var filter = function (colorsToExcitedProportion, colorsToCam) {
+export function filter(colorsToExcitedProportion, colorsToCam) {
     const filtered = [];
     for (const [color__tsickle_destructured_8, cam__tsickle_destructured_9] of colorsToCam.entries()) {
         const color = color__tsickle_destructured_8, cam = cam__tsickle_destructured_9, proportion = colorsToExcitedProportion.get(color);
         15 <= cam.chroma && 10 <= lstarFromInt(color) && 0.01 <= proportion && filtered.push(color);
     }
     return filtered;
-};
-
-export default {
-    score,
-    filter,
 }
