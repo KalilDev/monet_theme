@@ -1,3 +1,4 @@
+import '../color.dart';
 import '../utils.dart';
 import 'cam16.dart';
 
@@ -8,7 +9,7 @@ class HCT {
   HCT(this.internalHue, this.internalChroma, this.internalTone) {
     this.setInternalState(this.toArgb());
   }
-  int toArgb() {
+  ARGBColor toArgb() {
     return hct_getArgbInViewingConditions(
       math_utils_sanitizeDegrees(this.internalHue).toDouble(),
       this.internalChroma,
@@ -16,7 +17,7 @@ class HCT {
     );
   }
 
-  void setInternalState(int argb) {
+  void setInternalState(ARGBColor argb) {
     final cam = CAM16.fromArgbInViewingConditions(argb),
         tone = lstarFromArgb(argb);
     this.internalHue = cam.hue;
@@ -64,7 +65,7 @@ class HCT {
   }
 }
 
-int hct_getArgbInViewingConditions(
+ARGBColor hct_getArgbInViewingConditions(
     double hue$jscomp$0, double chroma$jscomp$0, double tone$jscomp$0) {
   if (1 > chroma$jscomp$0 ||
       0 >= (tone$jscomp$0).round() ||

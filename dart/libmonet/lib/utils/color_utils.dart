@@ -1,8 +1,9 @@
+import '../color.dart';
 import '../math.dart';
 import 'utils.dart';
 
 const List<double> WHITE_POINT_D65 = const [95.047, 100, 108.883];
-double lstarFromArgb(int argb) {
+double lstarFromArgb(ARGBColor argb) {
   var y = 21.26 * linearized(((argb & 0xff0000) >> 16) / 255) +
       71.52 * linearized(((argb & 0xff00) >> 8) / 255) +
       7.22 * linearized((argb & 0xff) / 255);
@@ -10,7 +11,7 @@ double lstarFromArgb(int argb) {
   return y <= 216 / 24389 ? 24389 / 27 * y : 116 * Math.pow(y, 1 / 3) - 16;
 }
 
-String hexFromInt(int argb) {
+String hexFromInt(ARGBColor argb) {
   final g = (argb & 0xff00) >> 8,
       b = argb & 255,
       outParts = <String>[
@@ -27,7 +28,7 @@ String hexFromInt(int argb) {
   return '#' + outParts.join('');
 }
 
-int intFromRgb(List<int> rgb) {
+ARGBColor argbFromRgbComponents(List<int> rgb) {
   return (0xFF000000 |
           (rgb[0] & 255) << 16 |
           (rgb[1] & 255) << 8 |
@@ -35,7 +36,7 @@ int intFromRgb(List<int> rgb) {
       0;
 }
 
-List<double> labFromInt(int argb) {
+List<double> labFromArgb(ARGBColor argb) {
   final e = 216 / 24389,
       kappa = 24389 / 27,
       redL = 100 * linearized(((argb & 0xff0000) >> 16) / 255),
@@ -68,11 +69,11 @@ List<double> labFromInt(int argb) {
   ];
 }
 
-int argbFromXyzComponents(double x, double y, double z) {
+ARGBColor argbFromXyzComponents(double x, double y, double z) {
   x /= 100;
   y /= 100;
   z /= 100;
-  return intFromRgb([
+  return argbFromRgbComponents([
     Math.round(math_utils_clamp(
         255, 255 * delinearized(3.2406 * x + -1.5372 * y + -0.4986 * z))),
     Math.round(math_utils_clamp(
@@ -82,7 +83,7 @@ int argbFromXyzComponents(double x, double y, double z) {
   ]);
 }
 
-int rgbFromHex(String hex) {
+ARGBColor argbFromHex(String hex) {
   hex = hex.replaceFirst('#', '');
   final isThree = 3 == hex.length,
       isSix = 6 == hex.length,
@@ -105,7 +106,7 @@ int rgbFromHex(String hex) {
   return 0xFF000000 | (r & 0xff) << 16 | (g & 0xff) << 8 | b & 0xff;
 }
 
-int argbFromLstar(double lstar) {
+ARGBColor argbFromLstar(double lstar) {
   final fy = (lstar + 16) / 116,
       kappa = 24389 / 27,
       cubeExceedEpsilon = fy * fy * fy > 216 / 24389;

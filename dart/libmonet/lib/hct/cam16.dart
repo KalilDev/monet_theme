@@ -1,3 +1,4 @@
+import '../color.dart';
 import '../hct.dart';
 import '../math.dart';
 import '../utils.dart';
@@ -22,7 +23,7 @@ class CAM16 {
     this.bstar,
   );
 
-  factory CAM16.fromArgbInViewingConditions(int argb) {
+  factory CAM16.fromArgbInViewingConditions(ARGBColor argb) {
     final redL = 100 * linearized(((argb & 0xff0000) >> 16) / 255),
         greenL = 100 * linearized(((argb & 0xFF00) >> 8) / 255),
         blueL = 100 * linearized((argb & 0xFF) / 255),
@@ -122,7 +123,7 @@ class CAM16 {
     return 1.41 * Math.pow(Math.sqrt(dJ * dJ + dA * dA + dB * dB), 0.63);
   }
 
-  int toViewedArgb() {
+  ARGBColor toViewedArgb() {
     final t = Math.pow(
             (0 == this.chroma || 0 == this.j
                     ? 0

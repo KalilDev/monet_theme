@@ -1,14 +1,13 @@
 import 'package:libmonet/hct/hct.dart';
 
-class TonalPalette {
+class HCTTonalPalette extends TonalPalette {
   final double hue;
   final double chroma;
   final Map<int, int> _cache = {};
 
-  TonalPalette(this.hue, this.chroma);
+  HCTTonalPalette(this.hue, this.chroma);
 
-  int operator [](int tone) => getTone(tone);
-
+  @override
   int getTone(int tone) {
     final argb = _cache.putIfAbsent(
       tone,
@@ -16,4 +15,12 @@ class TonalPalette {
     );
     return argb;
   }
+}
+
+abstract class TonalPalette {
+  const TonalPalette();
+  int operator [](int tone) => getTone(tone);
+  factory TonalPalette.from(double hue, double chroma) = HCTTonalPalette;
+
+  int getTone(int tone);
 }

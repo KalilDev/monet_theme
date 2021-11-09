@@ -1,7 +1,8 @@
+import '../color.dart';
 import '../utils.dart';
 
 class LabPointProvider {
-  int toArgb(List<num> point) {
+  ARGBColor toArgb(List<num> point) {
     var l = point[0];
     final e = 216 / 24389,
         kappa = 24389 / 27,
