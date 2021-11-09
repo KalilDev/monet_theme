@@ -111,6 +111,20 @@ class RawMonetColorScheme {
       );
 }
 
+class OverrideTonalPalette implements TonalPalette {
+  final Map<int, int> _values;
+
+  OverrideTonalPalette(this._values);
+  @override
+  int operator [](int tone) => getTone(tone);
+
+  double get hue => throw UnimplementedError();
+  double get chroma => throw UnimplementedError();
+
+  @override
+  int getTone(int tone) => _values[tone]!;
+}
+
 class RawMonetTheme {
   final RawMonetColorScheme light;
   final RawMonetColorScheme dark;

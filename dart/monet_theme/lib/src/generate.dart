@@ -9,9 +9,8 @@ CorePalette _seededOr(int? seed, CorePalette or) {
   return CorePalette(seed);
 }
 
-/// Generate an [RawMonetTheme] from the seed color [seed], while optionally
-/// overriding [primary], [secondary], [tertiary], [neutral], [neutralVariant]
-/// and [error].
+/// Generate an [RawMonetTheme] from the core palette [palette], while
+/// optionally overriding the seeds for the [TonalPalette]s.
 RawMonetTheme generateRawTheme(
   int seed, {
   int? primarySeed,
@@ -28,31 +27,60 @@ RawMonetTheme generateRawTheme(
       neutral = _seededOr(neutralSeed, main).n1,
       neutralVariant = _seededOr(neutralVariantSeed, main).n2,
       error = _seededOr(errorSeed, main).error;
-  final lightScheme = _lightSchemeFrom(
-        primary,
-        secondary,
-        tertiary,
-        neutral,
-        neutralVariant,
-        error,
-      ),
-      darkScheme = _darkSchemeFrom(
-        primary,
-        secondary,
-        tertiary,
-        neutral,
-        neutralVariant,
-        error,
-      );
-  return RawMonetTheme(
-    light: lightScheme,
-    dark: darkScheme,
+  return generateRawThemeFrom(
+    main,
     neutral: neutral,
     neutralVariant: neutralVariant,
     primary: primary,
     secondary: secondary,
     tertiary: tertiary,
     error: error,
+  );
+}
+
+/// Generate an [RawMonetTheme] from the core palette [palette], while
+/// optionally overriding [primary], [secondary], [tertiary], [neutral],
+/// [neutralVariant] and [error].
+RawMonetTheme generateRawThemeFrom(
+  CorePalette? main, {
+  TonalPalette? primary,
+  TonalPalette? secondary,
+  TonalPalette? tertiary,
+  TonalPalette? neutral,
+  TonalPalette? neutralVariant,
+  TonalPalette? error,
+}) {
+  final primaryP = primary ?? main!.a1,
+      secondaryP = secondary ?? main!.a2,
+      tertiaryP = tertiary ?? main!.a3,
+      neutralP = neutral ?? main!.n1,
+      neutralVariantP = neutral ?? main!.n2,
+      errorP = error ?? main!.error;
+  final lightScheme = _lightSchemeFrom(
+        primaryP,
+        secondaryP,
+        tertiaryP,
+        neutralP,
+        neutralVariantP,
+        errorP,
+      ),
+      darkScheme = _darkSchemeFrom(
+        primaryP,
+        secondaryP,
+        tertiaryP,
+        neutralP,
+        neutralVariantP,
+        errorP,
+      );
+  return RawMonetTheme(
+    light: lightScheme,
+    dark: darkScheme,
+    neutral: neutralP,
+    neutralVariant: neutralVariantP,
+    primary: primaryP,
+    secondary: secondaryP,
+    tertiary: tertiaryP,
+    error: errorP,
   );
 }
 

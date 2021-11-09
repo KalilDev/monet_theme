@@ -4,9 +4,9 @@ packages:
   libmonet:
     dependency: "direct main"
     description:
-      path: "../libmonet"
-      relative: true
-    source: path
+      name: libmonet
+      url: "http://localhost:4000"
+    source: hosted
     version: "0.0.0"
   lints:
     dependency: "direct dev"
