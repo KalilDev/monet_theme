@@ -2,7 +2,7 @@ import '../math.dart';
 import 'utils.dart';
 
 const List<double> WHITE_POINT_D65 = const [95.047, 100, 108.883];
-double lstarFromInt(argb) {
+double lstarFromArgb(argb) {
   var y = 21.26 * linearized(((argb & 0xff0000) >> 16) / 255) +
       71.52 * linearized(((argb & 0xff00) >> 8) / 255) +
       7.22 * linearized((argb & 255) / 255);
@@ -68,7 +68,7 @@ List<double> labFromInt(int argb) {
   ];
 }
 
-int intFromXyzComponents(num x, num y, num z) {
+int argbFromXyzComponents(double x, double y, double z) {
   x /= 100;
   y /= 100;
   z /= 100;
@@ -82,7 +82,7 @@ int intFromXyzComponents(num x, num y, num z) {
   ]);
 }
 
-int intFromHex(String hex) {
+int rgbFromHex(String hex) {
   hex = hex.replaceFirst('#', '');
   final isThree = 3 == hex.length,
       isSix = 6 == hex.length,
@@ -102,10 +102,10 @@ int intFromHex(String hex) {
     g = int.parse(hex.substring(4, 6), radix: 16);
     b = int.parse(hex.substring(6, 8), radix: 16);
   }
-  return (0xFF000000 | (r & 0xff) << 16 | (g & 0xff) << 8 | b & 0xff) >>> 0;
+  return 0xFF000000 | (r & 0xff) << 16 | (g & 0xff) << 8 | b & 0xff;
 }
 
-int intFromLstar(num lstar) {
+int argbFromLstar(double lstar) {
   final fy = (lstar + 16) / 116,
       kappa = 24389 / 27,
       cubeExceedEpsilon = fy * fy * fy > 216 / 24389;
@@ -116,7 +116,7 @@ int intFromLstar(num lstar) {
     (cubeExceedEpsilon ? fy * fy * fy : (116 * fy - 16) / kappa) *
         WHITE_POINT_D65[2]
   ];
-  return intFromXyzComponents(xyz[0], xyz[1], xyz[2]);
+  return argbFromXyzComponents(xyz[0], xyz[1], xyz[2]);
 }
 
 double linearized(double rgb) {

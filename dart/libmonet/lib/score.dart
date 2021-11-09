@@ -20,7 +20,7 @@ List<Color> score(Map<Color, int> colorsToPopulation) {
     final color = color__tsickle_destructured_1,
         proportion = population__tsickle_destructured_2 / populationSum;
     colorsToProportion[color] = proportion;
-    final cam = CAM16.fromIntInViewingConditions(color);
+    final cam = CAM16.fromArgbInViewingConditions(color);
     colorsToCam[color] = cam;
     hueProportions[Math.round(cam.hue)] += proportion;
   }
@@ -69,21 +69,24 @@ List<Color> score(Map<Color, int> colorsToPopulation) {
       .sort((first, second) => second.value.compareTo(first.value));
   final answer = colorsByScoreDescending.map((entry) => entry.key).toList();
   if (answer.isEmpty) {
+    // pixel blue
     answer.add(0xff4285f4);
   }
   return answer;
 }
 
-List filter(
-    Map<int, double> colorsToExcitedProportion, Map<Color, CAM16> colorsToCam) {
-  final filtered = [];
+List<Color> filter(
+  Map<int, double> colorsToExcitedProportion,
+  Map<Color, CAM16> colorsToCam,
+) {
+  final filtered = <Color>[];
   for (final e in colorsToCam.entries) {
     final color__tsickle_destructured_8 = e.key,
         cam__tsickle_destructured_9 = e.value;
     final color = color__tsickle_destructured_8,
         cam = cam__tsickle_destructured_9,
         proportion = colorsToExcitedProportion[color]!;
-    if (15 <= cam.chroma && 10 <= lstarFromInt(color) && 0.01 <= proportion) {
+    if (15 <= cam.chroma && 10 <= lstarFromArgb(color) && 0.01 <= proportion) {
       filtered.add(color);
     }
   }

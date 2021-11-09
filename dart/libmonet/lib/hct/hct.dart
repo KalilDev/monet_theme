@@ -2,67 +2,74 @@ import '../utils.dart';
 import 'cam16.dart';
 
 class HCT {
-  num internalHue;
-  num internalChroma;
-  num internalTone;
+  double internalHue;
+  double internalChroma;
+  double internalTone;
   HCT(this.internalHue, this.internalChroma, this.internalTone) {
-    this.setInternalState(this.toInt());
+    this.setInternalState(this.toArgb());
   }
-  toInt() {
-    return hct_getIntInViewingConditions(
-        math_utils_sanitizeDegrees(this.internalHue),
-        this.internalChroma,
-        math_utils_clamp(100, this.internalTone));
+  int toArgb() {
+    return hct_getArgbInViewingConditions(
+      math_utils_sanitizeDegrees(this.internalHue).toDouble(),
+      this.internalChroma,
+      math_utils_clamp(100, this.internalTone).toDouble(),
+    );
   }
 
-  setInternalState(argb) {
-    final cam = CAM16.fromIntInViewingConditions(argb),
-        tone = lstarFromInt(argb);
+  void setInternalState(int argb) {
+    final cam = CAM16.fromArgbInViewingConditions(argb),
+        tone = lstarFromArgb(argb);
     this.internalHue = cam.hue;
     this.internalChroma = cam.chroma;
     this.internalTone = tone;
   }
 
-  get hue {
+  double get hue {
     return this.internalHue;
   }
 
   set hue(newHue) {
-    this.setInternalState(hct_getIntInViewingConditions(
-        math_utils_sanitizeDegrees(math_utils_sanitizeDegrees(newHue)),
+    this.setInternalState(
+      hct_getArgbInViewingConditions(
+        math_utils_sanitizeDegrees(math_utils_sanitizeDegrees(newHue))
+            .toDouble(),
         this.internalChroma,
-        math_utils_clamp(100, this.internalTone)));
+        math_utils_clamp(100, this.internalTone).toDouble(),
+      ),
+    );
   }
 
-  get chroma {
+  double get chroma {
     return this.internalChroma;
   }
 
   set chroma(newChroma) {
-    this.setInternalState(hct_getIntInViewingConditions(
-        math_utils_sanitizeDegrees(this.internalHue),
+    this.setInternalState(hct_getArgbInViewingConditions(
+        math_utils_sanitizeDegrees(this.internalHue).toDouble(),
         newChroma,
-        math_utils_clamp(100, this.internalTone)));
+        math_utils_clamp(100, this.internalTone).toDouble()));
   }
 
-  get tone {
+  double get tone {
     return this.internalTone;
   }
 
   set tone(newTone) {
-    this.setInternalState(hct_getIntInViewingConditions(
-        math_utils_sanitizeDegrees(this.internalHue),
-        this.internalChroma,
-        math_utils_clamp(100, newTone)));
+    this.setInternalState(
+      hct_getArgbInViewingConditions(
+          math_utils_sanitizeDegrees(this.internalHue).toDouble(),
+          this.internalChroma,
+          math_utils_clamp(100, newTone).toDouble()),
+    );
   }
 }
 
-int hct_getIntInViewingConditions(
-    num hue$jscomp$0, num chroma$jscomp$0, num tone$jscomp$0) {
+int hct_getArgbInViewingConditions(
+    double hue$jscomp$0, double chroma$jscomp$0, double tone$jscomp$0) {
   if (1 > chroma$jscomp$0 ||
       0 >= (tone$jscomp$0).round() ||
-      100 <= (tone$jscomp$0).round()) return intFromLstar(tone$jscomp$0);
-  hue$jscomp$0 = math_utils_sanitizeDegrees(hue$jscomp$0);
+      100 <= (tone$jscomp$0).round()) return argbFromLstar(tone$jscomp$0);
+  hue$jscomp$0 = math_utils_sanitizeDegrees(hue$jscomp$0).toDouble();
   var high = chroma$jscomp$0.toDouble(),
       mid = chroma$jscomp$0.toDouble(),
       low = 0.0,
@@ -80,11 +87,11 @@ int hct_getIntInViewingConditions(
       mid$jscomp$0 = low$jscomp$0 + (high$jscomp$0 - low$jscomp$0) / 2;
       final clipped = CAM16
               .fromJchInViewingConditions(mid$jscomp$0, chroma, hue)
-              .viewed(),
-          clippedLstar = lstarFromInt(clipped),
+              .toViewedArgb(),
+          clippedLstar = lstarFromArgb(clipped),
           dL = (tone - clippedLstar).abs();
       if (0.2 > dL) {
-        final camClipped = CAM16.fromIntInViewingConditions(clipped),
+        final camClipped = CAM16.fromArgbInViewingConditions(clipped),
             dE = camClipped.distance(CAM16.fromJchInViewingConditions(
                 camClipped.j, camClipped.chroma, hue));
         if (1 >= dE && dE <= bestdE) {
@@ -101,7 +108,7 @@ int hct_getIntInViewingConditions(
     final possibleAnswer = bestCam;
     if (isFirstLoop) {
       if (null != possibleAnswer) {
-        return possibleAnswer.viewed();
+        return possibleAnswer.toViewedArgb();
       }
       isFirstLoop = false;
     } else if (null == possibleAnswer) {
@@ -112,5 +119,5 @@ int hct_getIntInViewingConditions(
     }
     mid = low + (high - low) / 2;
   }
-  return null == answer ? intFromLstar(tone$jscomp$0) : answer.viewed();
+  return null == answer ? argbFromLstar(tone$jscomp$0) : answer.toViewedArgb();
 }

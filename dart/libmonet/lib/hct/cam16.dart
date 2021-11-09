@@ -3,14 +3,14 @@ import '../math.dart';
 import '../utils.dart';
 
 class CAM16 {
-  final num hue;
-  final num chroma;
-  final num j;
-  final num q;
-  final num s;
-  final num jstar;
-  final num astar;
-  final num bstar;
+  final double hue;
+  final double chroma;
+  final double j;
+  final double q;
+  final double s;
+  final double jstar;
+  final double astar;
+  final double bstar;
   const CAM16(
     this.hue,
     this.chroma,
@@ -22,7 +22,7 @@ class CAM16 {
     this.bstar,
   );
 
-  factory CAM16.fromIntInViewingConditions(int argb) {
+  factory CAM16.fromArgbInViewingConditions(int argb) {
     final redL = 100 * linearized(((argb & 0xff0000) >> 16) / 255),
         greenL = 100 * linearized(((argb & 0xFF00) >> 8) / 255),
         blueL = 100 * linearized((argb & 0xFF) / 255),
@@ -52,11 +52,12 @@ class CAM16 {
         hueRadians = hue * Math.PI / 180,
         j = 100 *
             Math.pow(
-                (40 * rA + 20 * gA + bA) /
-                    20 *
-                    ViewingConditions.DEFAULT.nbb /
-                    ViewingConditions.DEFAULT.aw,
-                ViewingConditions.DEFAULT.c * ViewingConditions.DEFAULT.z),
+                    (40 * rA + 20 * gA + bA) /
+                        20 *
+                        ViewingConditions.DEFAULT.nbb /
+                        ViewingConditions.DEFAULT.aw,
+                    ViewingConditions.DEFAULT.c * ViewingConditions.DEFAULT.z)
+                .toDouble(),
         alpha = Math.pow(
                 50000 /
                     13 *
@@ -70,7 +71,7 @@ class CAM16 {
                     ((20 * rA + 20 * gA + 21 * bA) / 20 + 0.305),
                 0.9) *
             Math.pow(1.64 - Math.pow(0.29, ViewingConditions.DEFAULT.n), 0.73),
-        c = alpha * Math.sqrt(j / 100),
+        c = alpha * Math.sqrt(j / 100).toDouble(),
         mstar = 1 /
             0.0228 *
             Math.log(1 + 0.0228 * c * ViewingConditions.DEFAULT.fLRoot);
@@ -83,7 +84,7 @@ class CAM16 {
             Math.sqrt(j / 100) *
             (ViewingConditions.DEFAULT.aw + 4) *
             ViewingConditions.DEFAULT.fLRoot,
-        50 *
+        50.0 *
             Math.sqrt(alpha *
                 ViewingConditions.DEFAULT.c /
                 (ViewingConditions.DEFAULT.aw + 4)),
@@ -91,7 +92,7 @@ class CAM16 {
         mstar * Math.cos(hueRadians),
         mstar * Math.sin(hueRadians));
   }
-  factory CAM16.fromJchInViewingConditions(num j, num c, num h) {
+  factory CAM16.fromJchInViewingConditions(double j, double c, double h) {
     final hueRadians = h * Math.PI / 180,
         mstar = 1 /
             0.0228 *
@@ -105,7 +106,7 @@ class CAM16 {
             Math.sqrt(j / 100) *
             (ViewingConditions.DEFAULT.aw + 4) *
             ViewingConditions.DEFAULT.fLRoot,
-        50 *
+        50.0 *
             Math.sqrt(c /
                 Math.sqrt(j / 100) *
                 ViewingConditions.DEFAULT.c /
@@ -121,7 +122,7 @@ class CAM16 {
     return 1.41 * Math.pow(Math.sqrt(dJ * dJ + dA * dA + dB * dB), 0.63);
   }
 
-  int viewed() {
+  int toViewedArgb() {
     final t = Math.pow(
             (0 == this.chroma || 0 == this.j
                     ? 0
@@ -170,7 +171,7 @@ class CAM16 {
             Math.pow(Math.max(0, 27.13 * (bA).abs() / (400 - (bA).abs())),
                 1 / 0.42) /
             ViewingConditions.DEFAULT.rgbD[2];
-    return intFromXyzComponents(
+    return argbFromXyzComponents(
         1.86206786 * rF - 1.01125463 * gF + 0.14918677 * bF,
         0.38752654 * rF + 0.62144744 * gF - 0.00897398 * bF,
         -0.0158415 * rF - 0.03412294 * gF + 1.04996444 * bF);

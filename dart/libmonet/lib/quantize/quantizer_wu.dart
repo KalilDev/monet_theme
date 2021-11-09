@@ -1,5 +1,8 @@
 import 'quantizer.dart';
 
+typedef MomentValueT = num;
+typedef MomentT = List<MomentValueT>;
+
 class QuantizerWu {
   List<num> weights = [];
   List<num> momentsR = [];
@@ -16,7 +19,7 @@ class QuantizerWu {
     this.cubes = [];
   }
 
-  num volume(cube, moment) {
+  MomentValueT volume(quantizer_wu_Box cube, MomentT moment) {
     return moment[QuantizerWu.getIndex(cube.r1, cube.g1, cube.b1)] -
         moment[QuantizerWu.getIndex(cube.r1, cube.g1, cube.b0)] -
         moment[QuantizerWu.getIndex(cube.r1, cube.g0, cube.b1)] +
@@ -27,7 +30,7 @@ class QuantizerWu {
         moment[QuantizerWu.getIndex(cube.r0, cube.g0, cube.b0)];
   }
 
-  bottom(cube, direction, moment) {
+  MomentValueT bottom(quantizer_wu_Box cube, String direction, MomentT moment) {
     switch (direction) {
       case 'red':
         return -moment[QuantizerWu.getIndex(cube.r0, cube.g1, cube.b1)] +
@@ -49,7 +52,12 @@ class QuantizerWu {
     }
   }
 
-  top(cube, direction, position, moment) {
+  MomentValueT top(
+    quantizer_wu_Box cube,
+    String direction,
+    int position,
+    MomentT moment,
+  ) {
     switch (direction) {
       case 'red':
         return moment[QuantizerWu.getIndex(position, cube.g1, cube.b1)] -
@@ -71,8 +79,16 @@ class QuantizerWu {
     }
   }
 
-  quantizer_wu_MaximizeResult maximize(cube, direction, first, last, num wholeR,
-      num wholeG, num wholeB, num wholeW) {
+  quantizer_wu_MaximizeResult maximize(
+    quantizer_wu_Box cube,
+    String direction,
+    int first,
+    int last,
+    num wholeR,
+    num wholeG,
+    num wholeB,
+    num wholeW,
+  ) {
     final bottomR = this.bottom(cube, direction, this.momentsR),
         bottomG = this.bottom(cube, direction, this.momentsG),
         bottomB = this.bottom(cube, direction, this.momentsB),
@@ -104,7 +120,7 @@ class QuantizerWu {
     return new quantizer_wu_MaximizeResult(cut, max);
   }
 
-  cut(one, two) {
+  bool cut(quantizer_wu_Box one, quantizer_wu_Box two) {
     final wholeR = this.volume(one, this.momentsR),
         wholeG = this.volume(one, this.momentsG),
         wholeB = this.volume(one, this.momentsB),
@@ -154,7 +170,7 @@ class QuantizerWu {
     return true;
   }
 
-  double variance(cube) {
+  double variance(quantizer_wu_Box cube) {
     final dr = this.volume(cube, this.momentsR),
         dg = this.volume(cube, this.momentsG),
         db = this.volume(cube, this.momentsB),

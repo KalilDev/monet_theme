@@ -2,16 +2,16 @@ import '../math.dart';
 import '../utils.dart';
 
 class ViewingConditions {
-  final num n;
-  final num aw;
-  final num nbb;
-  final num ncb;
-  final num c;
-  final num nc;
-  final List<num> rgbD;
-  final num fl;
-  final num fLRoot;
-  final num z;
+  final double n;
+  final double aw;
+  final double nbb;
+  final double ncb;
+  final double c;
+  final double nc;
+  final List<double> rgbD;
+  final double fl;
+  final double fLRoot;
+  final double z;
   const ViewingConditions(
     this.n,
     this.aw,
@@ -27,7 +27,7 @@ class ViewingConditions {
 
   static final ViewingConditions DEFAULT = (
       [List<double> whitePoint = WHITE_POINT_D65,
-      num? adaptingLuminance,
+      double? adaptingLuminance,
       num backgroundLstar = 50,
       num surround = 2,
       bool discountingIlluminant = false]) {
@@ -83,16 +83,16 @@ class ViewingConditions {
           400 * rgbAFactors[1] / (rgbAFactors[1] + 27.13),
           400 * rgbAFactors[2] / (rgbAFactors[2] + 27.13)
         ];
-    return new ViewingConditions(
+    return ViewingConditions(
         n,
         (2 * rgbA[0] + rgbA[1] + 0.05 * rgbA[2]) * nbb,
         nbb,
         nbb,
-        JSCompiler_temp,
+        JSCompiler_temp.toDouble(),
         f,
         rgbD,
         fl,
-        Math.pow(fl, 0.25),
+        Math.pow(fl, 0.25).toDouble(),
         1.48 + Math.sqrt(n));
   }();
 }

@@ -4,7 +4,7 @@ class quantizer_wsmeans_DistanceAndIndex {
 }
 
 class quantizer_wu_Box {
-  num vol = 0, b1 = 0, b0 = 0, g1 = 0, g0 = 0, r1 = 0, r0 = 0;
+  int vol = 0, b1 = 0, b0 = 0, g1 = 0, g0 = 0, r1 = 0, r0 = 0;
 }
 
 class quantizer_wu_CreateBoxesResult {

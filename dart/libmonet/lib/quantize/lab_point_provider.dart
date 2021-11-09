@@ -1,7 +1,7 @@
 import '../utils.dart';
 
 class LabPointProvider {
-  int toInt(List<num> point) {
+  int toArgb(List<num> point) {
     var l = point[0];
     final e = 216 / 24389,
         kappa = 24389 / 27,
@@ -15,7 +15,7 @@ class LabPointProvider {
       (8 < l ? fy * fy * fy : l / kappa) * WHITE_POINT_D65[1],
       (fz3 > e ? fz3 : (116 * fz - 16) / kappa) * WHITE_POINT_D65[2]
     ];
-    return intFromXyzComponents(xyz[0], xyz[1], xyz[2]);
+    return argbFromXyzComponents(xyz[0], xyz[1], xyz[2]);
   }
 
   num distance(List<num> from, List<num> to) {
