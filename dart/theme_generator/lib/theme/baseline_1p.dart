@@ -1,6 +1,6 @@
 import 'package:theme_generator/theme_generator.dart';
 
-class BaselineTheme {
+class MonetTheme {
   final MonetColorScheme light;
   final MonetColorScheme dark;
   final TonalGroup neutral;
@@ -10,8 +10,11 @@ class BaselineTheme {
   final TonalGroup tertiary;
   final TonalGroup error;
   final Map<String, FontStyle> styles;
+  final Object? androidLight;
+  final Object? androidDark;
+  final ThemeSource? source;
 
-  const BaselineTheme({
+  const MonetTheme({
     required this.light,
     required this.dark,
     required this.neutral,
@@ -21,10 +24,13 @@ class BaselineTheme {
     required this.tertiary,
     required this.error,
     required this.styles,
+    this.androidLight,
+    this.androidDark,
+    this.source,
   });
 }
 
-const BaselineTheme BASELINE_1P = BaselineTheme(
+const MonetTheme BASELINE_1P = MonetTheme(
     light: MonetColorScheme(background: '#FFFFFF', surface: '#FFFFFF'),
     dark: MonetColorScheme(),
     neutral: {

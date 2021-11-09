@@ -5,19 +5,35 @@ import '../theme.dart';
 class ThemeAdapterProps {
   bool isBaseline;
   bool is3p;
-  String imageUrl;
+  String? imageUrl;
   CorePalette tones;
   ThemeAdapterOverrides overrides;
   String seed;
-  CorePalette keyTones;
   bool blend;
+
+  ThemeAdapterProps({
+    required this.isBaseline,
+    required this.is3p,
+    this.imageUrl,
+    required this.tones,
+    required this.overrides,
+    required this.seed,
+    required this.blend,
+  });
 }
 
 class ThemeAdapterOverrides {
-  TonalGroups tonalGroups;
-  ThemeSource source;
+  TonalGroups? tonalGroups;
+  ThemeSource? source;
   MonetColorScheme? light;
   MonetColorScheme? dark;
+
+  ThemeAdapterOverrides({
+    this.tonalGroups,
+    this.source,
+    this.light,
+    this.dark,
+  });
 }
 
 typedef TonalGroup = Map<String, String>;
@@ -455,12 +471,11 @@ class ThemeAdapterBase {
   }
 
   void setCustomColor(key, value) {
-    var _a, _b, _c, _d;
     this.props.isBaseline = false;
-    props.overrides.source = source;
-    this.props.overrides.source[key] = value;
+    final sourceOverrides = props.overrides.source = source;
+    sourceOverrides[key] = value;
     if (KEY_COLORS.contains(key)) {
-      props.overrides.tonalGroups ??= TonalGroups();
+      final tonalGroups = props.overrides.tonalGroups ??= TonalGroups();
       var JSCompiler_inline_result;
       try {
         JSCompiler_inline_result = intFromHex(value);
@@ -470,49 +485,45 @@ class ThemeAdapterBase {
         JSCompiler_inline_result = intFromHex('#000000');
       }
       var keyTones = new CorePalette(JSCompiler_inline_result);
+      // TODO: check if primary, secondary and tertiary should really be keyTones.a1
       switch (key) {
         case 'primary':
-          this.props.overrides.tonalGroups.primary =
-              tonal_group_tonesToTonalGroup(keyTones.a1);
+          tonalGroups.primary = tonal_group_tonesToTonalGroup(keyTones.a1);
           break;
         case 'secondary':
-          this.props.overrides.tonalGroups.secondary =
-              tonal_group_tonesToTonalGroup(keyTones.a1);
+          tonalGroups.secondary = tonal_group_tonesToTonalGroup(keyTones.a1);
           break;
         case 'tertiary':
-          this.props.overrides.tonalGroups.tertiary =
-              tonal_group_tonesToTonalGroup(keyTones.a1);
+          tonalGroups.tertiary = tonal_group_tonesToTonalGroup(keyTones.a1);
           break;
         case 'error':
-          this.props.overrides.tonalGroups.error =
-              tonal_group_tonesToTonalGroup(keyTones.error);
+          tonalGroups.error = tonal_group_tonesToTonalGroup(keyTones.error);
           break;
         case 'neutral':
-          this.props.overrides.tonalGroups.neutral =
-              tonal_group_tonesToTonalGroup(keyTones.n1);
+          tonalGroups.neutral = tonal_group_tonesToTonalGroup(keyTones.n1);
           break;
         case 'neutralVariant':
-          this.props.overrides.tonalGroups.neutralVariant =
+          tonalGroups.neutralVariant =
               tonal_group_tonesToTonalGroup(keyTones.n2);
       }
     }
   }
 
-  Map<String, dynamic> save() {
-    final theme = {
-      'light': this.light,
-      'dark': this.dark,
-      'androidLight': null,
-      'androidDark': null,
-      'primary': this.primaryGroup,
-      'secondary': this.secondaryGroup,
-      'tertiary': this.tertiaryGroup,
-      'neutral': this.neutralGroup,
-      'neutralVariant': this.neutralVariantGroup,
-      'error': this.errorGroup,
-      'styles': this.styles,
-      'source': this.source
-    };
+  MonetTheme save() {
+    final theme = MonetTheme(
+      light: this.light,
+      dark: this.dark,
+      androidLight: null,
+      androidDark: null,
+      primary: this.primaryGroup,
+      secondary: this.secondaryGroup,
+      tertiary: this.tertiaryGroup,
+      neutral: this.neutralGroup,
+      neutralVariant: this.neutralVariantGroup,
+      error: this.errorGroup,
+      styles: this.styles,
+      source: this.source,
+    );
     print('saved theme:\n$theme');
     return theme;
   }

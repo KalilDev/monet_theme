@@ -8,11 +8,11 @@ import 'base.dart';
 import 'baseline_1p.dart';
 import 'baseline_3p.dart';
 
-bool checks_isTheme3p(theme) {
+bool checks_isTheme3p(MonetTheme theme) {
   return 'Roboto' == theme.styles['headline1']?.fontFamilyName;
 }
 
-bool checks_isThemeBaseline(theme) {
+bool checks_isThemeBaseline(MonetTheme theme) {
   var match$jscomp$0 = true;
   final target = checks_isTheme3p(theme) ? BASELINE_3P : BASELINE_1P;
   void checkGroup(name, TonalGroup group, TonalGroup targetGroup) {
