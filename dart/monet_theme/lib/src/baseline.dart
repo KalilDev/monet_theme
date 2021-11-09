@@ -3,7 +3,7 @@ import './generate.dart';
 
 final RawMonetTheme raw_baseline_1p = generateRawThemeFrom(
   null,
-  primary: OverrideTonalPalette(
+  primary: OverridenTonalPalette(
     {
       100: 0xFFFFFFFF,
       99: 0xFFFAFBFF,
@@ -23,7 +23,7 @@ final RawMonetTheme raw_baseline_1p = generateRawThemeFrom(
       0: 0xFF000000,
     },
   ),
-  secondary: OverrideTonalPalette(
+  secondary: OverridenTonalPalette(
     {
       100: 0xFFFFFFFF,
       99: 0xFFF7FCFF,
@@ -43,7 +43,7 @@ final RawMonetTheme raw_baseline_1p = generateRawThemeFrom(
       0: 0xFF000000,
     },
   ),
-  tertiary: OverrideTonalPalette(
+  tertiary: OverridenTonalPalette(
     {
       100: 0xFFFFFFFF,
       99: 0xFFF2FFEE,
@@ -63,7 +63,7 @@ final RawMonetTheme raw_baseline_1p = generateRawThemeFrom(
       0: 0xFF000000,
     },
   ),
-  neutral: OverrideTonalPalette(
+  neutral: OverridenTonalPalette(
     {
       100: 0xFFFFFFFF,
       99: 0xFFFDFCFB,
@@ -83,7 +83,7 @@ final RawMonetTheme raw_baseline_1p = generateRawThemeFrom(
       0: 0xFF000000,
     },
   ),
-  neutralVariant: OverrideTonalPalette(
+  neutralVariant: OverridenTonalPalette(
     {
       100: 0xFFFFFFFF,
       99: 0xFFFAFDFB,
@@ -103,7 +103,7 @@ final RawMonetTheme raw_baseline_1p = generateRawThemeFrom(
       0: 0xFF000000,
     },
   ),
-  error: OverrideTonalPalette(
+  error: OverridenTonalPalette(
     {
       100: 0xFFFFFFFF,
       99: 0xFFFFFBF9,
@@ -132,7 +132,7 @@ final RawMonetTheme raw_baseline_1p = generateRawThemeFrom(
 
 final RawMonetTheme raw_baseline_3p = generateRawThemeFrom(
   null,
-  primary: OverrideTonalPalette(
+  primary: OverridenTonalPalette(
     {
       100: 0xFFFFFFFF,
       99: 0xFFFFFBFE,
@@ -152,7 +152,7 @@ final RawMonetTheme raw_baseline_3p = generateRawThemeFrom(
       0: 0xFF000000,
     },
   ),
-  secondary: OverrideTonalPalette(
+  secondary: OverridenTonalPalette(
     {
       100: 0xFFFFFFFF,
       99: 0xFFFFFBFE,
@@ -172,7 +172,7 @@ final RawMonetTheme raw_baseline_3p = generateRawThemeFrom(
       0: 0xFF000000,
     },
   ),
-  tertiary: OverrideTonalPalette(
+  tertiary: OverridenTonalPalette(
     {
       100: 0xFFFFFFFF,
       99: 0xFFFFFBFA,
@@ -192,7 +192,7 @@ final RawMonetTheme raw_baseline_3p = generateRawThemeFrom(
       0: 0xFF000000,
     },
   ),
-  neutral: OverrideTonalPalette(
+  neutral: OverridenTonalPalette(
     {
       100: 0xFFFFFFFF,
       99: 0xFFFFFBFE,
@@ -212,7 +212,7 @@ final RawMonetTheme raw_baseline_3p = generateRawThemeFrom(
       0: 0xFF000000,
     },
   ),
-  neutralVariant: OverrideTonalPalette(
+  neutralVariant: OverridenTonalPalette(
     {
       100: 0xFFFFFFFF,
       99: 0xFFFFFBFE,
@@ -232,7 +232,7 @@ final RawMonetTheme raw_baseline_3p = generateRawThemeFrom(
       0: 0xFF000000,
     },
   ),
-  error: OverrideTonalPalette(
+  error: OverridenTonalPalette(
     {
       100: 0xFFFFFFFF,
       99: 0xFFFFFBF9,

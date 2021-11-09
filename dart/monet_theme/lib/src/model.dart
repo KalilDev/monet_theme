@@ -1,31 +1,31 @@
 import 'package:libmonet/libmonet.dart';
 
 class RawMonetColorScheme {
-  final int primary;
-  final int onPrimary;
-  final int primaryContainer;
-  final int onPrimaryContainer;
-  final int secondary;
-  final int onSecondary;
-  final int secondaryContainer;
-  final int onSecondaryContainer;
-  final int tertiary;
-  final int onTertiary;
-  final int tertiaryContainer;
-  final int onTertiaryContainer;
-  final int error;
-  final int errorContainer;
-  final int onError;
-  final int onErrorContainer;
-  final int background;
-  final int onBackground;
-  final int surface;
-  final int onSurface;
-  final int surfaceVariant;
-  final int onSurfaceVariant;
-  final int outline;
-  final int inverseOnSurface;
-  final int inverseSurface;
+  final ARGBColor primary;
+  final ARGBColor onPrimary;
+  final ARGBColor primaryContainer;
+  final ARGBColor onPrimaryContainer;
+  final ARGBColor secondary;
+  final ARGBColor onSecondary;
+  final ARGBColor secondaryContainer;
+  final ARGBColor onSecondaryContainer;
+  final ARGBColor tertiary;
+  final ARGBColor onTertiary;
+  final ARGBColor tertiaryContainer;
+  final ARGBColor onTertiaryContainer;
+  final ARGBColor error;
+  final ARGBColor errorContainer;
+  final ARGBColor onError;
+  final ARGBColor onErrorContainer;
+  final ARGBColor background;
+  final ARGBColor onBackground;
+  final ARGBColor surface;
+  final ARGBColor onSurface;
+  final ARGBColor surfaceVariant;
+  final ARGBColor onSurfaceVariant;
+  final ARGBColor outline;
+  final ARGBColor inverseOnSurface;
+  final ARGBColor inverseSurface;
 
   const RawMonetColorScheme({
     required this.primary,
@@ -56,31 +56,31 @@ class RawMonetColorScheme {
   });
 
   RawMonetColorScheme copyWith({
-    int? primary,
-    int? onPrimary,
-    int? primaryContainer,
-    int? onPrimaryContainer,
-    int? secondary,
-    int? onSecondary,
-    int? secondaryContainer,
-    int? onSecondaryContainer,
-    int? tertiary,
-    int? onTertiary,
-    int? tertiaryContainer,
-    int? onTertiaryContainer,
-    int? error,
-    int? errorContainer,
-    int? onError,
-    int? onErrorContainer,
-    int? background,
-    int? onBackground,
-    int? surface,
-    int? onSurface,
-    int? surfaceVariant,
-    int? onSurfaceVariant,
-    int? outline,
-    int? inverseOnSurface,
-    int? inverseSurface,
+    ARGBColor? primary,
+    ARGBColor? onPrimary,
+    ARGBColor? primaryContainer,
+    ARGBColor? onPrimaryContainer,
+    ARGBColor? secondary,
+    ARGBColor? onSecondary,
+    ARGBColor? secondaryContainer,
+    ARGBColor? onSecondaryContainer,
+    ARGBColor? tertiary,
+    ARGBColor? onTertiary,
+    ARGBColor? tertiaryContainer,
+    ARGBColor? onTertiaryContainer,
+    ARGBColor? error,
+    ARGBColor? errorContainer,
+    ARGBColor? onError,
+    ARGBColor? onErrorContainer,
+    ARGBColor? background,
+    ARGBColor? onBackground,
+    ARGBColor? surface,
+    ARGBColor? onSurface,
+    ARGBColor? surfaceVariant,
+    ARGBColor? onSurfaceVariant,
+    ARGBColor? outline,
+    ARGBColor? inverseOnSurface,
+    ARGBColor? inverseSurface,
   }) =>
       RawMonetColorScheme(
         primary: primary ?? this.primary,
@@ -111,18 +111,13 @@ class RawMonetColorScheme {
       );
 }
 
-class OverrideTonalPalette implements TonalPalette {
-  final Map<int, int> _values;
+class OverridenTonalPalette extends TonalPalette {
+  final Map<int, ARGBColor> _values;
 
-  OverrideTonalPalette(this._values);
-  @override
-  int operator [](int tone) => getTone(tone);
-
-  double get hue => throw UnimplementedError();
-  double get chroma => throw UnimplementedError();
+  const OverridenTonalPalette(this._values);
 
   @override
-  int getTone(int tone) => _values[tone]!;
+  ARGBColor getTone(int tone) => _values[tone]!;
 }
 
 class RawMonetTheme {

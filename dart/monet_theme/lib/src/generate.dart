@@ -2,7 +2,7 @@ import 'package:libmonet/libmonet.dart';
 
 import 'model.dart';
 
-CorePalette _seededOr(int? seed, CorePalette or) {
+CorePalette _seededOr(ARGBColor? seed, CorePalette or) {
   if (seed == null) {
     return or;
   }
@@ -12,13 +12,13 @@ CorePalette _seededOr(int? seed, CorePalette or) {
 /// Generate an [RawMonetTheme] from the core palette [palette], while
 /// optionally overriding the seeds for the [TonalPalette]s.
 RawMonetTheme generateRawTheme(
-  int seed, {
-  int? primarySeed,
-  int? secondarySeed,
-  int? tertiarySeed,
-  int? neutralSeed,
-  int? neutralVariantSeed,
-  int? errorSeed,
+  ARGBColor seed, {
+  ARGBColor? primarySeed,
+  ARGBColor? secondarySeed,
+  ARGBColor? tertiarySeed,
+  ARGBColor? neutralSeed,
+  ARGBColor? neutralVariantSeed,
+  ARGBColor? errorSeed,
 }) {
   final main = CorePalette(seed);
   final primary = _seededOr(primarySeed, main).a1,
@@ -39,8 +39,9 @@ RawMonetTheme generateRawTheme(
 }
 
 /// Generate an [RawMonetTheme] from the core palette [palette], while
-/// optionally overriding [primary], [secondary], [tertiary], [neutral],
-/// [neutralVariant] and [error].
+/// optionally overriding the [primary], [secondary], [tertiary], [neutral],
+/// [neutralVariant] and [error] [TonalPallete]s. If every palette is overriden,
+/// [main] can be null.
 RawMonetTheme generateRawThemeFrom(
   CorePalette? main, {
   TonalPalette? primary,
