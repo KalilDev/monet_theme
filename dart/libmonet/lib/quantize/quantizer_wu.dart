@@ -10,14 +10,6 @@ class QuantizerWu {
   List<num> momentsB = [];
   List<num> moments = [];
   List<quantizer_wu_Box> cubes = [];
-  constructor() {
-    this.weights = [];
-    this.momentsR = [];
-    this.momentsG = [];
-    this.momentsB = [];
-    this.moments = [];
-    this.cubes = [];
-  }
 
   MomentValueT volume(quantizer_wu_Box cube, MomentT moment) {
     return moment[QuantizerWu.getIndex(cube.r1, cube.g1, cube.b1)] -
@@ -93,7 +85,9 @@ class QuantizerWu {
         bottomG = this.bottom(cube, direction, this.momentsG),
         bottomB = this.bottom(cube, direction, this.momentsB),
         bottomW = this.bottom(cube, direction, this.weights);
-    num max = 0, cut = -1, halfR, halfG, halfB, halfW;
+    num max = 0;
+    int cut = -1;
+    num halfR, halfG, halfB, halfW;
     for (var i = first; i < last; i++) {
       halfR = bottomR + this.top(cube, direction, i, this.momentsR);
       halfG = bottomG + this.top(cube, direction, i, this.momentsG);
@@ -131,7 +125,7 @@ class QuantizerWu {
             one, 'green', one.g0 + 1, one.g1, wholeR, wholeG, wholeB, wholeW),
         maxBResult = this.maximize(
             one, 'blue', one.b0 + 1, one.b1, wholeR, wholeG, wholeB, wholeW);
-    final direction;
+    late final String direction;
     final maxR = maxRResult.maximum,
         maxG = maxGResult.maximum,
         maxB = maxBResult.maximum;

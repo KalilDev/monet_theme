@@ -13,7 +13,7 @@ class quantizer_wu_CreateBoxesResult {
 }
 
 class quantizer_wu_MaximizeResult {
-  final cutLocation;
+  final int cutLocation;
   final num maximum;
   quantizer_wu_MaximizeResult(this.cutLocation, this.maximum);
 }

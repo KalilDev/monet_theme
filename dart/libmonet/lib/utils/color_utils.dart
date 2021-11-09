@@ -2,10 +2,10 @@ import '../math.dart';
 import 'utils.dart';
 
 const List<double> WHITE_POINT_D65 = const [95.047, 100, 108.883];
-double lstarFromArgb(argb) {
+double lstarFromArgb(int argb) {
   var y = 21.26 * linearized(((argb & 0xff0000) >> 16) / 255) +
       71.52 * linearized(((argb & 0xff00) >> 8) / 255) +
-      7.22 * linearized((argb & 255) / 255);
+      7.22 * linearized((argb & 0xff) / 255);
   y /= 100;
   return y <= 216 / 24389 ? 24389 / 27 * y : 116 * Math.pow(y, 1 / 3) - 16;
 }
@@ -43,7 +43,7 @@ List<double> labFromInt(int argb) {
       blueL = 100 * linearized((argb & 0xff) / 255),
       yNormalized = (0.2126 * redL + 0.7152 * greenL + 0.0722 * blueL) /
           WHITE_POINT_D65[1];
-  var fy;
+  num fy;
   fy = yNormalized > e
       ? Math.pow(yNormalized, 1 / 3)
       : (kappa * yNormalized + 16) / 116;

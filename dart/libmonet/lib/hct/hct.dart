@@ -28,7 +28,7 @@ class HCT {
     return this.internalHue;
   }
 
-  set hue(newHue) {
+  set hue(double newHue) {
     this.setInternalState(
       hct_getArgbInViewingConditions(
         math_utils_sanitizeDegrees(math_utils_sanitizeDegrees(newHue))
@@ -43,7 +43,7 @@ class HCT {
     return this.internalChroma;
   }
 
-  set chroma(newChroma) {
+  set chroma(double newChroma) {
     this.setInternalState(hct_getArgbInViewingConditions(
         math_utils_sanitizeDegrees(this.internalHue).toDouble(),
         newChroma,
@@ -54,7 +54,7 @@ class HCT {
     return this.internalTone;
   }
 
-  set tone(newTone) {
+  set tone(double newTone) {
     this.setInternalState(
       hct_getArgbInViewingConditions(
           math_utils_sanitizeDegrees(this.internalHue).toDouble(),
@@ -73,16 +73,17 @@ int hct_getArgbInViewingConditions(
   var high = chroma$jscomp$0.toDouble(),
       mid = chroma$jscomp$0.toDouble(),
       low = 0.0,
-      isFirstLoop = true,
-      answer = null;
+      isFirstLoop = true;
+
+  CAM16? answer = null;
   for (; 0.4 <= (low - high).abs();) {
     var hue = hue$jscomp$0, chroma = mid, tone = tone$jscomp$0;
     var low$jscomp$0 = 0.0,
         high$jscomp$0 = 100.0,
-        mid$jscomp$0,
         bestdL = 1000.0,
-        bestdE = 1000.0,
-        bestCam = null;
+        bestdE = 1000.0;
+    double mid$jscomp$0;
+    CAM16? bestCam = null;
     for (; 0.01 < (low$jscomp$0 - high$jscomp$0).abs();) {
       mid$jscomp$0 = low$jscomp$0 + (high$jscomp$0 - low$jscomp$0) / 2;
       final clipped = CAM16

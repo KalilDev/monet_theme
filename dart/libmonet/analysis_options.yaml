@@ -13,6 +13,11 @@
 
 include: package:lints/recommended.yaml
 
+analyzer:
+  strong-mode:
+    implicit-dynamic: false
+    implicit-casts: false
+
 # Uncomment the following section to specify additional rules.
 
 # linter:
