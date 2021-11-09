@@ -478,11 +478,11 @@ class ThemeAdapterBase {
       final tonalGroups = props.overrides.tonalGroups ??= TonalGroups();
       var JSCompiler_inline_result;
       try {
-        JSCompiler_inline_result = intFromHex(value);
+        JSCompiler_inline_result = rgbFromHex(value);
       } catch (error) {
         print('error converting [${value}] to number');
         print(error);
-        JSCompiler_inline_result = intFromHex('#000000');
+        JSCompiler_inline_result = rgbFromHex('#000000');
       }
       var keyTones = new CorePalette(JSCompiler_inline_result);
       // TODO: check if primary, secondary and tertiary should really be keyTones.a1

@@ -85,22 +85,22 @@ String color_utils_numberToHex(value) {
 
 TonalGroup tonal_group_tonesToTonalGroup(TonalPalette tones) {
   return {
-    'luminance100': color_utils_numberToHex(tones.tone(100)),
-    'luminance99': color_utils_numberToHex(tones.tone(99)),
-    'luminance98': color_utils_numberToHex(tones.tone(98)),
-    'luminance95': color_utils_numberToHex(tones.tone(95)),
-    'luminance90': color_utils_numberToHex(tones.tone(90)),
-    'luminance80': color_utils_numberToHex(tones.tone(80)),
-    'luminance70': color_utils_numberToHex(tones.tone(70)),
-    'luminance60': color_utils_numberToHex(tones.tone(60)),
-    'luminance50': color_utils_numberToHex(tones.tone(50)),
-    'luminance40': color_utils_numberToHex(tones.tone(40)),
-    'luminance35': color_utils_numberToHex(tones.tone(35)),
-    'luminance30': color_utils_numberToHex(tones.tone(30)),
-    'luminance25': color_utils_numberToHex(tones.tone(25)),
-    'luminance20': color_utils_numberToHex(tones.tone(20)),
-    'luminance10': color_utils_numberToHex(tones.tone(10)),
-    'luminance0': color_utils_numberToHex(tones.tone(0))
+    'luminance100': color_utils_numberToHex(tones.getTone(100)),
+    'luminance99': color_utils_numberToHex(tones.getTone(99)),
+    'luminance98': color_utils_numberToHex(tones.getTone(98)),
+    'luminance95': color_utils_numberToHex(tones.getTone(95)),
+    'luminance90': color_utils_numberToHex(tones.getTone(90)),
+    'luminance80': color_utils_numberToHex(tones.getTone(80)),
+    'luminance70': color_utils_numberToHex(tones.getTone(70)),
+    'luminance60': color_utils_numberToHex(tones.getTone(60)),
+    'luminance50': color_utils_numberToHex(tones.getTone(50)),
+    'luminance40': color_utils_numberToHex(tones.getTone(40)),
+    'luminance35': color_utils_numberToHex(tones.getTone(35)),
+    'luminance30': color_utils_numberToHex(tones.getTone(30)),
+    'luminance25': color_utils_numberToHex(tones.getTone(25)),
+    'luminance20': color_utils_numberToHex(tones.getTone(20)),
+    'luminance10': color_utils_numberToHex(tones.getTone(10)),
+    'luminance0': color_utils_numberToHex(tones.getTone(0))
   };
 }
 
@@ -361,7 +361,7 @@ Future index_seedFromImage(
   for (var i = 0; i < clusterCount; i++) {
     final count = pixelCountSums[i];
     if (0 == count) continue;
-    final possibleNewCluster = pointProvider.toInt(clusters[i]);
+    final possibleNewCluster = pointProvider.toArgb(clusters[i]);
     if (!argbToPopulation.containsKey(possibleNewCluster)) {
       argbToPopulation[possibleNewCluster] = count;
     }

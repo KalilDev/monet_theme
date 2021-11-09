@@ -7,7 +7,7 @@ class ThemeAdapter extends ThemeAdapterBase {
   factory ThemeAdapter.fromColor(String value, bool is3p,
       [ThemeAdapterOverrides? overrides]) {
     print('theme adapter from color');
-    final keyTones = CorePalette(intFromHex(value));
+    final keyTones = CorePalette(rgbFromHex(value));
     return ThemeAdapter(ThemeAdapterProps(
         tones: keyTones,
         seed: value,
@@ -27,7 +27,7 @@ class ThemeAdapter extends ThemeAdapterBase {
     final is3p = checks_isTheme3p(theme);
     final seed = theme?.source?.seed ?? ThemeAdapter.baselineSeed(is3p);
     final imageUrl = theme?.source?.imageUrl;
-    final keyTones = new CorePalette(intFromHex(seed));
+    final keyTones = new CorePalette(rgbFromHex(seed));
     final themeOverrides = ThemeAdapterOverrides(
       light: theme.light,
       dark: theme.dark,
@@ -53,7 +53,7 @@ class ThemeAdapter extends ThemeAdapterBase {
   factory ThemeAdapter.defaults([bool is3p = false]) {
     print('theme adapter defaults');
     final seed = ThemeAdapter.baselineSeed(is3p),
-        keyTones = new CorePalette(intFromHex(seed));
+        keyTones = new CorePalette(rgbFromHex(seed));
     return is3p
         ? new ThemeAdapter(ThemeAdapterProps(
             tones: keyTones,
