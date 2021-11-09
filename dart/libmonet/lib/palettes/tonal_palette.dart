@@ -3,13 +3,14 @@ import 'package:libmonet/hct/hct.dart';
 class TonalPalette {
   final num hue;
   final num chroma;
-  final Map<num, int> cache = {};
+  final Map<int, int> cache = {};
 
   TonalPalette(this.hue, this.chroma);
-  tone(tone) {
-    final argb = this
-        .cache
-        .putIfAbsent(tone, () => new HCT(this.hue, this.chroma, tone).toInt());
+  int tone(int tone) {
+    final argb = cache.putIfAbsent(
+      tone,
+      () => HCT(hue, chroma, tone).toInt(),
+    );
     return argb;
   }
 }

@@ -6,6 +6,8 @@ class Math {
   static const PI = math.pi;
   static num abs(num a) => a.abs();
   static int round(num a) => a.round();
+  static int floor(num a) => a.floor();
+  static double random() => math.Random().nextDouble();
   static num cbrt(num a) => math.pow(a, 1 / 3);
   static num sqrt(num a) => math.sqrt(a);
   static num max(num a, num b) => math.max(a, b);
