@@ -1,6 +1,9 @@
+import 'dart:typed_data';
+
 import 'package:example/color_scheme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_monet_theme/flutter_monet_theme.dart';
+import 'package:monet_theme/monet_theme.dart';
 
 void main() {
   runApp(const MyApp());
@@ -40,7 +43,17 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   static const _kInnerGutter = 8.0;
-  MonetTheme get theme => _counter.isEven ? baseline_1p : baseline_3p;
+  final seed = inferSeedFromPixels(Uint32List.fromList([
+    0xFF00FF00,
+    0xFF00ee00,
+    0xFF00ee00,
+    0xFF0000FF,
+  ]));
+  MonetTheme get theme => _counter == 0
+      ? generateTheme(Color(seed))
+      : _counter.isEven
+          ? baseline_1p
+          : baseline_3p;
 
   @override
   Widget build(BuildContext context) {
