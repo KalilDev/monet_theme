@@ -1,6 +1,6 @@
 name: libmonet
 description: An reverse-engineered version of libmonet from the md3 theme builder
-version: 0.1.0
+version: 0.1.1
 homepage: https://www.github.com/kalildev/material_theme_reverse
 
 environment:

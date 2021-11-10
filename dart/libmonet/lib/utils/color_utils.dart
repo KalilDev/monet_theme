@@ -30,10 +30,9 @@ String hexFromInt(ARGBColor argb) {
 
 ARGBColor argbFromRgbComponents(List<int> rgb) {
   return (0xFF000000 |
-          (rgb[0] & 255) << 16 |
-          (rgb[1] & 255) << 8 |
-          rgb[2] & 255) >>>
-      0;
+      (rgb[0] & 255) << 16 |
+      (rgb[1] & 255) << 8 |
+      rgb[2] & 255);
 }
 
 List<double> labFromArgb(ARGBColor argb) {
