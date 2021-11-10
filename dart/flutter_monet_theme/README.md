@@ -7,7 +7,7 @@ An package for creating monet themes in flutter with an friendly api
 - Theme generation from an single, or more seed values
 - Seed value inference from images
 - Material Design 3 compatible typography
-- Material Design 3 compatible color palettes: ![example/assets/palette.png](an reference palette)
+- Material Design 3 compatible color palettes: ![an reference palette](example/assets/palette.png)
 
 ## Usage
 

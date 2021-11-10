@@ -4,4 +4,4 @@ An example app for the flutter_monet_theme package.
 
 ## Screenshots
 
-![example/assets/palette.png](The app)
+![The app](example/assets/palette.png)
