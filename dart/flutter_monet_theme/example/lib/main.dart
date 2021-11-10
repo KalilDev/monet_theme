@@ -16,8 +16,13 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
+      theme: ThemeData.from(
+        colorScheme: baseline_3p.light.toColorScheme(),
+        textTheme: generateTextTheme(),
+      ),
+      darkTheme: ThemeData.from(
+        colorScheme: baseline_3p.dark.toColorScheme(),
+        textTheme: generateTextTheme(),
       ),
       home: const MyHomePage(title: 'Flutter Demo Home Page'),
     );
@@ -58,6 +63,9 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text('Example'),
+      ),
       body: ListView(
         padding: const EdgeInsets.symmetric(
           horizontal: 36,
@@ -66,12 +74,12 @@ class _MyHomePageState extends State<MyHomePage> {
         children: [
           Text(
             'Your Theme',
-            style: Theme.of(context).textTheme.headline3,
+            style: Theme.of(context).textTheme.headline1,
           ),
           SizedBox(height: 3 * _kInnerGutter),
           Text(
             'Light Theme',
-            style: Theme.of(context).textTheme.headline6,
+            style: Theme.of(context).textTheme.headline5,
           ),
           SizedBox(height: _kInnerGutter),
           MonetColorSchemeWidget(scheme: theme.light),

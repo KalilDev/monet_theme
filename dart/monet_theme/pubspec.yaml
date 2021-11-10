@@ -1,14 +1,13 @@
 name: monet_theme
-description: A simple command-line application.
-version: 1.0.0
-# homepage: https://www.example.com
+description: An package for creating monet themes in a platform agnostic way
+version: 0.1.0
+homepage: https://github.com/KalilDev/material_theme_reverse
 
 environment:
-  sdk: '>=2.15.0-226.0.dev <3.0.0'
-
+  sdk: '>=2.13.0 <3.0.0'
 
 dependencies:
-  libmonet: ^0.0.2
+  libmonet: ^0.1.0
 
 dev_dependencies:
   lints: ^1.0.0

@@ -28,6 +28,7 @@ class MonetColorScheme {
   final Color outline;
   final Color inverseOnSurface;
   final Color inverseSurface;
+  final Brightness brightness;
 
   const MonetColorScheme({
     required this.primary,
@@ -55,9 +56,12 @@ class MonetColorScheme {
     required this.outline,
     required this.inverseOnSurface,
     required this.inverseSurface,
+    required this.brightness,
   });
 
-  factory MonetColorScheme.fromRaw(RawMonetColorScheme raw) => MonetColorScheme(
+  factory MonetColorScheme.fromRaw(
+          RawMonetColorScheme raw, Brightness brightness) =>
+      MonetColorScheme(
         primary: Color(raw.primary),
         onPrimary: Color(raw.onPrimary),
         primaryContainer: Color(raw.primaryContainer),
@@ -83,6 +87,7 @@ class MonetColorScheme {
         outline: Color(raw.outline),
         inverseOnSurface: Color(raw.inverseOnSurface),
         inverseSurface: Color(raw.inverseSurface),
+        brightness: brightness,
       );
 
   MonetColorScheme copyWith({
@@ -111,6 +116,7 @@ class MonetColorScheme {
     Color? outline,
     Color? inverseOnSurface,
     Color? inverseSurface,
+    Brightness? brightness,
   }) =>
       MonetColorScheme(
         primary: primary ?? this.primary,
@@ -138,6 +144,22 @@ class MonetColorScheme {
         outline: outline ?? this.outline,
         inverseOnSurface: inverseOnSurface ?? this.inverseOnSurface,
         inverseSurface: inverseSurface ?? this.inverseSurface,
+        brightness: brightness ?? this.brightness,
+      );
+  ColorScheme toColorScheme() => ColorScheme(
+        primary: primary,
+        primaryVariant: secondary,
+        secondary: tertiary,
+        secondaryVariant: tertiaryContainer,
+        surface: surface,
+        background: background,
+        error: error,
+        onPrimary: onPrimary,
+        onSecondary: onSecondary,
+        onSurface: onSurface,
+        onBackground: onBackground,
+        onError: onError,
+        brightness: brightness,
       );
 }
 
@@ -172,8 +194,8 @@ class MonetTheme {
   });
 
   factory MonetTheme.fromRaw(RawMonetTheme raw) => MonetTheme(
-        light: MonetColorScheme.fromRaw(raw.light),
-        dark: MonetColorScheme.fromRaw(raw.dark),
+        light: MonetColorScheme.fromRaw(raw.light, Brightness.light),
+        dark: MonetColorScheme.fromRaw(raw.dark, Brightness.dark),
         primary: ColorTonalPalette.fromRaw(raw.primary),
         secondary: ColorTonalPalette.fromRaw(raw.secondary),
         tertiary: ColorTonalPalette.fromRaw(raw.tertiary),
