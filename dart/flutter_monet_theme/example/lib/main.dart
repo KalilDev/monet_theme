@@ -18,11 +18,13 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       theme: ThemeData.from(
         colorScheme: baseline_3p.light.toColorScheme(),
-        textTheme: generateTextTheme(),
+        textTheme:
+            generateTextTheme().resolveTo(MD3DeviceType.mobile).toTextTheme(),
       ),
       darkTheme: ThemeData.from(
         colorScheme: baseline_3p.dark.toColorScheme(),
-        textTheme: generateTextTheme(),
+        textTheme:
+            generateTextTheme().resolveTo(MD3DeviceType.mobile).toTextTheme(),
       ),
       home: const MyHomePage(title: 'Flutter Demo Home Page'),
     );
