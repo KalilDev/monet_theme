@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_monet_theme/src/model.dart';
 
 const MD3ElevationTheme baselineMD3Elevation = MD3ElevationTheme(
-  level0: MD3ElevationLevel(4),
-  level1: MD3ElevationLevel(6),
-  level2: MD3ElevationLevel(8),
-  level3: MD3ElevationLevel(12),
-  level4: MD3ElevationLevel(16),
+  level0: MD3ElevationLevel(1.0, 0),
+  level1: MD3ElevationLevel(3.0),
+  level2: MD3ElevationLevel(6.0),
+  level3: MD3ElevationLevel(8.0),
+  level4: MD3ElevationLevel(12.0),
 );
 
 class MD3ElevationTheme {
@@ -27,15 +27,24 @@ class MD3ElevationTheme {
 
 class MD3ElevationLevel {
   final double value;
+  final double _elevationTintValue;
 
-  const MD3ElevationLevel(this.value);
+  const MD3ElevationLevel(
+    double value, [
+    double? elevationShadowValue,
+  ])  : this.value = elevationShadowValue ?? value,
+        this._elevationTintValue = value;
 
   static Color surfaceTint(MonetColorScheme scheme) => scheme.primary;
 
-  Color overlaidColor(Color surface, Color surfaceTint) =>
-      ElevationOverlay.colorWithOverlay(
-        surface,
-        surfaceTint,
-        value,
-      );
+  Color overlaidColor(Color surface, Color surfaceTint) {
+    if (surfaceTint == null) {
+      return surface;
+    }
+    return ElevationOverlay.colorWithOverlay(
+      surface,
+      surfaceTint,
+      _elevationTintValue,
+    );
+  }
 }
