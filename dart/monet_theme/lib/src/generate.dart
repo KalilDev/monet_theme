@@ -156,3 +156,22 @@ RawMonetColorScheme _darkSchemeFrom(
       inverseOnSurface: neutral[10],
       inverseSurface: neutral[90],
     );
+
+RawCustomColorTheme generateRawCustomColorThemeFrom(
+  TonalPalette colorPalette,
+) =>
+    RawCustomColorTheme(
+      color: colorPalette,
+      light: RawCustomColorScheme(
+        color: colorPalette[40],
+        onColor: colorPalette[100],
+        colorContainer: colorPalette[90],
+        onColorContainer: colorPalette[10],
+      ),
+      dark: RawCustomColorScheme(
+        color: colorPalette[80],
+        onColor: colorPalette[20],
+        colorContainer: colorPalette[30],
+        onColorContainer: colorPalette[90],
+      ),
+    );

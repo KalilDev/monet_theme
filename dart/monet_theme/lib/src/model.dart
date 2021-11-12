@@ -155,3 +155,42 @@ class RawMonetTheme {
         error: error,
       );
 }
+
+class RawCustomColorScheme {
+  final ARGBColor color;
+  final ARGBColor onColor;
+  final ARGBColor colorContainer;
+  final ARGBColor onColorContainer;
+
+  const RawCustomColorScheme({
+    required this.color,
+    required this.onColor,
+    required this.colorContainer,
+    required this.onColorContainer,
+  });
+
+  RawCustomColorScheme copyWith({
+    ARGBColor? color,
+    ARGBColor? onColor,
+    ARGBColor? colorContainer,
+    ARGBColor? onColorContainer,
+  }) =>
+      RawCustomColorScheme(
+        color: color ?? this.color,
+        onColor: onColor ?? this.onColor,
+        colorContainer: colorContainer ?? this.colorContainer,
+        onColorContainer: onColorContainer ?? this.onColorContainer,
+      );
+}
+
+class RawCustomColorTheme {
+  final TonalPalette color;
+  final RawCustomColorScheme light;
+  final RawCustomColorScheme dark;
+
+  const RawCustomColorTheme({
+    required this.color,
+    required this.light,
+    required this.dark,
+  });
+}

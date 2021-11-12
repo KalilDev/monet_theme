@@ -1,6 +1,6 @@
 name: monet_theme
 description: An package for creating monet themes in a platform agnostic way
-version: 0.1.0
+version: 0.2.1
 homepage: https://github.com/KalilDev/material_theme_reverse
 
 environment:
@@ -8,6 +8,7 @@ environment:
 
 dependencies:
   libmonet: ^0.1.0
+  tuple: 
 
 dev_dependencies:
   lints: ^1.0.0
