@@ -1,3 +1,7 @@
+## 0.3.0
+
+* Use material_color_utilities instead of libmonet
+
 ## 0.2.2
 
 * Add generateCustomColorThemeFrom, generateColorHarmonizedCustomColor,

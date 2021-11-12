@@ -75,19 +75,12 @@ packages:
       path: ".."
       relative: true
     source: path
-    version: "0.2.2"
+    version: "0.3.0"
   flutter_test:
     dependency: "direct dev"
     description: flutter
     source: sdk
     version: "0.0.0"
-  libmonet:
-    dependency: transitive
-    description:
-      name: libmonet
-      url: "http://localhost:4000"
-    source: hosted
-    version: "0.1.1"
   lints:
     dependency: transitive
     description:
@@ -102,6 +95,13 @@ packages:
       url: "http://localhost:4000"
     source: hosted
     version: "0.12.11"
+  material_color_utilities:
+    dependency: transitive
+    description:
+      name: material_color_utilities
+      url: "http://localhost:4000"
+    source: hosted
+    version: "0.1.1"
   meta:
     dependency: transitive
     description:
@@ -115,7 +115,7 @@ packages:
       name: monet_theme
       url: "http://localhost:4000"
     source: hosted
-    version: "0.2.0"
+    version: "0.3.0"
   path:
     dependency: transitive
     description:
@@ -123,13 +123,6 @@ packages:
       url: "http://localhost:4000"
     source: hosted
     version: "1.8.0"
-  quiver:
-    dependency: transitive
-    description:
-      name: quiver
-      url: "http://localhost:4000"
-    source: hosted
-    version: "3.0.1+1"
   sky_engine:
     dependency: transitive
     description: flutter
@@ -177,13 +170,6 @@ packages:
       url: "http://localhost:4000"
     source: hosted
     version: "0.4.3"
-  tuple:
-    dependency: transitive
-    description:
-      name: tuple
-      url: "http://localhost:4000"
-    source: hosted
-    version: "2.0.0"
   typed_data:
     dependency: transitive
     description:

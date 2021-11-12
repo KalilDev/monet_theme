@@ -50,17 +50,7 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   static const _kInnerGutter = 8.0;
-  final seed = inferSeedFromPixels(Uint32List.fromList([
-    0xFF00FF00,
-    0xFF00ee00,
-    0xFF00ee00,
-    0xFF0000FF,
-  ]));
-  MonetTheme get theme => _counter == 0
-      ? generateTheme(Color(seed))
-      : _counter.isEven
-          ? baseline_1p
-          : baseline_3p;
+  MonetTheme get theme => _counter.isEven ? baseline_1p : baseline_3p;
 
   @override
   Widget build(BuildContext context) {

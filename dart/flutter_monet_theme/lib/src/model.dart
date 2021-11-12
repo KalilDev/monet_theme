@@ -1,5 +1,5 @@
 import 'package:flutter_monet_theme/src/generate.dart';
-import 'package:libmonet/libmonet.dart' hide Color;
+import 'package:material_color_utilities/material_color_utilities.dart';
 import 'package:flutter/material.dart';
 import 'package:monet_theme/monet_theme.dart';
 import 'custom_color.dart';
@@ -215,7 +215,7 @@ class ColorTonalPalette {
   factory ColorTonalPalette.fromRaw(TonalPalette raw) =>
       ColorTonalPalette._(raw);
 
-  Color getTone(int tone) => Color(raw.getTone(tone));
+  Color getTone(int tone) => Color(raw.get(tone));
   Color operator [](int tone) => getTone(tone);
 }
 

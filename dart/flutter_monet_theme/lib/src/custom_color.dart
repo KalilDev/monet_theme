@@ -11,5 +11,5 @@ ColorTonalPalette generateColorHarmonizedCustomColor(
   ColorTonalPalette primary,
 ) =>
     ColorTonalPalette.fromRaw(
-      generateRarmonizedCustomColor(color.value, primary.raw),
+      generateHarmonizedCustomColor(color.value, primary.raw),
     );

@@ -1,11 +1,10 @@
 import 'dart:typed_data';
 import 'dart:ui' as ui;
 import 'package:monet_theme/monet_theme.dart';
-import 'package:libmonet/libmonet.dart';
 
 /// Try to infer an good seed from an image`s pixels, based on an scoring of the
 /// colors in an quantized (into an 32x32x32 color space) version of the image.
-Future<ARGBColor?> inferSeedFromImage(ui.Image image) async {
+Future<int?> inferSeedFromImage(ui.Image image) async {
   final rgbaPixels = await image.toByteData(format: ui.ImageByteFormat.rawRgba);
   if (rgbaPixels == null) {
     return null;
