@@ -1,12 +1,12 @@
-import 'package:libmonet/libmonet.dart';
-
+import 'package:material_color_utilities/material_color_utilities.dart';
+import 'monet_compatibility.dart';
 import 'model.dart';
 
 CorePalette _seededOr(ARGBColor? seed, CorePalette or) {
   if (seed == null) {
     return or;
   }
-  return CorePalette(seed);
+  return CorePalette.of(seed);
 }
 
 /// Generate an [RawMonetTheme] from the core palette [palette], while
@@ -20,12 +20,12 @@ RawMonetTheme generateRawTheme(
   ARGBColor? neutralVariantSeed,
   ARGBColor? errorSeed,
 }) {
-  final main = CorePalette(seed);
-  final primary = _seededOr(primarySeed, main).a1,
-      secondary = _seededOr(secondarySeed, main).a2,
-      tertiary = _seededOr(tertiarySeed, main).a3,
-      neutral = _seededOr(neutralSeed, main).n1,
-      neutralVariant = _seededOr(neutralVariantSeed, main).n2,
+  final main = CorePalette.of(seed);
+  final primary = _seededOr(primarySeed, main).primary,
+      secondary = _seededOr(secondarySeed, main).secondary,
+      tertiary = _seededOr(tertiarySeed, main).tertiary,
+      neutral = _seededOr(neutralSeed, main).neutral,
+      neutralVariant = _seededOr(neutralVariantSeed, main).neutralVariant,
       error = _seededOr(errorSeed, main).error;
   return generateRawThemeFrom(
     main,
@@ -51,11 +51,11 @@ RawMonetTheme generateRawThemeFrom(
   TonalPalette? neutralVariant,
   TonalPalette? error,
 }) {
-  final primaryP = primary ?? main!.a1,
-      secondaryP = secondary ?? main!.a2,
-      tertiaryP = tertiary ?? main!.a3,
-      neutralP = neutral ?? main!.n1,
-      neutralVariantP = neutral ?? main!.n2,
+  final primaryP = primary ?? main!.primary,
+      secondaryP = secondary ?? main!.secondary,
+      tertiaryP = tertiary ?? main!.tertiary,
+      neutralP = neutral ?? main!.neutral,
+      neutralVariantP = neutral ?? main!.neutralVariant,
       errorP = error ?? main!.error;
   final lightScheme = _lightSchemeFrom(
         primaryP,

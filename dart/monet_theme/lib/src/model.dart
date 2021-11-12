@@ -1,4 +1,6 @@
-import 'package:libmonet/libmonet.dart';
+import 'package:material_color_utilities/material_color_utilities.dart';
+
+import 'monet_compatibility.dart';
 
 class RawMonetColorScheme {
   final ARGBColor primary;
@@ -109,15 +111,6 @@ class RawMonetColorScheme {
         inverseOnSurface: inverseOnSurface ?? this.inverseOnSurface,
         inverseSurface: inverseSurface ?? this.inverseSurface,
       );
-}
-
-class OverridenTonalPalette extends TonalPalette {
-  final Map<int, ARGBColor> _values;
-
-  const OverridenTonalPalette(this._values);
-
-  @override
-  ARGBColor getTone(int tone) => _values[tone]!;
 }
 
 class RawMonetTheme {
