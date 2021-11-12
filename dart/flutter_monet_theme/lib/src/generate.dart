@@ -26,3 +26,8 @@ MonetTheme generateTheme(
         errorSeed: errorSeed?.value,
       ),
     );
+
+CustomColorTheme generateCustomColorThemeFrom(ColorTonalPalette tonalPalette) =>
+    CustomColorTheme.fromRaw(
+      generateRawCustomColorThemeFrom(tonalPalette.raw),
+    );

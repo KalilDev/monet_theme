@@ -1,3 +1,10 @@
+## 0.2.2
+
+* Add generateCustomColorThemeFrom, generateColorHarmonizedCustomColor,
+ CustomColorTheme, CustomColorScheme, MonetColorKind,
+ MonetTheme.mergeCustomColor, MonetColorScheme.mergeCustomColor,
+ MonetTheme.harmonizedCustomColorTheme and MonetTheme.harmonizedCustomColor
+
 ## 0.2.1
 
 * Improve the MD3ElevationTheme and baseline

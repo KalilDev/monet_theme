@@ -1,6 +1,15 @@
+import 'package:flutter_monet_theme/src/generate.dart';
 import 'package:libmonet/libmonet.dart' hide Color;
 import 'package:flutter/material.dart';
 import 'package:monet_theme/monet_theme.dart';
+import 'custom_color.dart';
+
+enum MonetColorKind {
+  primary,
+  secondary,
+  tertiary,
+  error,
+}
 
 class MonetColorScheme {
   final Color primary;
@@ -161,14 +170,52 @@ class MonetColorScheme {
         onError: onError,
         brightness: brightness,
       );
+
+  MonetColorScheme mergeCustomColor(
+    CustomColorScheme scheme,
+    MonetColorKind toKind,
+  ) {
+    switch (toKind) {
+      case MonetColorKind.primary:
+        return copyWith(
+          primary: scheme.color,
+          onPrimary: scheme.onColor,
+          primaryContainer: scheme.colorContainer,
+          onPrimaryContainer: scheme.onColorContainer,
+        );
+      case MonetColorKind.secondary:
+        return copyWith(
+          secondary: scheme.color,
+          onSecondary: scheme.onColor,
+          secondaryContainer: scheme.colorContainer,
+          onSecondaryContainer: scheme.onColorContainer,
+        );
+      case MonetColorKind.tertiary:
+        return copyWith(
+          tertiary: scheme.color,
+          onSecondary: scheme.onColor,
+          tertiaryContainer: scheme.colorContainer,
+          onTertiaryContainer: scheme.onColorContainer,
+        );
+      case MonetColorKind.error:
+        return copyWith(
+          error: scheme.color,
+          onError: scheme.onColor,
+          errorContainer: scheme.colorContainer,
+          onErrorContainer: scheme.onColorContainer,
+        );
+    }
+  }
 }
 
 class ColorTonalPalette {
-  final TonalPalette _base;
+  final TonalPalette raw;
 
-  const ColorTonalPalette.fromRaw(this._base);
+  const ColorTonalPalette._(this.raw);
+  factory ColorTonalPalette.fromRaw(TonalPalette raw) =>
+      ColorTonalPalette._(raw);
 
-  Color getTone(int tone) => Color(_base.getTone(tone));
+  Color getTone(int tone) => Color(raw.getTone(tone));
   Color operator [](int tone) => getTone(tone);
 }
 
@@ -204,6 +251,55 @@ class MonetTheme {
         error: ColorTonalPalette.fromRaw(raw.error),
       );
 
+  /// Create an [ColorTonalPalette] for an custom color that was harmonized with
+  /// the primary color in this [MonetTheme].
+  ///
+  /// https://m3.material.io/styles/color/the-color-system/custom-colors
+  ColorTonalPalette harmonizedCustomColor(Color color) =>
+      generateColorHarmonizedCustomColor(color, primary);
+
+  /// Create an [CustomColorTheme] for an custom color that was harmonized with
+  /// the primary color in this [MonetTheme].
+  ///
+  /// https://m3.material.io/styles/color/the-color-system/custom-colors
+  CustomColorTheme harmonizedCustomColorTheme(Color color) =>
+      generateCustomColorThemeFrom(harmonizedCustomColor(color));
+
+  MonetTheme mergeCustomColor(
+    CustomColorTheme theme,
+    MonetColorKind toKind,
+  ) {
+    var primary = this.primary,
+        secondary = this.secondary,
+        tertiary = this.tertiary,
+        error = this.error;
+    final customColor = theme.customColor;
+    switch (toKind) {
+      case MonetColorKind.primary:
+        primary = customColor;
+        break;
+      case MonetColorKind.secondary:
+        secondary = customColor;
+        break;
+      case MonetColorKind.tertiary:
+        tertiary = customColor;
+        break;
+      case MonetColorKind.error:
+        error = customColor;
+        break;
+    }
+    return MonetTheme(
+      light: light.mergeCustomColor(theme.light, toKind),
+      dark: dark.mergeCustomColor(theme.dark, toKind),
+      primary: primary,
+      secondary: secondary,
+      tertiary: tertiary,
+      neutral: neutral,
+      neutralVariant: neutralVariant,
+      error: error,
+    );
+  }
+
   MonetTheme override({
     MonetColorScheme Function(MonetColorScheme)? light,
     MonetColorScheme Function(MonetColorScheme)? dark,
@@ -217,5 +313,44 @@ class MonetTheme {
         neutral: neutral,
         neutralVariant: neutralVariant,
         error: error,
+      );
+}
+
+class CustomColorScheme {
+  final Color color;
+  final Color onColor;
+  final Color colorContainer;
+  final Color onColorContainer;
+
+  const CustomColorScheme({
+    required this.color,
+    required this.onColor,
+    required this.colorContainer,
+    required this.onColorContainer,
+  });
+  factory CustomColorScheme.fromRaw(RawCustomColorScheme raw) =>
+      CustomColorScheme(
+        color: Color(raw.color),
+        onColor: Color(raw.onColor),
+        colorContainer: Color(raw.colorContainer),
+        onColorContainer: Color(raw.onColorContainer),
+      );
+}
+
+class CustomColorTheme {
+  final ColorTonalPalette customColor;
+  final CustomColorScheme light;
+  final CustomColorScheme dark;
+
+  const CustomColorTheme({
+    required this.customColor,
+    required this.light,
+    required this.dark,
+  });
+
+  factory CustomColorTheme.fromRaw(RawCustomColorTheme raw) => CustomColorTheme(
+        customColor: ColorTonalPalette.fromRaw(raw.color),
+        light: CustomColorScheme.fromRaw(raw.light),
+        dark: CustomColorScheme.fromRaw(raw.dark),
       );
 }
