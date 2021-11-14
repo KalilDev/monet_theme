@@ -111,6 +111,41 @@ class RawMonetColorScheme {
         inverseOnSurface: inverseOnSurface ?? this.inverseOnSurface,
         inverseSurface: inverseSurface ?? this.inverseSurface,
       );
+
+  RawCustomColorScheme get errorScheme => RawCustomColorScheme(
+        color: error,
+        onColor: onError,
+        colorContainer: errorContainer,
+        onColorContainer: onErrorContainer,
+      );
+
+  RawCustomColorScheme get primaryScheme => RawCustomColorScheme(
+        color: primary,
+        onColor: onPrimary,
+        colorContainer: primaryContainer,
+        onColorContainer: onPrimaryContainer,
+      );
+
+  RawCustomColorScheme get secondaryScheme => RawCustomColorScheme(
+        color: secondary,
+        onColor: onSecondary,
+        colorContainer: secondaryContainer,
+        onColorContainer: onSecondaryContainer,
+      );
+
+  RawCustomColorScheme get tertiaryScheme => RawCustomColorScheme(
+        color: tertiary,
+        onColor: onTertiary,
+        colorContainer: tertiaryContainer,
+        onColorContainer: onTertiaryContainer,
+      );
+
+  RawCustomColorScheme get surfaceScheme => RawCustomColorScheme(
+        color: surface,
+        onColor: onSurface,
+        colorContainer: surfaceVariant,
+        onColorContainer: onSurfaceVariant,
+      );
 }
 
 class RawMonetTheme {

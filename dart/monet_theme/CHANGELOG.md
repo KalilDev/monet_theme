@@ -1,3 +1,7 @@
+## 0.3.1
+
+- Add color scheme getters for each color kind on RawMonetColorScheme
+
 ## 0.3.0
 
 - Use material_color_utilities
