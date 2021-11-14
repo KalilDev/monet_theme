@@ -9,6 +9,7 @@ enum MonetColorKind {
   secondary,
   tertiary,
   error,
+  surface,
 }
 
 class MonetColorScheme {
@@ -171,6 +172,56 @@ class MonetColorScheme {
         brightness: brightness,
       );
 
+  CustomColorScheme get primaryScheme => CustomColorScheme(
+        color: primary,
+        onColor: onPrimary,
+        colorContainer: primaryContainer,
+        onColorContainer: onPrimaryContainer,
+      );
+
+  CustomColorScheme get secondaryScheme => CustomColorScheme(
+        color: secondary,
+        onColor: onSecondary,
+        colorContainer: secondaryContainer,
+        onColorContainer: onSecondaryContainer,
+      );
+
+  CustomColorScheme get tertiaryScheme => CustomColorScheme(
+        color: tertiary,
+        onColor: onTertiary,
+        colorContainer: tertiaryContainer,
+        onColorContainer: onTertiaryContainer,
+      );
+
+  CustomColorScheme get errorScheme => CustomColorScheme(
+        color: error,
+        onColor: onError,
+        colorContainer: errorContainer,
+        onColorContainer: onErrorContainer,
+      );
+
+  CustomColorScheme get surfaceScheme => CustomColorScheme(
+        color: surface,
+        onColor: onSurface,
+        colorContainer: surfaceVariant,
+        onColorContainer: onSurfaceVariant,
+      );
+
+  CustomColorScheme getCustomColorScheme(MonetColorKind kind) {
+    switch (kind) {
+      case MonetColorKind.primary:
+        return primaryScheme;
+      case MonetColorKind.secondary:
+        return secondaryScheme;
+      case MonetColorKind.tertiary:
+        return tertiaryScheme;
+      case MonetColorKind.error:
+        return errorScheme;
+      case MonetColorKind.surface:
+        return surfaceScheme;
+    }
+  }
+
   MonetColorScheme mergeCustomColor(
     CustomColorScheme scheme,
     MonetColorKind toKind,
@@ -203,6 +254,13 @@ class MonetColorScheme {
           onError: scheme.onColor,
           errorContainer: scheme.colorContainer,
           onErrorContainer: scheme.onColorContainer,
+        );
+      case MonetColorKind.surface:
+        return copyWith(
+          surface: scheme.color,
+          onSurface: scheme.onColor,
+          surfaceVariant: scheme.colorContainer,
+          onSurfaceVariant: scheme.onColorContainer,
         );
     }
   }
@@ -265,10 +323,55 @@ class MonetTheme {
   CustomColorTheme harmonizedCustomColorTheme(Color color) =>
       generateCustomColorThemeFrom(harmonizedCustomColor(color));
 
+  /// Get one of the [MonetColorKind]s from this theme.
+  ///
+  /// # WARNING
+  /// ## YOU WILL GET GARBAGE TONAL PALETTES WITH [MonetColorKind.surface]
+  /// This will throw an [StateError] if [allowInvalidTonalPalettes] is false.
+  /// Otherwise you WILL get the garbage data.
+  CustomColorTheme getCustomColorTheme(
+    MonetColorKind kind, {
+    bool allowInvalidTonalPalettes = false,
+  }) {
+    final dark = this.dark.getCustomColorScheme(kind);
+    final light = this.light.getCustomColorScheme(kind);
+    final ColorTonalPalette palette;
+    switch (kind) {
+      case MonetColorKind.primary:
+        palette = primary;
+        break;
+      case MonetColorKind.secondary:
+        palette = secondary;
+        break;
+      case MonetColorKind.tertiary:
+        palette = tertiary;
+        break;
+      case MonetColorKind.error:
+        palette = error;
+        break;
+      case MonetColorKind.surface:
+        palette = neutral;
+        break;
+    }
+    return CustomColorTheme(
+      customColor: palette,
+      dark: dark,
+      light: light,
+    );
+  }
+
+  /// Merge an custom color into this theme, by replacing the chosen
+  /// [MonetColorKind] with it.
+  ///
+  /// # WARNING
+  /// ## YOU WILL GET GARBAGE TONAL PALETTES WITH [MonetColorKind.surface]
+  /// This will throw an [StateError] if [allowInvalidTonalPalettes] is false.
+  /// Otherwise you WILL get the garbage data.
   MonetTheme mergeCustomColor(
     CustomColorTheme theme,
-    MonetColorKind toKind,
-  ) {
+    MonetColorKind toKind, {
+    bool allowInvalidTonalPalettes = false,
+  }) {
     var primary = this.primary,
         secondary = this.secondary,
         tertiary = this.tertiary,
@@ -286,6 +389,21 @@ class MonetTheme {
         break;
       case MonetColorKind.error:
         error = customColor;
+        break;
+      case MonetColorKind.surface:
+        // surface comes from the neutral tonal palette and surfaceVariant comes
+        // from neutralVariant tonal palette, so we cant do anything useful.
+        //
+        // therefore we may throw instead of giving the user garbage input.
+        if (!allowInvalidTonalPalettes) {
+          throw StateError(
+            'Calling mergeCustomColor with MonetColorKind.surface '
+            'will generate invalid tonal palettes for neutral and '
+            'neutralVariant.\n\n'
+            'This is most likely an unwanted behavior, but if you want this'
+            ', set the allowInvalidTonalPalettes parameter to true.',
+          );
+        }
         break;
     }
     return MonetTheme(

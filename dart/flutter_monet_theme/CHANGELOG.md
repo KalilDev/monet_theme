@@ -1,3 +1,9 @@
+## 0.3.1
+
+- Add color scheme getters for each color kind on MonetColorScheme
+- Add MonetColorScheme.getCustomColorScheme,MonetColorTheme.getCustomColorTheme
+  and MonetColorKind.surface.
+
 ## 0.3.0
 
 * Use material_color_utilities instead of libmonet

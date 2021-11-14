@@ -1,6 +1,6 @@
 name: flutter_monet_theme
 description: An package for creating monet themes in flutter with an friendly api
-version: 0.3.0
+version: 0.3.1
 homepage: https://github.com/KalilDev/material_theme_reverse
 
 environment:
@@ -11,6 +11,7 @@ dependencies:
   flutter:
     sdk: flutter
   monet_theme: ^0.3.0
+  material_color_utilities: ^0.1.1
   
 
 dev_dependencies:
