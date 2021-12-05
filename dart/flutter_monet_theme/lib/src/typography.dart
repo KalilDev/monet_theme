@@ -1,6 +1,10 @@
+// ignore_for_file: unnecessary_null_comparison
+
 import 'package:flutter/material.dart';
 import 'package:flutter_monet_theme/flutter_monet_theme.dart';
 import 'package:flutter_monet_theme/src/device.dart';
+
+import 'lerp_double.dart';
 
 /// Generate an text theme from the specs in material 3 for an specific
 /// [fontFamily].
@@ -234,6 +238,26 @@ class MD3TextAdaptativeProperties {
     required this.height,
   });
 
+  TextStyle applyTo(TextStyle textStyle) => textStyle.copyWith(
+        fontSize: size,
+        height: height / size,
+      );
+  @override
+  int get hashCode => Object.hashAll([
+        size,
+        height,
+      ]);
+  @override
+  bool operator ==(other) {
+    if (identical(other, this)) {
+      return true;
+    }
+    if (other is! MD3TextAdaptativeProperties) {
+      return false;
+    }
+    return true && size == other.size && height == other.height;
+  }
+
   MD3TextAdaptativeProperties copyWith({
     double? size,
     double? height,
@@ -243,10 +267,16 @@ class MD3TextAdaptativeProperties {
         height: height ?? this.height,
       );
 
-  TextStyle applyTo(TextStyle textStyle) => textStyle.copyWith(
-        fontSize: size,
-        height: height / size,
-      );
+  static MD3TextAdaptativeProperties lerp(
+      MD3TextAdaptativeProperties a, MD3TextAdaptativeProperties b, double t) {
+    assert(a != null);
+    assert(b != null);
+    assert(t != null);
+    return MD3TextAdaptativeProperties(
+      size: nnLerpDouble(a.size, b.size, t),
+      height: nnLerpDouble(a.height, b.height, t),
+    );
+  }
 }
 
 class MD3TextAdaptativeScale {
@@ -271,6 +301,45 @@ class MD3TextAdaptativeScale {
         desktop = sizeAndHeight,
         largeScreenTv = sizeAndHeight;
 
+  MD3TextAdaptativeProperties forDeviceType(MD3DeviceType type) {
+    switch (type) {
+      case MD3DeviceType.watch:
+        return watch;
+      case MD3DeviceType.mobile:
+        return mobile;
+      case MD3DeviceType.tablet:
+        return tablet;
+      case MD3DeviceType.desktop:
+        return desktop;
+      case MD3DeviceType.largeScreenTv:
+        return largeScreenTv;
+    }
+  }
+
+  @override
+  int get hashCode => Object.hashAll([
+        watch,
+        mobile,
+        tablet,
+        desktop,
+        largeScreenTv,
+      ]);
+  @override
+  bool operator ==(other) {
+    if (identical(other, this)) {
+      return true;
+    }
+    if (other is! MD3TextAdaptativeScale) {
+      return false;
+    }
+    return true &&
+        watch == other.watch &&
+        mobile == other.mobile &&
+        tablet == other.tablet &&
+        desktop == other.desktop &&
+        largeScreenTv == other.largeScreenTv;
+  }
+
   MD3TextAdaptativeScale copyWith({
     MD3TextAdaptativeProperties? watch,
     MD3TextAdaptativeProperties? mobile,
@@ -286,19 +355,19 @@ class MD3TextAdaptativeScale {
         largeScreenTv: largeScreenTv ?? this.largeScreenTv,
       );
 
-  MD3TextAdaptativeProperties forDeviceType(MD3DeviceType type) {
-    switch (type) {
-      case MD3DeviceType.watch:
-        return watch;
-      case MD3DeviceType.mobile:
-        return mobile;
-      case MD3DeviceType.tablet:
-        return tablet;
-      case MD3DeviceType.desktop:
-        return desktop;
-      case MD3DeviceType.largeScreenTv:
-        return largeScreenTv;
-    }
+  static MD3TextAdaptativeScale lerp(
+      MD3TextAdaptativeScale a, MD3TextAdaptativeScale b, double t) {
+    assert(a != null);
+    assert(b != null);
+    assert(t != null);
+    return MD3TextAdaptativeScale(
+      watch: MD3TextAdaptativeProperties.lerp(a.watch, b.watch, t),
+      mobile: MD3TextAdaptativeProperties.lerp(a.mobile, b.mobile, t),
+      tablet: MD3TextAdaptativeProperties.lerp(a.tablet, b.tablet, t),
+      desktop: MD3TextAdaptativeProperties.lerp(a.desktop, b.desktop, t),
+      largeScreenTv:
+          MD3TextAdaptativeProperties.lerp(a.largeScreenTv, b.largeScreenTv, t),
+    );
   }
 }
 
@@ -311,17 +380,9 @@ class MD3TextStyle {
     required this.scale,
   });
 
-  MD3TextStyle copyWith({
-    TextStyle? base,
-    MD3TextAdaptativeScale? scale,
-  }) =>
-      MD3TextStyle(
-        base: base ?? this.base,
-        scale: scale ?? this.scale,
-      );
-
   TextStyle resolveTo(MD3DeviceType deviceType) =>
       scale.forDeviceType(deviceType).applyTo(base);
+
   MD3TextStyle apply({
     String? fontFamily,
   }) =>
@@ -331,6 +392,40 @@ class MD3TextStyle {
         ),
         scale: scale,
       );
+  @override
+  int get hashCode => Object.hashAll([
+        base,
+        scale,
+      ]);
+  @override
+  bool operator ==(other) {
+    if (identical(other, this)) {
+      return true;
+    }
+    if (other is! MD3TextStyle) {
+      return false;
+    }
+    return true && base == other.base && scale == other.scale;
+  }
+
+  MD3TextStyle copyWith({
+    TextStyle? base,
+    MD3TextAdaptativeScale? scale,
+  }) =>
+      MD3TextStyle(
+        base: base ?? this.base,
+        scale: scale ?? this.scale,
+      );
+
+  static MD3TextStyle lerp(MD3TextStyle a, MD3TextStyle b, double t) {
+    assert(a != null);
+    assert(b != null);
+    assert(t != null);
+    return MD3TextStyle(
+      base: TextStyle.lerp(a.base, b.base, t)!,
+      scale: MD3TextAdaptativeScale.lerp(a.scale, b.scale, t),
+    );
+  }
 }
 
 class MD3TextAdaptativeTheme {
@@ -419,6 +514,67 @@ class MD3TextAdaptativeTheme {
         ),
       );
 
+  MD3TextTheme resolveTo(MD3DeviceType deviceType) => MD3TextTheme(
+        displayLarge: displayLarge.resolveTo(deviceType),
+        displayMedium: displayMedium.resolveTo(deviceType),
+        displaySmall: displaySmall.resolveTo(deviceType),
+        headlineLarge: headlineLarge.resolveTo(deviceType),
+        headlineMedium: headlineMedium.resolveTo(deviceType),
+        headlineSmall: headlineSmall.resolveTo(deviceType),
+        titleLarge: titleLarge.resolveTo(deviceType),
+        titleMedium: titleMedium.resolveTo(deviceType),
+        titleSmall: titleSmall.resolveTo(deviceType),
+        labelLarge: labelLarge.resolveTo(deviceType),
+        labelMedium: labelMedium.resolveTo(deviceType),
+        labelSmall: labelSmall.resolveTo(deviceType),
+        bodyLarge: bodyLarge.resolveTo(deviceType),
+        bodyMedium: bodyMedium.resolveTo(deviceType),
+        bodySmall: bodySmall.resolveTo(deviceType),
+      );
+  @override
+  int get hashCode => Object.hashAll([
+        displayLarge,
+        displayMedium,
+        displaySmall,
+        headlineLarge,
+        headlineMedium,
+        headlineSmall,
+        titleLarge,
+        titleMedium,
+        titleSmall,
+        labelLarge,
+        labelMedium,
+        labelSmall,
+        bodyLarge,
+        bodyMedium,
+        bodySmall,
+      ]);
+  @override
+  bool operator ==(other) {
+    if (identical(other, this)) {
+      return true;
+    }
+    if (other is! MD3TextAdaptativeTheme) {
+      return false;
+    }
+    return true &&
+        displayLarge == other.displayLarge &&
+        displayMedium == other.displayMedium &&
+        displaySmall == other.displaySmall &&
+        headlineLarge == other.headlineLarge &&
+        headlineMedium == other.headlineMedium &&
+        headlineSmall == other.headlineSmall &&
+        titleLarge == other.titleLarge &&
+        titleMedium == other.titleMedium &&
+        titleSmall == other.titleSmall &&
+        labelLarge == other.labelLarge &&
+        labelMedium == other.labelMedium &&
+        labelSmall == other.labelSmall &&
+        bodyLarge == other.bodyLarge &&
+        bodyMedium == other.bodyMedium &&
+        bodySmall == other.bodySmall;
+  }
+
   MD3TextAdaptativeTheme copyWith({
     MD3TextStyle? displayLarge,
     MD3TextStyle? displayMedium,
@@ -454,23 +610,29 @@ class MD3TextAdaptativeTheme {
         bodySmall: bodySmall ?? this.bodySmall,
       );
 
-  MD3TextTheme resolveTo(MD3DeviceType deviceType) => MD3TextTheme(
-        displayLarge: displayLarge.resolveTo(deviceType),
-        displayMedium: displayMedium.resolveTo(deviceType),
-        displaySmall: displaySmall.resolveTo(deviceType),
-        headlineLarge: headlineLarge.resolveTo(deviceType),
-        headlineMedium: headlineMedium.resolveTo(deviceType),
-        headlineSmall: headlineSmall.resolveTo(deviceType),
-        titleLarge: titleLarge.resolveTo(deviceType),
-        titleMedium: titleMedium.resolveTo(deviceType),
-        titleSmall: titleSmall.resolveTo(deviceType),
-        labelLarge: labelLarge.resolveTo(deviceType),
-        labelMedium: labelMedium.resolveTo(deviceType),
-        labelSmall: labelSmall.resolveTo(deviceType),
-        bodyLarge: bodyLarge.resolveTo(deviceType),
-        bodyMedium: bodyMedium.resolveTo(deviceType),
-        bodySmall: bodySmall.resolveTo(deviceType),
-      );
+  static MD3TextAdaptativeTheme lerp(
+      MD3TextAdaptativeTheme a, MD3TextAdaptativeTheme b, double t) {
+    assert(a != null);
+    assert(b != null);
+    assert(t != null);
+    return MD3TextAdaptativeTheme(
+      displayLarge: MD3TextStyle.lerp(a.displayLarge, b.displayLarge, t),
+      displayMedium: MD3TextStyle.lerp(a.displayMedium, b.displayMedium, t),
+      displaySmall: MD3TextStyle.lerp(a.displaySmall, b.displaySmall, t),
+      headlineLarge: MD3TextStyle.lerp(a.headlineLarge, b.headlineLarge, t),
+      headlineMedium: MD3TextStyle.lerp(a.headlineMedium, b.headlineMedium, t),
+      headlineSmall: MD3TextStyle.lerp(a.headlineSmall, b.headlineSmall, t),
+      titleLarge: MD3TextStyle.lerp(a.titleLarge, b.titleLarge, t),
+      titleMedium: MD3TextStyle.lerp(a.titleMedium, b.titleMedium, t),
+      titleSmall: MD3TextStyle.lerp(a.titleSmall, b.titleSmall, t),
+      labelLarge: MD3TextStyle.lerp(a.labelLarge, b.labelLarge, t),
+      labelMedium: MD3TextStyle.lerp(a.labelMedium, b.labelMedium, t),
+      labelSmall: MD3TextStyle.lerp(a.labelSmall, b.labelSmall, t),
+      bodyLarge: MD3TextStyle.lerp(a.bodyLarge, b.bodyLarge, t),
+      bodyMedium: MD3TextStyle.lerp(a.bodyMedium, b.bodyMedium, t),
+      bodySmall: MD3TextStyle.lerp(a.bodySmall, b.bodySmall, t),
+    );
+  }
 }
 
 class MD3TextTheme {
@@ -575,6 +737,49 @@ class MD3TextTheme {
           fontFamily: fontFamily,
         ),
       );
+  @override
+  int get hashCode => Object.hashAll([
+        displayLarge,
+        displayMedium,
+        displaySmall,
+        headlineLarge,
+        headlineMedium,
+        headlineSmall,
+        titleLarge,
+        titleMedium,
+        titleSmall,
+        labelLarge,
+        labelMedium,
+        labelSmall,
+        bodyLarge,
+        bodyMedium,
+        bodySmall,
+      ]);
+  @override
+  bool operator ==(other) {
+    if (identical(other, this)) {
+      return true;
+    }
+    if (other is! MD3TextTheme) {
+      return false;
+    }
+    return true &&
+        displayLarge == other.displayLarge &&
+        displayMedium == other.displayMedium &&
+        displaySmall == other.displaySmall &&
+        headlineLarge == other.headlineLarge &&
+        headlineMedium == other.headlineMedium &&
+        headlineSmall == other.headlineSmall &&
+        titleLarge == other.titleLarge &&
+        titleMedium == other.titleMedium &&
+        titleSmall == other.titleSmall &&
+        labelLarge == other.labelLarge &&
+        labelMedium == other.labelMedium &&
+        labelSmall == other.labelSmall &&
+        bodyLarge == other.bodyLarge &&
+        bodyMedium == other.bodyMedium &&
+        bodySmall == other.bodySmall;
+  }
 
   MD3TextTheme copyWith({
     TextStyle? displayLarge,
@@ -610,4 +815,27 @@ class MD3TextTheme {
         bodyMedium: bodyMedium ?? this.bodyMedium,
         bodySmall: bodySmall ?? this.bodySmall,
       );
+
+  static MD3TextTheme lerp(MD3TextTheme a, MD3TextTheme b, double t) {
+    assert(a != null);
+    assert(b != null);
+    assert(t != null);
+    return MD3TextTheme(
+      displayLarge: TextStyle.lerp(a.displayLarge, b.displayLarge, t)!,
+      displayMedium: TextStyle.lerp(a.displayMedium, b.displayMedium, t)!,
+      displaySmall: TextStyle.lerp(a.displaySmall, b.displaySmall, t)!,
+      headlineLarge: TextStyle.lerp(a.headlineLarge, b.headlineLarge, t)!,
+      headlineMedium: TextStyle.lerp(a.headlineMedium, b.headlineMedium, t)!,
+      headlineSmall: TextStyle.lerp(a.headlineSmall, b.headlineSmall, t)!,
+      titleLarge: TextStyle.lerp(a.titleLarge, b.titleLarge, t)!,
+      titleMedium: TextStyle.lerp(a.titleMedium, b.titleMedium, t)!,
+      titleSmall: TextStyle.lerp(a.titleSmall, b.titleSmall, t)!,
+      labelLarge: TextStyle.lerp(a.labelLarge, b.labelLarge, t)!,
+      labelMedium: TextStyle.lerp(a.labelMedium, b.labelMedium, t)!,
+      labelSmall: TextStyle.lerp(a.labelSmall, b.labelSmall, t)!,
+      bodyLarge: TextStyle.lerp(a.bodyLarge, b.bodyLarge, t)!,
+      bodyMedium: TextStyle.lerp(a.bodyMedium, b.bodyMedium, t)!,
+      bodySmall: TextStyle.lerp(a.bodySmall, b.bodySmall, t)!,
+    );
+  }
 }

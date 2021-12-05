@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_null_comparison
+
 import 'package:flutter_monet_theme/src/generate.dart';
 import 'package:material_color_utilities/material_color_utilities.dart';
 import 'package:flutter/material.dart';
@@ -70,7 +72,9 @@ class MonetColorScheme {
   });
 
   factory MonetColorScheme.fromRaw(
-          RawMonetColorScheme raw, Brightness brightness) =>
+    RawMonetColorScheme raw,
+    Brightness brightness,
+  ) =>
       MonetColorScheme(
         primary: Color(raw.primary),
         onPrimary: Color(raw.onPrimary),
@@ -100,62 +104,6 @@ class MonetColorScheme {
         brightness: brightness,
       );
 
-  MonetColorScheme copyWith({
-    Color? primary,
-    Color? onPrimary,
-    Color? primaryContainer,
-    Color? onPrimaryContainer,
-    Color? secondary,
-    Color? onSecondary,
-    Color? secondaryContainer,
-    Color? onSecondaryContainer,
-    Color? tertiary,
-    Color? onTertiary,
-    Color? tertiaryContainer,
-    Color? onTertiaryContainer,
-    Color? error,
-    Color? errorContainer,
-    Color? onError,
-    Color? onErrorContainer,
-    Color? background,
-    Color? onBackground,
-    Color? surface,
-    Color? onSurface,
-    Color? surfaceVariant,
-    Color? onSurfaceVariant,
-    Color? outline,
-    Color? inverseOnSurface,
-    Color? inverseSurface,
-    Brightness? brightness,
-  }) =>
-      MonetColorScheme(
-        primary: primary ?? this.primary,
-        onPrimary: onPrimary ?? this.onPrimary,
-        primaryContainer: primaryContainer ?? this.primaryContainer,
-        onPrimaryContainer: onPrimaryContainer ?? this.onPrimaryContainer,
-        secondary: secondary ?? this.secondary,
-        onSecondary: onSecondary ?? this.onSecondary,
-        secondaryContainer: secondaryContainer ?? this.secondaryContainer,
-        onSecondaryContainer: onSecondaryContainer ?? this.onSecondaryContainer,
-        tertiary: tertiary ?? this.tertiary,
-        onTertiary: onTertiary ?? this.onTertiary,
-        tertiaryContainer: tertiaryContainer ?? this.tertiaryContainer,
-        onTertiaryContainer: onTertiaryContainer ?? this.onTertiaryContainer,
-        error: error ?? this.error,
-        errorContainer: errorContainer ?? this.errorContainer,
-        onError: onError ?? this.onError,
-        onErrorContainer: onErrorContainer ?? this.onErrorContainer,
-        background: background ?? this.background,
-        onBackground: onBackground ?? this.onBackground,
-        surface: surface ?? this.surface,
-        onSurface: onSurface ?? this.onSurface,
-        surfaceVariant: surfaceVariant ?? this.surfaceVariant,
-        onSurfaceVariant: onSurfaceVariant ?? this.onSurfaceVariant,
-        outline: outline ?? this.outline,
-        inverseOnSurface: inverseOnSurface ?? this.inverseOnSurface,
-        inverseSurface: inverseSurface ?? this.inverseSurface,
-        brightness: brightness ?? this.brightness,
-      );
   ColorScheme toColorScheme() => ColorScheme(
         primary: primary,
         primaryVariant: secondary,
@@ -264,6 +212,170 @@ class MonetColorScheme {
         );
     }
   }
+
+  @override
+  int get hashCode => Object.hashAll([
+        primary,
+        onPrimary,
+        primaryContainer,
+        onPrimaryContainer,
+        secondary,
+        onSecondary,
+        secondaryContainer,
+        onSecondaryContainer,
+        tertiary,
+        onTertiary,
+        tertiaryContainer,
+        onTertiaryContainer,
+        error,
+        errorContainer,
+        onError,
+        onErrorContainer,
+        background,
+        onBackground,
+        surface,
+        onSurface,
+        surfaceVariant,
+        onSurfaceVariant,
+        outline,
+        inverseOnSurface,
+        inverseSurface,
+        brightness,
+      ]);
+
+  @override
+  bool operator ==(other) {
+    if (identical(other, this)) {
+      return true;
+    }
+    if (other is! MonetColorScheme) {
+      return false;
+    }
+    return true &&
+        primary == other.primary &&
+        onPrimary == other.onPrimary &&
+        primaryContainer == other.primaryContainer &&
+        onPrimaryContainer == other.onPrimaryContainer &&
+        secondary == other.secondary &&
+        onSecondary == other.onSecondary &&
+        secondaryContainer == other.secondaryContainer &&
+        onSecondaryContainer == other.onSecondaryContainer &&
+        tertiary == other.tertiary &&
+        onTertiary == other.onTertiary &&
+        tertiaryContainer == other.tertiaryContainer &&
+        onTertiaryContainer == other.onTertiaryContainer &&
+        error == other.error &&
+        errorContainer == other.errorContainer &&
+        onError == other.onError &&
+        onErrorContainer == other.onErrorContainer &&
+        background == other.background &&
+        onBackground == other.onBackground &&
+        surface == other.surface &&
+        onSurface == other.onSurface &&
+        surfaceVariant == other.surfaceVariant &&
+        onSurfaceVariant == other.onSurfaceVariant &&
+        outline == other.outline &&
+        inverseOnSurface == other.inverseOnSurface &&
+        inverseSurface == other.inverseSurface &&
+        brightness == other.brightness;
+  }
+
+  MonetColorScheme copyWith({
+    Color? primary,
+    Color? onPrimary,
+    Color? primaryContainer,
+    Color? onPrimaryContainer,
+    Color? secondary,
+    Color? onSecondary,
+    Color? secondaryContainer,
+    Color? onSecondaryContainer,
+    Color? tertiary,
+    Color? onTertiary,
+    Color? tertiaryContainer,
+    Color? onTertiaryContainer,
+    Color? error,
+    Color? errorContainer,
+    Color? onError,
+    Color? onErrorContainer,
+    Color? background,
+    Color? onBackground,
+    Color? surface,
+    Color? onSurface,
+    Color? surfaceVariant,
+    Color? onSurfaceVariant,
+    Color? outline,
+    Color? inverseOnSurface,
+    Color? inverseSurface,
+    Brightness? brightness,
+  }) =>
+      MonetColorScheme(
+        primary: primary ?? this.primary,
+        onPrimary: onPrimary ?? this.onPrimary,
+        primaryContainer: primaryContainer ?? this.primaryContainer,
+        onPrimaryContainer: onPrimaryContainer ?? this.onPrimaryContainer,
+        secondary: secondary ?? this.secondary,
+        onSecondary: onSecondary ?? this.onSecondary,
+        secondaryContainer: secondaryContainer ?? this.secondaryContainer,
+        onSecondaryContainer: onSecondaryContainer ?? this.onSecondaryContainer,
+        tertiary: tertiary ?? this.tertiary,
+        onTertiary: onTertiary ?? this.onTertiary,
+        tertiaryContainer: tertiaryContainer ?? this.tertiaryContainer,
+        onTertiaryContainer: onTertiaryContainer ?? this.onTertiaryContainer,
+        error: error ?? this.error,
+        errorContainer: errorContainer ?? this.errorContainer,
+        onError: onError ?? this.onError,
+        onErrorContainer: onErrorContainer ?? this.onErrorContainer,
+        background: background ?? this.background,
+        onBackground: onBackground ?? this.onBackground,
+        surface: surface ?? this.surface,
+        onSurface: onSurface ?? this.onSurface,
+        surfaceVariant: surfaceVariant ?? this.surfaceVariant,
+        onSurfaceVariant: onSurfaceVariant ?? this.onSurfaceVariant,
+        outline: outline ?? this.outline,
+        inverseOnSurface: inverseOnSurface ?? this.inverseOnSurface,
+        inverseSurface: inverseSurface ?? this.inverseSurface,
+        brightness: brightness ?? this.brightness,
+      );
+
+  static MonetColorScheme lerp(
+      MonetColorScheme a, MonetColorScheme b, double t) {
+    assert(a != null);
+    assert(b != null);
+    assert(t != null);
+    return MonetColorScheme(
+      primary: Color.lerp(a.primary, b.primary, t)!,
+      onPrimary: Color.lerp(a.onPrimary, b.onPrimary, t)!,
+      primaryContainer: Color.lerp(a.primaryContainer, b.primaryContainer, t)!,
+      onPrimaryContainer:
+          Color.lerp(a.onPrimaryContainer, b.onPrimaryContainer, t)!,
+      secondary: Color.lerp(a.secondary, b.secondary, t)!,
+      onSecondary: Color.lerp(a.onSecondary, b.onSecondary, t)!,
+      secondaryContainer:
+          Color.lerp(a.secondaryContainer, b.secondaryContainer, t)!,
+      onSecondaryContainer:
+          Color.lerp(a.onSecondaryContainer, b.onSecondaryContainer, t)!,
+      tertiary: Color.lerp(a.tertiary, b.tertiary, t)!,
+      onTertiary: Color.lerp(a.onTertiary, b.onTertiary, t)!,
+      tertiaryContainer:
+          Color.lerp(a.tertiaryContainer, b.tertiaryContainer, t)!,
+      onTertiaryContainer:
+          Color.lerp(a.onTertiaryContainer, b.onTertiaryContainer, t)!,
+      error: Color.lerp(a.error, b.error, t)!,
+      errorContainer: Color.lerp(a.errorContainer, b.errorContainer, t)!,
+      onError: Color.lerp(a.onError, b.onError, t)!,
+      onErrorContainer: Color.lerp(a.onErrorContainer, b.onErrorContainer, t)!,
+      background: Color.lerp(a.background, b.background, t)!,
+      onBackground: Color.lerp(a.onBackground, b.onBackground, t)!,
+      surface: Color.lerp(a.surface, b.surface, t)!,
+      onSurface: Color.lerp(a.onSurface, b.onSurface, t)!,
+      surfaceVariant: Color.lerp(a.surfaceVariant, b.surfaceVariant, t)!,
+      onSurfaceVariant: Color.lerp(a.onSurfaceVariant, b.onSurfaceVariant, t)!,
+      outline: Color.lerp(a.outline, b.outline, t)!,
+      inverseOnSurface: Color.lerp(a.inverseOnSurface, b.inverseOnSurface, t)!,
+      inverseSurface: Color.lerp(a.inverseSurface, b.inverseSurface, t)!,
+      brightness: t < 0.5 ? a.brightness : b.brightness,
+    );
+  }
 }
 
 class ColorTonalPalette {
@@ -275,6 +387,59 @@ class ColorTonalPalette {
 
   Color getTone(int tone) => Color(raw.get(tone));
   Color operator [](int tone) => getTone(tone);
+  @override
+  int get hashCode => Object.hashAll([
+        raw,
+      ]);
+  @override
+  bool operator ==(other) {
+    if (identical(other, this)) {
+      return true;
+    }
+    if (other is! ColorTonalPalette) {
+      return false;
+    }
+    return true && raw == other.raw;
+  }
+
+  ColorTonalPalette copyWith({
+    TonalPalette? raw,
+  }) =>
+      ColorTonalPalette._(
+        raw ?? this.raw,
+      );
+
+  static ColorTonalPalette lerp(
+      ColorTonalPalette a, ColorTonalPalette b, double t) {
+    assert(a != null);
+    assert(b != null);
+    assert(t != null);
+    return ColorTonalPalette._(_LerpTonalPalette(a.raw, b.raw, t));
+  }
+}
+
+class _LerpTonalPalette implements TonalPalette {
+  final TonalPalette a;
+  final TonalPalette b;
+  final double t;
+
+  _LerpTonalPalette(this.a, this.b, this.t);
+
+  @override
+  List<int> get asList => TonalPalette.commonTones.map(get).toList();
+
+  final Map<int, int> _cache = {};
+
+  @override
+  int get(int tone) => _cache.putIfAbsent(
+        tone,
+        () {
+          final aTone = Color(a.get(tone));
+          final bTone = Color(b.get(tone));
+          final lerped = Color.lerp(aTone, bTone, t)!;
+          return lerped.value;
+        },
+      );
 }
 
 class MonetTheme {
@@ -432,6 +597,73 @@ class MonetTheme {
         neutralVariant: neutralVariant,
         error: error,
       );
+
+  int get hashCode => Object.hashAll([
+        light,
+        dark,
+        primary,
+        secondary,
+        tertiary,
+        neutral,
+        neutralVariant,
+        error,
+      ]);
+
+  bool operator ==(other) {
+    if (identical(other, this)) {
+      return true;
+    }
+    if (other is! MonetTheme) {
+      return false;
+    }
+    return true &&
+        light == other.light &&
+        dark == other.dark &&
+        primary == other.primary &&
+        secondary == other.secondary &&
+        tertiary == other.tertiary &&
+        neutral == other.neutral &&
+        neutralVariant == other.neutralVariant &&
+        error == other.error;
+  }
+
+  MonetTheme copyWith({
+    MonetColorScheme? light,
+    MonetColorScheme? dark,
+    ColorTonalPalette? primary,
+    ColorTonalPalette? secondary,
+    ColorTonalPalette? tertiary,
+    ColorTonalPalette? neutral,
+    ColorTonalPalette? neutralVariant,
+    ColorTonalPalette? error,
+  }) =>
+      MonetTheme(
+        light: light ?? this.light,
+        dark: dark ?? this.dark,
+        primary: primary ?? this.primary,
+        secondary: secondary ?? this.secondary,
+        tertiary: tertiary ?? this.tertiary,
+        neutral: neutral ?? this.neutral,
+        neutralVariant: neutralVariant ?? this.neutralVariant,
+        error: error ?? this.error,
+      );
+
+  static MonetTheme lerp(MonetTheme a, MonetTheme b, double t) {
+    assert(a != null);
+    assert(b != null);
+    assert(t != null);
+    return MonetTheme(
+      light: MonetColorScheme.lerp(a.light, b.light, t),
+      dark: MonetColorScheme.lerp(a.dark, b.dark, t),
+      primary: ColorTonalPalette.lerp(a.primary, b.primary, t),
+      secondary: ColorTonalPalette.lerp(a.secondary, b.secondary, t),
+      tertiary: ColorTonalPalette.lerp(a.tertiary, b.tertiary, t),
+      neutral: ColorTonalPalette.lerp(a.neutral, b.neutral, t),
+      neutralVariant:
+          ColorTonalPalette.lerp(a.neutralVariant, b.neutralVariant, t),
+      error: ColorTonalPalette.lerp(a.error, b.error, t),
+    );
+  }
 }
 
 class CustomColorScheme {
@@ -453,6 +685,53 @@ class CustomColorScheme {
         colorContainer: Color(raw.colorContainer),
         onColorContainer: Color(raw.onColorContainer),
       );
+  @override
+  int get hashCode => Object.hashAll([
+        color,
+        onColor,
+        colorContainer,
+        onColorContainer,
+      ]);
+  @override
+  bool operator ==(other) {
+    if (identical(other, this)) {
+      return true;
+    }
+    if (other is! CustomColorScheme) {
+      return false;
+    }
+    return true &&
+        color == other.color &&
+        onColor == other.onColor &&
+        colorContainer == other.colorContainer &&
+        onColorContainer == other.onColorContainer;
+  }
+
+  CustomColorScheme copyWith({
+    Color? color,
+    Color? onColor,
+    Color? colorContainer,
+    Color? onColorContainer,
+  }) =>
+      CustomColorScheme(
+        color: color ?? this.color,
+        onColor: onColor ?? this.onColor,
+        colorContainer: colorContainer ?? this.colorContainer,
+        onColorContainer: onColorContainer ?? this.onColorContainer,
+      );
+
+  static CustomColorScheme lerp(
+      CustomColorScheme a, CustomColorScheme b, double t) {
+    assert(a != null);
+    assert(b != null);
+    assert(t != null);
+    return CustomColorScheme(
+      color: Color.lerp(a.color, b.color, t)!,
+      onColor: Color.lerp(a.onColor, b.onColor, t)!,
+      colorContainer: Color.lerp(a.colorContainer, b.colorContainer, t)!,
+      onColorContainer: Color.lerp(a.onColorContainer, b.onColorContainer, t)!,
+    );
+  }
 }
 
 class CustomColorTheme {
@@ -471,4 +750,46 @@ class CustomColorTheme {
         light: CustomColorScheme.fromRaw(raw.light),
         dark: CustomColorScheme.fromRaw(raw.dark),
       );
+  @override
+  int get hashCode => Object.hashAll([
+        customColor,
+        light,
+        dark,
+      ]);
+  @override
+  bool operator ==(other) {
+    if (identical(other, this)) {
+      return true;
+    }
+    if (other is! CustomColorTheme) {
+      return false;
+    }
+    return true &&
+        customColor == other.customColor &&
+        light == other.light &&
+        dark == other.dark;
+  }
+
+  CustomColorTheme copyWith({
+    ColorTonalPalette? customColor,
+    CustomColorScheme? light,
+    CustomColorScheme? dark,
+  }) =>
+      CustomColorTheme(
+        customColor: customColor ?? this.customColor,
+        light: light ?? this.light,
+        dark: dark ?? this.dark,
+      );
+
+  static CustomColorTheme lerp(
+      CustomColorTheme a, CustomColorTheme b, double t) {
+    assert(a != null);
+    assert(b != null);
+    assert(t != null);
+    return CustomColorTheme(
+      customColor: ColorTonalPalette.lerp(a.customColor, b.customColor, t),
+      light: CustomColorScheme.lerp(a.light, b.light, t),
+      dark: CustomColorScheme.lerp(a.dark, b.dark, t),
+    );
+  }
 }
