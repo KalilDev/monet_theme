@@ -1,3 +1,8 @@
+## 0.4.0
+
+- **BREAKING**: Rename [RawMonetColorScheme.inverseOnSurface] to [RawMonetColorScheme.onInverseSurface]
+- **BREAKING**: Add [RawMonetColorScheme.inversePrimary]
+
 ## 0.3.1
 
 - Add color scheme getters for each color kind on RawMonetColorScheme

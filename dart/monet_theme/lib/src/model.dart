@@ -26,8 +26,9 @@ class RawMonetColorScheme {
   final ARGBColor surfaceVariant;
   final ARGBColor onSurfaceVariant;
   final ARGBColor outline;
-  final ARGBColor inverseOnSurface;
+  final ARGBColor onInverseSurface;
   final ARGBColor inverseSurface;
+  final ARGBColor inversePrimary;
 
   const RawMonetColorScheme({
     required this.primary,
@@ -53,8 +54,9 @@ class RawMonetColorScheme {
     required this.surfaceVariant,
     required this.onSurfaceVariant,
     required this.outline,
-    required this.inverseOnSurface,
+    required this.onInverseSurface,
     required this.inverseSurface,
+    required this.inversePrimary,
   });
 
   RawMonetColorScheme copyWith({
@@ -81,8 +83,9 @@ class RawMonetColorScheme {
     ARGBColor? surfaceVariant,
     ARGBColor? onSurfaceVariant,
     ARGBColor? outline,
-    ARGBColor? inverseOnSurface,
+    ARGBColor? onInverseSurface,
     ARGBColor? inverseSurface,
+    ARGBColor? inversePrimary,
   }) =>
       RawMonetColorScheme(
         primary: primary ?? this.primary,
@@ -108,8 +111,9 @@ class RawMonetColorScheme {
         surfaceVariant: surfaceVariant ?? this.surfaceVariant,
         onSurfaceVariant: onSurfaceVariant ?? this.onSurfaceVariant,
         outline: outline ?? this.outline,
-        inverseOnSurface: inverseOnSurface ?? this.inverseOnSurface,
+        onInverseSurface: onInverseSurface ?? this.onInverseSurface,
         inverseSurface: inverseSurface ?? this.inverseSurface,
+        inversePrimary: inversePrimary ?? this.inversePrimary,
       );
 
   RawCustomColorScheme get errorScheme => RawCustomColorScheme(

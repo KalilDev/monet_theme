@@ -117,8 +117,9 @@ RawMonetColorScheme _lightSchemeFrom(
       surfaceVariant: neutralVariant[90],
       onSurfaceVariant: neutralVariant[30],
       outline: neutralVariant[50],
-      inverseOnSurface: neutral[95],
+      onInverseSurface: neutral[95],
       inverseSurface: neutral[20],
+      inversePrimary: primary[80],
     );
 
 RawMonetColorScheme _darkSchemeFrom(
@@ -153,8 +154,9 @@ RawMonetColorScheme _darkSchemeFrom(
       surfaceVariant: neutralVariant[30],
       onSurfaceVariant: neutralVariant[80],
       outline: neutralVariant[60],
-      inverseOnSurface: neutral[10],
+      onInverseSurface: neutral[10],
       inverseSurface: neutral[90],
+      inversePrimary: primary[40],
     );
 
 RawCustomColorTheme generateRawCustomColorThemeFrom(
