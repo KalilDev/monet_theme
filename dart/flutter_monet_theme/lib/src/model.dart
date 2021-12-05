@@ -38,7 +38,7 @@ class MonetColorScheme {
   final Color surfaceVariant;
   final Color onSurfaceVariant;
   final Color outline;
-  final Color inverseOnSurface;
+  final Color onInverseSurface;
   final Color inverseSurface;
   final Brightness brightness;
 
@@ -66,7 +66,7 @@ class MonetColorScheme {
     required this.surfaceVariant,
     required this.onSurfaceVariant,
     required this.outline,
-    required this.inverseOnSurface,
+    required this.onInverseSurface,
     required this.inverseSurface,
     required this.brightness,
   });
@@ -99,7 +99,7 @@ class MonetColorScheme {
         surfaceVariant: Color(raw.surfaceVariant),
         onSurfaceVariant: Color(raw.onSurfaceVariant),
         outline: Color(raw.outline),
-        inverseOnSurface: Color(raw.inverseOnSurface),
+        onInverseSurface: Color(raw.inverseOnSurface),
         inverseSurface: Color(raw.inverseSurface),
         brightness: brightness,
       );
@@ -238,7 +238,7 @@ class MonetColorScheme {
         surfaceVariant,
         onSurfaceVariant,
         outline,
-        inverseOnSurface,
+        onInverseSurface,
         inverseSurface,
         brightness,
       ]);
@@ -275,7 +275,7 @@ class MonetColorScheme {
         surfaceVariant == other.surfaceVariant &&
         onSurfaceVariant == other.onSurfaceVariant &&
         outline == other.outline &&
-        inverseOnSurface == other.inverseOnSurface &&
+        onInverseSurface == other.onInverseSurface &&
         inverseSurface == other.inverseSurface &&
         brightness == other.brightness;
   }
@@ -304,7 +304,7 @@ class MonetColorScheme {
     Color? surfaceVariant,
     Color? onSurfaceVariant,
     Color? outline,
-    Color? inverseOnSurface,
+    Color? onInverseSurface,
     Color? inverseSurface,
     Brightness? brightness,
   }) =>
@@ -332,7 +332,7 @@ class MonetColorScheme {
         surfaceVariant: surfaceVariant ?? this.surfaceVariant,
         onSurfaceVariant: onSurfaceVariant ?? this.onSurfaceVariant,
         outline: outline ?? this.outline,
-        inverseOnSurface: inverseOnSurface ?? this.inverseOnSurface,
+        onInverseSurface: onInverseSurface ?? this.onInverseSurface,
         inverseSurface: inverseSurface ?? this.inverseSurface,
         brightness: brightness ?? this.brightness,
       );
@@ -371,7 +371,7 @@ class MonetColorScheme {
       surfaceVariant: Color.lerp(a.surfaceVariant, b.surfaceVariant, t)!,
       onSurfaceVariant: Color.lerp(a.onSurfaceVariant, b.onSurfaceVariant, t)!,
       outline: Color.lerp(a.outline, b.outline, t)!,
-      inverseOnSurface: Color.lerp(a.inverseOnSurface, b.inverseOnSurface, t)!,
+      onInverseSurface: Color.lerp(a.onInverseSurface, b.onInverseSurface, t)!,
       inverseSurface: Color.lerp(a.inverseSurface, b.inverseSurface, t)!,
       brightness: t < 0.5 ? a.brightness : b.brightness,
     );
