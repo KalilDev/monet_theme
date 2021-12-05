@@ -422,33 +422,25 @@ class ColorTonalPalette {
     assert(a != null);
     assert(b != null);
     assert(t != null);
-    return ColorTonalPalette._(_LerpTonalPalette(a.raw, b.raw, t));
+    return ColorTonalPalette._(lerpTonalPalette(a.raw, b.raw, t));
   }
 }
 
-class _LerpTonalPalette implements TonalPalette {
-  final TonalPalette a;
-  final TonalPalette b;
-  final double t;
-
-  _LerpTonalPalette(this.a, this.b, this.t);
-
-  @override
-  List<int> get asList => TonalPalette.commonTones.map(get).toList();
-
-  final Map<int, int> _cache = {};
-
-  @override
-  int get(int tone) => _cache.putIfAbsent(
-        tone,
-        () {
-          final aTone = Color(a.get(tone));
-          final bTone = Color(b.get(tone));
-          final lerped = Color.lerp(aTone, bTone, t)!;
-          return lerped.value;
-        },
-      );
-}
+/// This cant be lazy because [TonalPalette.==] acesses the internal fields.
+/// TODO: Figure out if this really cannot be lazy.
+TonalPalette lerpTonalPalette(TonalPalette a, TonalPalette b, double t) =>
+    TonalPalette.fromList(
+      TonalPalette.commonTones
+          .map(
+            (e) => Color.lerp(
+              Color(a.get(e)),
+              Color(b.get(e)),
+              t,
+            )!
+                .value,
+          )
+          .toList(),
+    );
 
 class MonetTheme {
   final MonetColorScheme light;
