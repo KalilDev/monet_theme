@@ -8,226 +8,24 @@ import 'lerp_double.dart';
 
 /// Generate an text theme from the specs in material 3 for an specific
 /// [fontFamily].
-MD3TextAdaptativeTheme generateTextTheme([String? fontFamily]) =>
-    fontFamily == null
-        ? baselineMD3Typography
-        : baselineMD3Typography.apply(fontFamily: fontFamily);
+MD3TextAdaptativeTheme generateTextTheme({
+  String brandRegularFontFamily = 'Roboto',
+  String plainMediumFontFamily = 'Roboto',
+}) {
+  final areEqual = brandRegularFontFamily == plainMediumFontFamily;
+  if (areEqual && plainMediumFontFamily == 'Roboto') {
+    return MD3TextAdaptativeTheme.baseline;
+  }
+  return MD3TextAdaptativeTheme.baseline.apply(
+    fontFamily: areEqual ? plainMediumFontFamily : null,
+    brandRegularFontFamily: !areEqual ? brandRegularFontFamily : null,
+    plainMediumFontFamily: !areEqual ? plainMediumFontFamily : null,
+  );
+}
 
-const MD3TextAdaptativeTheme baselineMD3Typography = MD3TextAdaptativeTheme(
-  displayLarge: MD3TextStyle(
-    base: TextStyle(
-      fontFamily: 'Roboto',
-      fontWeight: FontWeight.w400,
-      letterSpacing: 0,
-    ),
-    // TODO: better scale for every one but mobile.
-    scale: MD3TextAdaptativeScale(
-      watch: MD3TextAdaptativeProperties(size: 45, height: 50.52),
-      mobile: MD3TextAdaptativeProperties(size: 57, height: 64),
-      tablet: MD3TextAdaptativeProperties(size: 64, height: 71.85),
-      desktop: MD3TextAdaptativeProperties(size: 78, height: 87.57),
-      largeScreenTv: MD3TextAdaptativeProperties(size: 84, height: 94.31),
-    ),
-  ),
-  displayMedium: MD3TextStyle(
-    base: TextStyle(
-      fontFamily: 'Roboto',
-      fontWeight: FontWeight.w400,
-      letterSpacing: 0,
-    ),
-    // TODO: better scale for every one but mobile.
-    scale: MD3TextAdaptativeScale(
-      watch: MD3TextAdaptativeProperties(size: 36, height: 41.6),
-      mobile: MD3TextAdaptativeProperties(size: 45, height: 52),
-      tablet: MD3TextAdaptativeProperties(size: 57, height: 65.85),
-      desktop: MD3TextAdaptativeProperties(size: 72, height: 83.2),
-      largeScreenTv: MD3TextAdaptativeProperties(size: 78, height: 90.13),
-    ),
-  ),
-  displaySmall: MD3TextStyle(
-    base: TextStyle(
-      fontFamily: 'Roboto',
-      fontWeight: FontWeight.w400,
-      letterSpacing: 0,
-    ),
-    scale: MD3TextAdaptativeScale(
-      watch: MD3TextAdaptativeProperties(size: 32, height: 39),
-      mobile: MD3TextAdaptativeProperties(size: 36, height: 44),
-      tablet: MD3TextAdaptativeProperties(size: 45, height: 55),
-      desktop: MD3TextAdaptativeProperties(size: 64, height: 78),
-      largeScreenTv: MD3TextAdaptativeProperties(size: 72, height: 88),
-    ),
-  ),
-  headlineLarge: MD3TextStyle(
-    base: TextStyle(
-      fontFamily: 'Roboto',
-      fontWeight: FontWeight.w400,
-      letterSpacing: 0,
-    ),
-    scale: MD3TextAdaptativeScale(
-      watch: MD3TextAdaptativeProperties(size: 22, height: 27.5),
-      mobile: MD3TextAdaptativeProperties(size: 32, height: 40),
-      tablet: MD3TextAdaptativeProperties(size: 36, height: 45),
-      desktop: MD3TextAdaptativeProperties(size: 57, height: 71.25),
-      largeScreenTv: MD3TextAdaptativeProperties(size: 64, height: 80),
-    ),
-  ),
-  headlineMedium: MD3TextStyle(
-    base: TextStyle(
-      fontFamily: 'Roboto',
-      fontWeight: FontWeight.w400,
-      letterSpacing: 0,
-    ),
-    scale: MD3TextAdaptativeScale(
-      watch: MD3TextAdaptativeProperties(size: 18, height: 23.15),
-      mobile: MD3TextAdaptativeProperties(size: 28, height: 36),
-      tablet: MD3TextAdaptativeProperties(size: 32, height: 41.15),
-      desktop: MD3TextAdaptativeProperties(size: 45, height: 57.85),
-      largeScreenTv: MD3TextAdaptativeProperties(size: 57, height: 73.3),
-    ),
-  ),
-  headlineSmall: MD3TextStyle(
-    base: TextStyle(
-      fontFamily: 'Roboto',
-      fontWeight: FontWeight.w400,
-      letterSpacing: 0,
-    ),
-    scale: MD3TextAdaptativeScale(
-      watch: MD3TextAdaptativeProperties(size: 16, height: 21.3),
-      mobile: MD3TextAdaptativeProperties(size: 24, height: 32),
-      tablet: MD3TextAdaptativeProperties(size: 24, height: 32),
-      desktop: MD3TextAdaptativeProperties(size: 24, height: 32),
-      largeScreenTv: MD3TextAdaptativeProperties(size: 28, height: 37.3),
-    ),
-  ),
-  titleLarge: MD3TextStyle(
-    base: TextStyle(
-      fontFamily: 'Roboto',
-      fontWeight: FontWeight.w400,
-      letterSpacing: 0,
-    ),
-    scale: MD3TextAdaptativeScale(
-      // TODO: an better scale for watch
-      watch: MD3TextAdaptativeProperties(size: 14, height: 17.81),
-      mobile: MD3TextAdaptativeProperties(size: 22, height: 28),
-      tablet: MD3TextAdaptativeProperties(size: 22, height: 28),
-      desktop: MD3TextAdaptativeProperties(size: 22, height: 28),
-      largeScreenTv: MD3TextAdaptativeProperties(size: 24, height: 30.5),
-    ),
-  ),
-  titleMedium: MD3TextStyle(
-    base: TextStyle(
-      fontFamily: 'Roboto',
-      fontWeight: FontWeight.w500,
-      letterSpacing: 0.1,
-    ),
-    scale: MD3TextAdaptativeScale(
-      watch: MD3TextAdaptativeProperties(size: 14, height: 21),
-      mobile: MD3TextAdaptativeProperties(size: 16, height: 24),
-      tablet: MD3TextAdaptativeProperties(size: 16, height: 24),
-      desktop: MD3TextAdaptativeProperties(size: 16, height: 24),
-      largeScreenTv: MD3TextAdaptativeProperties(size: 18, height: 27),
-    ),
-  ),
-  titleSmall: MD3TextStyle(
-    base: TextStyle(
-      fontFamily: 'Roboto',
-      fontWeight: FontWeight.w500,
-      letterSpacing: 0.1,
-    ),
-    scale: MD3TextAdaptativeScale(
-      watch: MD3TextAdaptativeProperties(size: 16, height: 22.85),
-      mobile: MD3TextAdaptativeProperties(size: 14, height: 20),
-      tablet: MD3TextAdaptativeProperties(size: 14, height: 20),
-      desktop: MD3TextAdaptativeProperties(size: 14, height: 20),
-      largeScreenTv: MD3TextAdaptativeProperties(size: 16, height: 22.85),
-    ),
-  ),
-  labelLarge: MD3TextStyle(
-    base: TextStyle(
-      fontFamily: 'Roboto',
-      fontWeight: FontWeight.w500,
-      letterSpacing: 0.1,
-    ),
-    scale: MD3TextAdaptativeScale(
-      watch: MD3TextAdaptativeProperties(size: 16, height: 22.85),
-      mobile: MD3TextAdaptativeProperties(size: 14, height: 20),
-      tablet: MD3TextAdaptativeProperties(size: 14, height: 20),
-      desktop: MD3TextAdaptativeProperties(size: 14, height: 20),
-      largeScreenTv: MD3TextAdaptativeProperties(size: 16, height: 22.85),
-    ),
-  ),
-  labelMedium: MD3TextStyle(
-    base: TextStyle(
-      fontFamily: 'Roboto',
-      fontWeight: FontWeight.w500,
-      letterSpacing: 0.4,
-    ),
-    scale: MD3TextAdaptativeScale(
-      watch: MD3TextAdaptativeProperties(size: 11, height: 14.66),
-      mobile: MD3TextAdaptativeProperties(size: 12, height: 16),
-      tablet: MD3TextAdaptativeProperties(size: 12, height: 16),
-      desktop: MD3TextAdaptativeProperties(size: 12, height: 16),
-      largeScreenTv: MD3TextAdaptativeProperties(size: 14, height: 18.66),
-    ),
-  ),
-  labelSmall: MD3TextStyle(
-    base: TextStyle(
-      fontFamily: 'Roboto',
-      fontWeight: FontWeight.w500,
-      letterSpacing: 0.5,
-    ),
-    scale: MD3TextAdaptativeScale(
-      watch: MD3TextAdaptativeProperties(size: 5, height: 9.15),
-      mobile: MD3TextAdaptativeProperties(size: 6, height: 11),
-      tablet: MD3TextAdaptativeProperties(size: 6, height: 11),
-      desktop: MD3TextAdaptativeProperties(size: 6, height: 11),
-      largeScreenTv: MD3TextAdaptativeProperties(size: 8, height: 14.66),
-    ),
-  ),
-  bodyLarge: MD3TextStyle(
-    base: TextStyle(
-      fontFamily: 'Roboto',
-      fontWeight: FontWeight.w500,
-      letterSpacing: 0.5,
-    ),
-    scale: MD3TextAdaptativeScale(
-      watch: MD3TextAdaptativeProperties(size: 14, height: 21),
-      mobile: MD3TextAdaptativeProperties(size: 16, height: 24),
-      tablet: MD3TextAdaptativeProperties(size: 16, height: 24),
-      desktop: MD3TextAdaptativeProperties(size: 16, height: 24),
-      largeScreenTv: MD3TextAdaptativeProperties(size: 18, height: 27),
-    ),
-  ),
-  bodyMedium: MD3TextStyle(
-    base: TextStyle(
-      fontFamily: 'Roboto',
-      fontWeight: FontWeight.w500,
-      letterSpacing: 0.25,
-    ),
-    scale: MD3TextAdaptativeScale(
-      watch: MD3TextAdaptativeProperties(size: 12, height: 17.15),
-      mobile: MD3TextAdaptativeProperties(size: 14, height: 20),
-      tablet: MD3TextAdaptativeProperties(size: 14, height: 20),
-      desktop: MD3TextAdaptativeProperties(size: 14, height: 20),
-      largeScreenTv: MD3TextAdaptativeProperties(size: 16, height: 22.85),
-    ),
-  ),
-  bodySmall: MD3TextStyle(
-    base: TextStyle(
-      fontFamily: 'Roboto',
-      fontWeight: FontWeight.w500,
-      letterSpacing: 0.5,
-    ),
-    scale: MD3TextAdaptativeScale(
-      watch: MD3TextAdaptativeProperties(size: 11, height: 14.66),
-      mobile: MD3TextAdaptativeProperties(size: 12, height: 16),
-      tablet: MD3TextAdaptativeProperties(size: 12, height: 16),
-      desktop: MD3TextAdaptativeProperties(size: 12, height: 16),
-      largeScreenTv: MD3TextAdaptativeProperties(size: 14, height: 18.66),
-    ),
-  ),
-);
+@Deprecated('Use MD3TextAdaptativeTheme.baseline')
+const MD3TextAdaptativeTheme baselineMD3Typography =
+    MD3TextAdaptativeTheme.baseline;
 
 class MD3TextAdaptativeProperties {
   final double size;
@@ -356,7 +154,10 @@ class MD3TextAdaptativeScale {
       );
 
   static MD3TextAdaptativeScale lerp(
-      MD3TextAdaptativeScale a, MD3TextAdaptativeScale b, double t) {
+    MD3TextAdaptativeScale a,
+    MD3TextAdaptativeScale b,
+    double t,
+  ) {
     assert(a != null);
     assert(b != null);
     assert(t != null);
@@ -463,56 +264,279 @@ class MD3TextAdaptativeTheme {
     required this.bodySmall,
   });
 
+  static const MD3TextAdaptativeTheme baseline = MD3TextAdaptativeTheme(
+    displayLarge: MD3TextStyle(
+      base: TextStyle(
+        fontFamily: 'Roboto',
+        fontWeight: FontWeight.w400,
+        letterSpacing: 0,
+      ),
+      // TODO: better scale for every one but mobile.
+      scale: MD3TextAdaptativeScale(
+        watch: MD3TextAdaptativeProperties(size: 45, height: 50.52),
+        mobile: MD3TextAdaptativeProperties(size: 57, height: 64),
+        tablet: MD3TextAdaptativeProperties(size: 64, height: 71.85),
+        desktop: MD3TextAdaptativeProperties(size: 78, height: 87.57),
+        largeScreenTv: MD3TextAdaptativeProperties(size: 84, height: 94.31),
+      ),
+    ),
+    displayMedium: MD3TextStyle(
+      base: TextStyle(
+        fontFamily: 'Roboto',
+        fontWeight: FontWeight.w400,
+        letterSpacing: 0,
+      ),
+      // TODO: better scale for every one but mobile.
+      scale: MD3TextAdaptativeScale(
+        watch: MD3TextAdaptativeProperties(size: 36, height: 41.6),
+        mobile: MD3TextAdaptativeProperties(size: 45, height: 52),
+        tablet: MD3TextAdaptativeProperties(size: 57, height: 65.85),
+        desktop: MD3TextAdaptativeProperties(size: 72, height: 83.2),
+        largeScreenTv: MD3TextAdaptativeProperties(size: 78, height: 90.13),
+      ),
+    ),
+    displaySmall: MD3TextStyle(
+      base: TextStyle(
+        fontFamily: 'Roboto',
+        fontWeight: FontWeight.w400,
+        letterSpacing: 0,
+      ),
+      scale: MD3TextAdaptativeScale(
+        watch: MD3TextAdaptativeProperties(size: 32, height: 39),
+        mobile: MD3TextAdaptativeProperties(size: 36, height: 44),
+        tablet: MD3TextAdaptativeProperties(size: 45, height: 55),
+        desktop: MD3TextAdaptativeProperties(size: 64, height: 78),
+        largeScreenTv: MD3TextAdaptativeProperties(size: 72, height: 88),
+      ),
+    ),
+    headlineLarge: MD3TextStyle(
+      base: TextStyle(
+        fontFamily: 'Roboto',
+        fontWeight: FontWeight.w400,
+        letterSpacing: 0,
+      ),
+      scale: MD3TextAdaptativeScale(
+        watch: MD3TextAdaptativeProperties(size: 22, height: 27.5),
+        mobile: MD3TextAdaptativeProperties(size: 32, height: 40),
+        tablet: MD3TextAdaptativeProperties(size: 36, height: 45),
+        desktop: MD3TextAdaptativeProperties(size: 57, height: 71.25),
+        largeScreenTv: MD3TextAdaptativeProperties(size: 64, height: 80),
+      ),
+    ),
+    headlineMedium: MD3TextStyle(
+      base: TextStyle(
+        fontFamily: 'Roboto',
+        fontWeight: FontWeight.w400,
+        letterSpacing: 0,
+      ),
+      scale: MD3TextAdaptativeScale(
+        watch: MD3TextAdaptativeProperties(size: 18, height: 23.15),
+        mobile: MD3TextAdaptativeProperties(size: 28, height: 36),
+        tablet: MD3TextAdaptativeProperties(size: 32, height: 41.15),
+        desktop: MD3TextAdaptativeProperties(size: 45, height: 57.85),
+        largeScreenTv: MD3TextAdaptativeProperties(size: 57, height: 73.3),
+      ),
+    ),
+    headlineSmall: MD3TextStyle(
+      base: TextStyle(
+        fontFamily: 'Roboto',
+        fontWeight: FontWeight.w400,
+        letterSpacing: 0,
+      ),
+      scale: MD3TextAdaptativeScale(
+        watch: MD3TextAdaptativeProperties(size: 16, height: 21.3),
+        mobile: MD3TextAdaptativeProperties(size: 24, height: 32),
+        tablet: MD3TextAdaptativeProperties(size: 24, height: 32),
+        desktop: MD3TextAdaptativeProperties(size: 24, height: 32),
+        largeScreenTv: MD3TextAdaptativeProperties(size: 28, height: 37.3),
+      ),
+    ),
+    titleLarge: MD3TextStyle(
+      base: TextStyle(
+        fontFamily: 'Roboto',
+        fontWeight: FontWeight.w400,
+        letterSpacing: 0,
+      ),
+      scale: MD3TextAdaptativeScale(
+        // TODO: an better scale for watch
+        watch: MD3TextAdaptativeProperties(size: 14, height: 17.81),
+        mobile: MD3TextAdaptativeProperties(size: 22, height: 28),
+        tablet: MD3TextAdaptativeProperties(size: 22, height: 28),
+        desktop: MD3TextAdaptativeProperties(size: 22, height: 28),
+        largeScreenTv: MD3TextAdaptativeProperties(size: 24, height: 30.5),
+      ),
+    ),
+    titleMedium: MD3TextStyle(
+      base: TextStyle(
+        fontFamily: 'Roboto',
+        fontWeight: FontWeight.w500,
+        letterSpacing: 0.1,
+      ),
+      scale: MD3TextAdaptativeScale(
+        watch: MD3TextAdaptativeProperties(size: 14, height: 21),
+        mobile: MD3TextAdaptativeProperties(size: 16, height: 24),
+        tablet: MD3TextAdaptativeProperties(size: 16, height: 24),
+        desktop: MD3TextAdaptativeProperties(size: 16, height: 24),
+        largeScreenTv: MD3TextAdaptativeProperties(size: 18, height: 27),
+      ),
+    ),
+    titleSmall: MD3TextStyle(
+      base: TextStyle(
+        fontFamily: 'Roboto',
+        fontWeight: FontWeight.w500,
+        letterSpacing: 0.1,
+      ),
+      scale: MD3TextAdaptativeScale(
+        watch: MD3TextAdaptativeProperties(size: 16, height: 22.85),
+        mobile: MD3TextAdaptativeProperties(size: 14, height: 20),
+        tablet: MD3TextAdaptativeProperties(size: 14, height: 20),
+        desktop: MD3TextAdaptativeProperties(size: 14, height: 20),
+        largeScreenTv: MD3TextAdaptativeProperties(size: 16, height: 22.85),
+      ),
+    ),
+    labelLarge: MD3TextStyle(
+      base: TextStyle(
+        fontFamily: 'Roboto',
+        fontWeight: FontWeight.w500,
+        letterSpacing: 0.1,
+      ),
+      scale: MD3TextAdaptativeScale(
+        watch: MD3TextAdaptativeProperties(size: 16, height: 22.85),
+        mobile: MD3TextAdaptativeProperties(size: 14, height: 20),
+        tablet: MD3TextAdaptativeProperties(size: 14, height: 20),
+        desktop: MD3TextAdaptativeProperties(size: 14, height: 20),
+        largeScreenTv: MD3TextAdaptativeProperties(size: 16, height: 22.85),
+      ),
+    ),
+    labelMedium: MD3TextStyle(
+      base: TextStyle(
+        fontFamily: 'Roboto',
+        fontWeight: FontWeight.w500,
+        letterSpacing: 0.4,
+      ),
+      scale: MD3TextAdaptativeScale(
+        watch: MD3TextAdaptativeProperties(size: 11, height: 14.66),
+        mobile: MD3TextAdaptativeProperties(size: 12, height: 16),
+        tablet: MD3TextAdaptativeProperties(size: 12, height: 16),
+        desktop: MD3TextAdaptativeProperties(size: 12, height: 16),
+        largeScreenTv: MD3TextAdaptativeProperties(size: 14, height: 18.66),
+      ),
+    ),
+    labelSmall: MD3TextStyle(
+      base: TextStyle(
+        fontFamily: 'Roboto',
+        fontWeight: FontWeight.w500,
+        letterSpacing: 0.5,
+      ),
+      scale: MD3TextAdaptativeScale(
+        watch: MD3TextAdaptativeProperties(size: 9.15, height: 5),
+        mobile: MD3TextAdaptativeProperties(size: 11, height: 6),
+        tablet: MD3TextAdaptativeProperties(size: 11, height: 6),
+        desktop: MD3TextAdaptativeProperties(size: 11, height: 6),
+        largeScreenTv: MD3TextAdaptativeProperties(size: 14.66, height: 8),
+      ),
+    ),
+    bodyLarge: MD3TextStyle(
+      base: TextStyle(
+        fontFamily: 'Roboto',
+        fontWeight: FontWeight.w500,
+        letterSpacing: 0.5,
+      ),
+      scale: MD3TextAdaptativeScale(
+        watch: MD3TextAdaptativeProperties(size: 14, height: 21),
+        mobile: MD3TextAdaptativeProperties(size: 16, height: 24),
+        tablet: MD3TextAdaptativeProperties(size: 16, height: 24),
+        desktop: MD3TextAdaptativeProperties(size: 16, height: 24),
+        largeScreenTv: MD3TextAdaptativeProperties(size: 18, height: 27),
+      ),
+    ),
+    bodyMedium: MD3TextStyle(
+      base: TextStyle(
+        fontFamily: 'Roboto',
+        fontWeight: FontWeight.w500,
+        letterSpacing: 0.25,
+      ),
+      scale: MD3TextAdaptativeScale(
+        watch: MD3TextAdaptativeProperties(size: 12, height: 17.15),
+        mobile: MD3TextAdaptativeProperties(size: 14, height: 20),
+        tablet: MD3TextAdaptativeProperties(size: 14, height: 20),
+        desktop: MD3TextAdaptativeProperties(size: 14, height: 20),
+        largeScreenTv: MD3TextAdaptativeProperties(size: 16, height: 22.85),
+      ),
+    ),
+    bodySmall: MD3TextStyle(
+      base: TextStyle(
+        fontFamily: 'Roboto',
+        fontWeight: FontWeight.w500,
+        letterSpacing: 0.5,
+      ),
+      scale: MD3TextAdaptativeScale(
+        watch: MD3TextAdaptativeProperties(size: 11, height: 14.66),
+        mobile: MD3TextAdaptativeProperties(size: 12, height: 16),
+        tablet: MD3TextAdaptativeProperties(size: 12, height: 16),
+        desktop: MD3TextAdaptativeProperties(size: 12, height: 16),
+        largeScreenTv: MD3TextAdaptativeProperties(size: 14, height: 18.66),
+      ),
+    ),
+  );
+
   MD3TextAdaptativeTheme apply({
     String? fontFamily,
-  }) =>
-      MD3TextAdaptativeTheme(
-        displayLarge: displayLarge.apply(
-          fontFamily: fontFamily,
-        ),
-        displayMedium: displayMedium.apply(
-          fontFamily: fontFamily,
-        ),
-        displaySmall: displaySmall.apply(
-          fontFamily: fontFamily,
-        ),
-        headlineLarge: headlineLarge.apply(
-          fontFamily: fontFamily,
-        ),
-        headlineMedium: headlineMedium.apply(
-          fontFamily: fontFamily,
-        ),
-        headlineSmall: headlineSmall.apply(
-          fontFamily: fontFamily,
-        ),
-        titleLarge: titleLarge.apply(
-          fontFamily: fontFamily,
-        ),
-        titleMedium: titleMedium.apply(
-          fontFamily: fontFamily,
-        ),
-        titleSmall: titleSmall.apply(
-          fontFamily: fontFamily,
-        ),
-        labelLarge: labelLarge.apply(
-          fontFamily: fontFamily,
-        ),
-        labelMedium: labelMedium.apply(
-          fontFamily: fontFamily,
-        ),
-        labelSmall: labelSmall.apply(
-          fontFamily: fontFamily,
-        ),
-        bodyLarge: bodyLarge.apply(
-          fontFamily: fontFamily,
-        ),
-        bodyMedium: bodyMedium.apply(
-          fontFamily: fontFamily,
-        ),
-        bodySmall: bodySmall.apply(
-          fontFamily: fontFamily,
-        ),
-      );
+    String? brandRegularFontFamily,
+    String? plainMediumFontFamily,
+  }) {
+    assert(fontFamily != null
+        ? (plainMediumFontFamily == brandRegularFontFamily &&
+            brandRegularFontFamily == null)
+        : true);
+    return MD3TextAdaptativeTheme(
+      displayLarge: displayLarge.apply(
+        fontFamily: brandRegularFontFamily ?? fontFamily,
+      ),
+      displayMedium: displayMedium.apply(
+        fontFamily: brandRegularFontFamily ?? fontFamily,
+      ),
+      displaySmall: displaySmall.apply(
+        fontFamily: brandRegularFontFamily ?? fontFamily,
+      ),
+      headlineLarge: headlineLarge.apply(
+        fontFamily: brandRegularFontFamily ?? fontFamily,
+      ),
+      headlineMedium: headlineMedium.apply(
+        fontFamily: brandRegularFontFamily ?? fontFamily,
+      ),
+      headlineSmall: headlineSmall.apply(
+        fontFamily: brandRegularFontFamily ?? fontFamily,
+      ),
+      titleLarge: titleLarge.apply(
+        fontFamily: brandRegularFontFamily ?? fontFamily,
+      ),
+      titleMedium: titleMedium.apply(
+        fontFamily: plainMediumFontFamily ?? fontFamily,
+      ),
+      titleSmall: titleSmall.apply(
+        fontFamily: plainMediumFontFamily ?? fontFamily,
+      ),
+      labelLarge: labelLarge.apply(
+        fontFamily: plainMediumFontFamily ?? fontFamily,
+      ),
+      labelMedium: labelMedium.apply(
+        fontFamily: plainMediumFontFamily ?? fontFamily,
+      ),
+      labelSmall: labelSmall.apply(
+        fontFamily: plainMediumFontFamily ?? fontFamily,
+      ),
+      bodyLarge: bodyLarge.apply(
+        fontFamily: plainMediumFontFamily ?? fontFamily,
+      ),
+      bodyMedium: bodyMedium.apply(
+        fontFamily: plainMediumFontFamily ?? fontFamily,
+      ),
+      bodySmall: bodySmall.apply(
+        fontFamily: plainMediumFontFamily ?? fontFamily,
+      ),
+    );
+  }
 
   MD3TextTheme resolveTo(MD3DeviceType deviceType) => MD3TextTheme(
         displayLarge: displayLarge.resolveTo(deviceType),
