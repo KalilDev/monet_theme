@@ -474,6 +474,10 @@ class MonetTheme {
         error: ColorTonalPalette.fromRaw(raw.error),
       );
 
+  static final MonetTheme baseline1p = MonetTheme.fromRaw(raw_baseline_1p);
+
+  static final MonetTheme baseline3p = MonetTheme.fromRaw(raw_baseline_3p);
+
   /// Create an [ColorTonalPalette] for an custom color that was harmonized with
   /// the primary color in this [MonetTheme].
   ///
