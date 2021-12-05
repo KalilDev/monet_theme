@@ -40,6 +40,7 @@ class MonetColorScheme {
   final Color outline;
   final Color onInverseSurface;
   final Color inverseSurface;
+  final Color inversePrimary;
   final Brightness brightness;
 
   const MonetColorScheme({
@@ -68,6 +69,7 @@ class MonetColorScheme {
     required this.outline,
     required this.onInverseSurface,
     required this.inverseSurface,
+    required this.inversePrimary,
     required this.brightness,
   });
 
@@ -99,8 +101,9 @@ class MonetColorScheme {
         surfaceVariant: Color(raw.surfaceVariant),
         onSurfaceVariant: Color(raw.onSurfaceVariant),
         outline: Color(raw.outline),
-        onInverseSurface: Color(raw.inverseOnSurface),
+        onInverseSurface: Color(raw.onInverseSurface),
         inverseSurface: Color(raw.inverseSurface),
+        inversePrimary: Color(raw.inversePrimary),
         brightness: brightness,
       );
 
@@ -240,6 +243,7 @@ class MonetColorScheme {
         outline,
         onInverseSurface,
         inverseSurface,
+        inversePrimary,
         brightness,
       ]);
 
@@ -277,6 +281,7 @@ class MonetColorScheme {
         outline == other.outline &&
         onInverseSurface == other.onInverseSurface &&
         inverseSurface == other.inverseSurface &&
+        inversePrimary == other.inversePrimary &&
         brightness == other.brightness;
   }
 
@@ -306,6 +311,7 @@ class MonetColorScheme {
     Color? outline,
     Color? onInverseSurface,
     Color? inverseSurface,
+    Color? inversePrimary,
     Brightness? brightness,
   }) =>
       MonetColorScheme(
@@ -334,6 +340,7 @@ class MonetColorScheme {
         outline: outline ?? this.outline,
         onInverseSurface: onInverseSurface ?? this.onInverseSurface,
         inverseSurface: inverseSurface ?? this.inverseSurface,
+        inversePrimary: inversePrimary ?? this.inversePrimary,
         brightness: brightness ?? this.brightness,
       );
 
@@ -373,6 +380,7 @@ class MonetColorScheme {
       outline: Color.lerp(a.outline, b.outline, t)!,
       onInverseSurface: Color.lerp(a.onInverseSurface, b.onInverseSurface, t)!,
       inverseSurface: Color.lerp(a.inverseSurface, b.inverseSurface, t)!,
+      inversePrimary: Color.lerp(a.inversePrimary, b.inversePrimary, t)!,
       brightness: t < 0.5 ? a.brightness : b.brightness,
     );
   }

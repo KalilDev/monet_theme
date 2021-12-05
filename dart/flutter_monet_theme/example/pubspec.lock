@@ -75,7 +75,7 @@ packages:
       path: ".."
       relative: true
     source: path
-    version: "0.4.0"
+    version: "0.4.1"
   flutter_test:
     dependency: "direct dev"
     description: flutter
@@ -115,7 +115,7 @@ packages:
       name: monet_theme
       url: "http://localhost:4000"
     source: hosted
-    version: "0.3.0"
+    version: "0.4.0"
   path:
     dependency: transitive
     description:

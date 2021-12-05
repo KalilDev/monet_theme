@@ -1,3 +1,8 @@
+## 0.4.1
+
+* Add [MonetTheme.inversePrimary]
+* Bump package:monet_theme to 0.4.0
+
 ## 0.4.0
 
 * Fix wrong baseline on [MD3TextAdaptativeTheme.labelSmall]
