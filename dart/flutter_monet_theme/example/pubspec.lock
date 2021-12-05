@@ -75,7 +75,7 @@ packages:
       path: ".."
       relative: true
     source: path
-    version: "0.3.0"
+    version: "0.4.0"
   flutter_test:
     dependency: "direct dev"
     description: flutter
@@ -169,7 +169,7 @@ packages:
       name: test_api
       url: "http://localhost:4000"
     source: hosted
-    version: "0.4.3"
+    version: "0.4.7"
   typed_data:
     dependency: transitive
     description:
