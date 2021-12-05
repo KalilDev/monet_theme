@@ -7,4 +7,5 @@ export 'src/elevation.dart';
 export 'src/generate.dart';
 export 'src/infer.dart';
 export 'src/model.dart';
+export 'src/state_layer.dart';
 export 'src/typography.dart';
