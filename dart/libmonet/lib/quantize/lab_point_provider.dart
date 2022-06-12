@@ -2,6 +2,7 @@ import '../color.dart';
 import '../utils.dart';
 
 class LabPointProvider {
+  const LabPointProvider();
   ARGBColor toArgb(List<num> point) {
     var l = point[0];
     final e = 216 / 24389,
