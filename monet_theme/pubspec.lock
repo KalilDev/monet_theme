@@ -8,33 +8,12 @@ packages:
       url: "http://localhost:4000"
     source: hosted
     version: "1.0.1"
-  matcher:
-    dependency: transitive
-    description:
-      name: matcher
-      url: "http://localhost:4000"
-    source: hosted
-    version: "0.12.11"
   material_color_utilities:
     dependency: "direct main"
     description:
       name: material_color_utilities
       url: "http://localhost:4000"
     source: hosted
-    version: "0.1.1"
-  path:
-    dependency: transitive
-    description:
-      name: path
-      url: "http://localhost:4000"
-    source: hosted
-    version: "1.8.0"
-  stack_trace:
-    dependency: transitive
-    description:
-      name: stack_trace
-      url: "http://localhost:4000"
-    source: hosted
-    version: "1.10.0"
+    version: "0.1.5"
 sdks:
   dart: ">=2.13.4 <3.0.0"
