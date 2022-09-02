@@ -14,6 +14,6 @@ packages:
       name: material_color_utilities
       url: "http://localhost:4000"
     source: hosted
-    version: "0.1.5"
+    version: "0.2.0"
 sdks:
   dart: ">=2.13.4 <3.0.0"
